@@ -67,37 +67,36 @@ procedure as described in the README:</p>
 <p>In case you want to install Python without root (to be used, e.g. in Ukko),
 use <code class="docutils literal"><span class="pre">./configure</span> <span class="pre">prefix=path/to/install/folder</span></code>.</p>
 </div>
-<div class="section" id="configure-path">
-<h2>Configure $PATH<a class="headerlink" href="#configure-path" title="Permalink to this headline">¶</a></h2>
-<p>After the Python 3.5 is installed, you should configure your favorite shell to
-include its installation directory in $PATH. This way, the interpreter (and
-as is seen in next section, the virtual environment creating script) can be
-invoked without tedious path mangling.</p>
-</div>
 <div class="section" id="creating-a-virtual-environment">
 <h2>Creating a Virtual Environment<a class="headerlink" href="#creating-a-virtual-environment" title="Permalink to this headline">¶</a></h2>
 <p>Creating <a class="reference external" href="https://docs.python.org/3/library/venv.html">virtual environments</a> in
-Python 3 is easy as it is a built-in feature. If your $PATH is properly
-configured, just type:</p>
-<div class="highlight-python"><div class="highlight"><pre>~$ pyvenv3.5 &lt;venv&gt;
+Python 3.5 is easy as it is a built-in feature. The script is called <code class="docutils literal"><span class="pre">pyvenv-3.5</span></code>
+and it is in the <code class="docutils literal"><span class="pre">bin</span></code> folder of the installation location. Execute the script
+in the folder where you want your virtual environment to be created with the
+name of the virtual environment as the parameter, e.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre>~$ pyvenv-3.5 venv
 </pre></div>
 </div>
 <p>And the script should do the rest. After the installation, you can enter the
-virtual environment with:</p>
+virtual environment by running:</p>
 <div class="highlight-python"><div class="highlight"><pre>~$ source path/to/venv/bin/activate
 </pre></div>
 </div>
-<p>And exit the virtual environment with:</p>
+<p>When you activate the script, you should be able to enter Python 3.5 interpreter
+by typing <code class="docutils literal"><span class="pre">python</span></code> no matter what base Python you have installed in your
+computer.</p>
+<p>To exit the virtual environment, type:</p>
 <div class="highlight-python"><div class="highlight"><pre>~$ deactivate
 </pre></div>
 </div>
 </div>
 <div class="section" id="installing-the-requirements">
 <h2>Installing the Requirements<a class="headerlink" href="#installing-the-requirements" title="Permalink to this headline">¶</a></h2>
-<p>We have included some packages that might come in handy in the
+<p>We have included some packages that come in handy in the
 <a class="reference external" href="https://github.com/assamite/cc-mas16/blob/master/requirements.txt">requirements.txt</a>
-in the github reposity. Install these packages when you have virtual environment
-active:</p>
+in the github reposity. Install these packages with <a class="reference external" href="https://pip.pypa.io/en/stable/">pip</a>
+once you have virtual environment active (Python 3.5 comes with pip so there is
+no need to manually install it):</p>
 <div class="highlight-python"><div class="highlight"><pre>~$ source path/to/venv/bin/activate
 (venv) ~$ pip install -r requirements.txt
 </pre></div>
@@ -115,7 +114,6 @@ active:</p>
   <ul>
 <li><a class="reference internal" href="#">Getting Started</a><ul>
 <li><a class="reference internal" href="#installing-python-3-5-x">Installing Python 3.5.x</a></li>
-<li><a class="reference internal" href="#configure-path">Configure $PATH</a></li>
 <li><a class="reference internal" href="#creating-a-virtual-environment">Creating a Virtual Environment</a></li>
 <li><a class="reference internal" href="#installing-the-requirements">Installing the Requirements</a></li>
 </ul>
