@@ -56,7 +56,7 @@
 
 body {
     font-family: 'goudy old style', 'minion pro', 'bell mt', Georgia, 'Hiragino Mincho Pro', serif;
-    font-size: 17px;
+    font-size: 0.95em;
     background-color: #fff;
     color: #000;
     margin: 0;
@@ -372,7 +372,7 @@ p.admonition-title:after {
 
 pre, tt, code {
     font-family: 'Consolas', 'Menlo', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
-    font-size: 0.9em;
+    font-size: 0.75em;
 }
 
 .hll {
