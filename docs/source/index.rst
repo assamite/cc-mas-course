@@ -1,0 +1,27 @@
+.. Computation Creativity and Multi-Agent Systems, fall 2016 documentation master file, created by
+   sphinx-quickstart on Wed Oct 12 12:26:23 2016.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Computational Creativity and Multi-Agent Systems, fall 2016
+=====================================================================================
+
+This documentation holds tips and sample code relevant to the course. All the
+code is written in Python 3.5. Although some of the snippets might work on
+earlier Python versions, do not count on it.
+
+
+.. toctree::
+	:maxdepth: 2
+	:hidden:
+
+	setup
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+
