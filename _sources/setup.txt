@@ -56,7 +56,8 @@ And exit the virtual environment with::
 Installing the Requirements
 ---------------------------
 
-We have included some packages that might come in handy in the `requirements.txt <>`_
+We have included some packages that might come in handy in the 
+`requirements.txt <https://github.com/assamite/cc-mas16/blob/master/requirements.txt>`_
 in the github reposity. Install these packages when you have virtual environment
 active::
 
