@@ -74,7 +74,7 @@ structure. Next, we will sum up every state's total number of successors.::
 
 	totals = {}
 	for pred, succ_counts in transitions.items():
-    	totals[pred] = sum(succ_counts.values())
+		totals[pred] = sum(succ_counts.values())
 
 With ``totals``, we can now compute the probabilities for each state transition
 by dividing each successor's count for a state with the total number of

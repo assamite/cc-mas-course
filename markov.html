@@ -106,9 +106,9 @@ predecessor-successor pair.:</p>
 succeeded by other states. Right now, we do not care if our state transitions
 are not complete in the sense that zero counts are not marked in the data
 structure. Next, we will sum up every state&#8217;s total number of successors.:</p>
-<div class="highlight-python"><div class="highlight"><pre>totals = {}
-for pred, succ_counts in transitions.items():
-totals[pred] = sum(succ_counts.values())
+<div class="highlight-python"><div class="highlight"><pre><span class="n">totals</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">pred</span><span class="p">,</span> <span class="n">succ_counts</span> <span class="ow">in</span> <span class="n">transitions</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">totals</span><span class="p">[</span><span class="n">pred</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">succ_counts</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
 </pre></div>
 </div>
 <p>With <code class="docutils literal"><span class="pre">totals</span></code>, we can now compute the probabilities for each state transition
