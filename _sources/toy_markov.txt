@@ -11,7 +11,7 @@ probabilities.
 First, we need to generate some data. For this example we will use very simple
 model, where we first define a distribution as a string of characters, and then
 draw from that distribution the target number of items, and concatenate them
-to another string::
+to another string. ::
 
 	import random
 	dist = 'Iä! Iä! Cthulhu for president!'
@@ -32,7 +32,7 @@ state as a key, and the value of that key is another (inner) dictionary. The inn
 dictionary has the succeeding states as keys and the values are the number of
 times the succeeding state is observed after the preceding state. To populate
 the data structure is quite forward, we go over the list of states one time,
-and keep count of every predecessor-successor pair::
+and keep count of every predecessor-successor pair. ::
 
 	transitions = {}
 	for i in range(len(data)-1):
@@ -56,7 +56,7 @@ succeeded by other states. (Right now, we do not care if our state transitions
 are not complete in the sense that zero counts are not marked in the data
 structure, in some cases it might be profitable to add some small transition
 probability between all states that have zero transitions.) Next, we will sum
-up every state's total number of successors::
+up every state's total number of successors. ::
 
 	totals = {}
 	for pred, succ_counts in transitions.items():
@@ -75,7 +75,7 @@ successors for that state::
 In theory, we now have the state transition probabilities which could be used
 to generate text. However, before doing that, we will convert the data
 structure to a more usable form by representing the probabilities with a
-cumulative distribution function ordered from highest to lowest probability::
+cumulative distribution function ordered from highest to lowest probability. ::
 
 	import operator
 	cdfs = {}
@@ -97,7 +97,7 @@ structure. We start by drawing a random character from the distribution, and
 generate *N* characters overall. Then we loop generation loop until we have
 generated enough items. In the generation loop, we will generate a random
 number on each iteration and look from the cumulative distribution function of
-``cdfs[state]`` the appropriate successive state.::
+``cdfs[state]`` the appropriate successive state. ::
 
 	start = random.choice(dist)
 	N = 10

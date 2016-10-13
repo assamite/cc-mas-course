@@ -12,7 +12,7 @@ Python versions, we recommend to install Python 3.5 straight away.
 
 
 .. toctree::
-	:maxdepth: 2
+	:maxdepth: 3
 
 	setup
 	markov_index
