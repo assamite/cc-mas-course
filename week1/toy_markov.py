@@ -18,7 +18,7 @@ target = 10000
 
 # Generate a data set with target length. Here, we loop 'len' times the
 # for-loop and on each iteration draw random item from the 'dist'
-data = [random.choice(dist) for _ in range(target)]
+data = ''.join([random.choice(dist) for _ in range(target)])
 
 # For first-order Markov Chain, we have to iterate through the whole data set
 # and keep count of the item pairs. We store these in a dictionary, where each
@@ -76,7 +76,7 @@ for pred, succ_probs in probs.items():
         cdf.append([c, cumulative_sum])
     cdf[-1][1] = 1.0 # We fix the last because of the possible rounding errors.
     cdfs[pred] = cdf
-    #print(pred, cdf)
+    print(pred, cdf)
 
 # Now, we can generate a Markov Chain the cdfs. We start by drawing a random 
 # character from the distribution, and generate N characters overall.
