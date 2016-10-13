@@ -27,7 +27,7 @@ Creating First-Order Markov Chains with Toy Data
 
 First, we need to generate some data. For this example, we will use very simple
 model, where we first define a distribution as a string of characters, and then
-draw from that distribution the target number of items.::
+draw from that distribution the target number of items::
 
 	import random
 	dist = 'Iä! Iä! Cthulhu for president!'
@@ -48,7 +48,7 @@ state as a key, and the value of that key is another (inner) dictionary, which h
 the succeeding states as keys and values are the number of times the succeeding
 state is observed after the preceding state. To populate the data structure is
 quite forward, we go over the list of states on time, and keep count of every
-predecessor-successor pair.::
+predecessor-successor pair::
 
 	transitions = {}
 	for i in range(len(data)-1):
@@ -70,7 +70,7 @@ predecessor-successor pair.::
 Now we have information about how many times each state has directly been
 succeeded by other states. Right now, we do not care if our state transitions
 are not complete in the sense that zero counts are not marked in the data
-structure. Next, we will sum up every state's total number of successors.::
+structure. Next, we will sum up every state's total number of successors::
 
 	totals = {}
 	for pred, succ_counts in transitions.items():
@@ -78,7 +78,7 @@ structure. Next, we will sum up every state's total number of successors.::
 
 With ``totals``, we can now compute the probabilities for each state transition
 by dividing each successor's count for a state with the total number of
-successors for that state.::
+successors for that state::
 
 	probs = {}
 	for pred, succ_counts in transitions.items():
@@ -89,7 +89,7 @@ successors for that state.::
 In theory, we now have the state transition probabilities which could be used
 to generate text. However, before doing that, we will convert the data
 structure to a more usable form by representing the probabilities with a
-cumulative distribution function ordered from highest to lowest probability.::
+cumulative distribution function ordered from highest to lowest probability::
 
 	import operator
 	cdfs = {}
@@ -108,7 +108,7 @@ cumulative distribution function ordered from highest to lowest probability.::
 
 After this, all that is left is to generate some text using our ``cdfs`` data
 structure. We start by drawing a random character from the distribution, and
-generate *N* characters overall.::
+generate *N* characters overall::
 
 	start = random.choice(dist)
 	N = 10

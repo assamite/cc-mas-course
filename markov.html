@@ -63,7 +63,7 @@ for the artificial data, and then generate text using these probabilities.</p>
 <p><a class="reference external" href="https://github.com/assamite/cc-mas16/blob/master/week1/toy_markov.py">(full code)</a></p>
 <p>First, we need to generate some data. For this example, we will use very simple
 model, where we first define a distribution as a string of characters, and then
-draw from that distribution the target number of items.:</p>
+draw from that distribution the target number of items:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">random</span>
 <span class="n">dist</span> <span class="o">=</span> <span class="s">&#39;Iä! Iä! Cthulhu for president!&#39;</span>
 <span class="n">target</span> <span class="o">=</span> <span class="mi">10000</span>
@@ -83,7 +83,7 @@ state as a key, and the value of that key is another (inner) dictionary, which h
 the succeeding states as keys and values are the number of times the succeeding
 state is observed after the preceding state. To populate the data structure is
 quite forward, we go over the list of states on time, and keep count of every
-predecessor-successor pair.:</p>
+predecessor-successor pair:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">transitions</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
     <span class="n">pred</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
@@ -105,7 +105,7 @@ predecessor-successor pair.:</p>
 <p>Now we have information about how many times each state has directly been
 succeeded by other states. Right now, we do not care if our state transitions
 are not complete in the sense that zero counts are not marked in the data
-structure. Next, we will sum up every state&#8217;s total number of successors.:</p>
+structure. Next, we will sum up every state&#8217;s total number of successors:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">totals</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="k">for</span> <span class="n">pred</span><span class="p">,</span> <span class="n">succ_counts</span> <span class="ow">in</span> <span class="n">transitions</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="n">totals</span><span class="p">[</span><span class="n">pred</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">succ_counts</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
@@ -113,7 +113,7 @@ structure. Next, we will sum up every state&#8217;s total number of successors.:
 </div>
 <p>With <code class="docutils literal"><span class="pre">totals</span></code>, we can now compute the probabilities for each state transition
 by dividing each successor&#8217;s count for a state with the total number of
-successors for that state.:</p>
+successors for that state:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">probs</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="k">for</span> <span class="n">pred</span><span class="p">,</span> <span class="n">succ_counts</span> <span class="ow">in</span> <span class="n">transitions</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
     <span class="n">probs</span><span class="p">[</span><span class="n">pred</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
@@ -124,7 +124,7 @@ successors for that state.:</p>
 <p>In theory, we now have the state transition probabilities which could be used
 to generate text. However, before doing that, we will convert the data
 structure to a more usable form by representing the probabilities with a
-cumulative distribution function ordered from highest to lowest probability.:</p>
+cumulative distribution function ordered from highest to lowest probability:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">operator</span>
 <span class="n">cdfs</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="k">for</span> <span class="n">pred</span><span class="p">,</span> <span class="n">succ_probs</span> <span class="ow">in</span> <span class="n">probs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
@@ -143,7 +143,7 @@ cumulative distribution function ordered from highest to lowest probability.:</p
 </div>
 <p>After this, all that is left is to generate some text using our <code class="docutils literal"><span class="pre">cdfs</span></code> data
 structure. We start by drawing a random character from the distribution, and
-generate <em>N</em> characters overall.:</p>
+generate <em>N</em> characters overall:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">start</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">dist</span><span class="p">)</span>
 <span class="n">N</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="n">markov_chain</span> <span class="o">=</span> <span class="n">start</span>
