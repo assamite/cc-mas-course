@@ -28,11 +28,11 @@ from 'ab' to 'bc'.)
 
 State transition probabilities can be computed using nested dictionary as a
 book-keeping data structure. The outer dictionary has the current (preceding)
-state as a key, and the value of that key is another (inner) dictionary, which has
-the succeeding states as keys and values are the number of times the succeeding
-state is observed after the preceding state. To populate the data structure is
-quite forward, we go over the list of states on time, and keep count of every
-predecessor-successor pair::
+state as a key, and the value of that key is another (inner) dictionary. The inner
+dictionary has the succeeding states as keys and the values are the number of
+times the succeeding state is observed after the preceding state. To populate
+the data structure is quite forward, we go over the list of states one time,
+and keep count of every predecessor-successor pair::
 
 	transitions = {}
 	for i in range(len(data)-1):
@@ -52,15 +52,17 @@ predecessor-successor pair::
 	        transitions[pred][succ] += 1.0
 
 Now we have information about how many times each state has directly been
-succeeded by other states. Right now, we do not care if our state transitions
+succeeded by other states. (Right now, we do not care if our state transitions
 are not complete in the sense that zero counts are not marked in the data
-structure. Next, we will sum up every state's total number of successors::
+structure, in some cases it might be profitable to add some small transition
+probability between all states that have zero transitions.) Next, we will sum
+up every state's total number of successors::
 
 	totals = {}
 	for pred, succ_counts in transitions.items():
 		totals[pred] = sum(succ_counts.values())
 
-With ``totals``, we can now compute the probabilities for each state transition
+Using ``totals``, we can compute the probabilities for each state transition
 by dividing each successor's count for a state with the total number of
 successors for that state::
 
@@ -92,7 +94,10 @@ cumulative distribution function ordered from highest to lowest probability::
 
 After this, all that is left is to generate some text using our ``cdfs`` data
 structure. We start by drawing a random character from the distribution, and
-generate *N* characters overall::
+generate *N* characters overall. Then we loop generation loop until we have
+generated enough items. In the generation loop, we will generate a random
+number on each iteration and look from the cumulative distribution function of
+``cdfs[state]`` the appropriate successive state.::
 
 	start = random.choice(dist)
 	N = 10
