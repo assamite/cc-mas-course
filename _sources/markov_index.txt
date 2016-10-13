@@ -24,9 +24,6 @@ state given the current state (so called state transition probabilities). In
 some cases the transition probabilities can be handed in advance, but in the
 typical case they are computed from a given data.
 
-Examples
---------
-
 We have a few examples about using Markov chains and how text documents can be
 parsed using NLP
 
