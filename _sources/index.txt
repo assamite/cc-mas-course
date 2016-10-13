@@ -15,7 +15,7 @@ earlier Python versions, do not count on it.
 	:maxdepth: 2
 
 	setup
-	markov
+	markov_index
 
 
 Indices and tables
