@@ -2,14 +2,13 @@ Getting Started
 ===============
 
 This page goes through basic setup of the development environment for Python.
-We strongly encourage everybody to use similar approach, especially virtual
-environments.
+We strongly encourage the use of virtual environments (see below).
 
 .. note::
 	These instructions are made for Unix (and OSX). Some of the steps will
 	not work on Windows. Should you encounter any problems, please try to solve
-	them first by yourself, as the course staff does not have sufficient
-	background on developing Python in Windows.
+	them first by yourself as the course staff's Windows experiences tend to be
+	old.
 
 Installing Python 3.5.x
 -----------------------
