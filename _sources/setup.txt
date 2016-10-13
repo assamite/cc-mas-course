@@ -33,7 +33,7 @@ Creating `virtual environments <https://docs.python.org/3/library/venv.html>`_ i
 Python 3.5 is easy as it is a built-in feature. The script is called ``pyvenv-3.5``
 and it is in the ``bin`` folder of the installation location. Execute the script
 in the folder where you want your virtual environment to be created with the
-name of the virtual environment as the parameter, e.g.::
+name of the virtual environment as the parameter, e.g::
 
 	~$ pyvenv-3.5 venv
 
@@ -58,7 +58,7 @@ We have included some packages that come in handy in the
 `requirements.txt <https://github.com/assamite/cc-mas16/blob/master/requirements.txt>`_
 in the github reposity. Install these packages with `pip <https://pip.pypa.io/en/stable/>`_ 
 once you have virtual environment active (Python 3.5 comes with pip so there is
-no need to manually install it)::
+no need to manually install it). ::
 
 	~$ source path/to/venv/bin/activate
 	(venv) ~$ pip install -r requirements.txt

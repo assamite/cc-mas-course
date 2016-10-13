@@ -8,6 +8,9 @@ can be created using Python. We start by creating the state transition
 probabilities for the artificial data, and then generate text using these
 probabilities.
 
+Generate Data
+-------------
+
 First, we need to generate some data. For this example we will use very simple
 model, where we first define a distribution as a string of characters, and then
 draw from that distribution the target number of items, and concatenate them
@@ -17,6 +20,9 @@ to another string. ::
 	dist = 'Iä! Iä! Cthulhu for president!'
 	target = 10000
 	data = ''.join([random.choice(dist) for _ in range(target)])
+
+Compute State Transition Probabilities
+--------------------------------------
 
 Next, our goal is to compute the state transition probabilities. In this
 example, each character in the generated string is a state and
@@ -92,7 +98,10 @@ cumulative distribution function ordered from highest to lowest probability. ::
 	    cdf[-1][1] = 1.0 # For possible rounding errors
 	    cdfs[pred] = cdf
 
-After this, all that is left is to generate some text using our ``cdfs`` data
+Generate Text
+-------------
+
+Finally, all that is left is to generate some text using our ``cdfs`` data
 structure. We start by drawing a random character from the distribution, and
 generate *N* characters overall. Then we loop generation loop until we have
 generated enough items. In the generation loop, we will generate a random
@@ -123,7 +132,7 @@ number on each iteration and look from the cumulative distribution function of
 That's it. We have now computed the state transition probabilities from a toy
 data set, and used them to generate new data (text). It is quite easy to alter
 this example to also generate higher-order Markov chains, but that is left for
-future work!
+the future work!
 
 
 
