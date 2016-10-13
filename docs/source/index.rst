@@ -13,9 +13,9 @@ earlier Python versions, do not count on it.
 
 .. toctree::
 	:maxdepth: 2
-	:hidden:
 
 	setup
+	markov
 
 
 Indices and tables

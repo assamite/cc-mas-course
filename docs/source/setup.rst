@@ -2,14 +2,13 @@ Getting Started
 ===============
 
 This page goes through basic setup of the development environment for Python.
-We strongly encourage everybody to use similar approach, especially virtual
-environments.
+We strongly encourage the use of virtual environments (see below).
 
 .. note::
 	These instructions are made for Unix (and OSX). Some of the steps will
 	not work on Windows. Should you encounter any problems, please try to solve
-	them first by yourself, as the course staff does not have sufficient
-	background on developing Python in Windows.
+	them first by yourself as the course staff's Windows experiences tend to be
+	old.
 
 Installing Python 3.5.x
 -----------------------
@@ -26,29 +25,28 @@ procedure as described in the README::
 In case you want to install Python without root (to be used, e.g. in Ukko),
 use ``./configure prefix=path/to/install/folder``.
 
-Configure $PATH
----------------
-
-After the Python 3.5 is installed, you should configure your favorite shell to
-include its installation directory in $PATH. This way, the interpreter (and
-as is seen in next section, the virtual environment creating script) can be
-invoked without tedious path mangling.
 
 Creating a Virtual Environment
 ------------------------------
 
 Creating `virtual environments <https://docs.python.org/3/library/venv.html>`_ in 
-Python 3 is easy as it is a built-in feature. If your $PATH is properly
-configured, just type::
+Python 3.5 is easy as it is a built-in feature. The script is called ``pyvenv-3.5``
+and it is in the ``bin`` folder of the installation location. Execute the script
+in the folder where you want your virtual environment to be created with the
+name of the virtual environment as the parameter, e.g.::
 
-	~$ pyvenv3.5 <venv>
+	~$ pyvenv-3.5 venv
 
 And the script should do the rest. After the installation, you can enter the
-virtual environment with::
+virtual environment by running::
 
 	~$ source path/to/venv/bin/activate
 
-And exit the virtual environment with::
+When you activate the script, you should be able to enter Python 3.5 interpreter
+by typing ``python`` no matter what base Python you have installed in your 
+computer.
+
+To exit the virtual environment, type::
 
 	~$ deactivate
 
@@ -56,9 +54,11 @@ And exit the virtual environment with::
 Installing the Requirements
 ---------------------------
 
-We have included some packages that might come in handy in the `requirements.txt <>`_
-in the github reposity. Install these packages when you have virtual environment
-active::
+We have included some packages that come in handy in the 
+`requirements.txt <https://github.com/assamite/cc-mas16/blob/master/requirements.txt>`_
+in the github reposity. Install these packages with `pip <https://pip.pypa.io/en/stable/>`_ 
+once you have virtual environment active (Python 3.5 comes with pip so there is
+no need to manually install it)::
 
 	~$ source path/to/venv/bin/activate
 	(venv) ~$ pip install -r requirements.txt
