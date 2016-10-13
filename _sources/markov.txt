@@ -108,7 +108,7 @@ cumulative distribution function ordered from highest to lowest probability.::
 
 After this, all that is left is to generate some text using our ``cdfs`` data
 structure. We start by drawing a random character from the distribution, and
-generate *N* characters overall.
+generate *N* characters overall.::
 
 	start = random.choice(dist)
 	N = 10
@@ -123,8 +123,8 @@ generate *N* characters overall.
 	    # Go through the cdf until the cumulative probability is higher than the
 	    # random number 'rnd'.
 	    while rnd > cp:
-	        i += 1
-	        cp = cdf[i][1]
+	    	i += 1
+	    	cp = cdf[i][1]
 	    succ = cdf[i][0]
 	    #print(rnd, succ, cdf)
 	    markov_chain += succ

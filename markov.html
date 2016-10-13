@@ -143,31 +143,29 @@ cumulative distribution function ordered from highest to lowest probability.:</p
 </div>
 <p>After this, all that is left is to generate some text using our <code class="docutils literal"><span class="pre">cdfs</span></code> data
 structure. We start by drawing a random character from the distribution, and
-generate <em>N</em> characters overall.</p>
-<blockquote>
-<div><p>start = random.choice(dist)
-N = 10
-markov_chain = start</p>
-<dl class="docutils">
-<dt>while len(markov_chain) &lt; N:</dt>
-<dd><p class="first">pred = markov_chain[-1] # Last element of the list
-rnd = random.random() # Random number from 0 to 1
-cdf = cdfs[pred]
-cp = cdf[0][1]
-i = 0
-# Go through the cdf until the cumulative probability is higher than the
-# random number &#8216;rnd&#8217;.
-while rnd &gt; cp:</p>
-<blockquote>
-<div>i += 1
-cp = cdf[i][1]</div></blockquote>
-<p class="last">succ = cdf[i][0]
-#print(rnd, succ, cdf)
-markov_chain += succ</p>
-</dd>
-</dl>
-<p>print(markov_chain)</p>
-</div></blockquote>
+generate <em>N</em> characters overall.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">start</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">dist</span><span class="p">)</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">markov_chain</span> <span class="o">=</span> <span class="n">start</span>
+
+<span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">markov_chain</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">:</span>
+    <span class="n">pred</span> <span class="o">=</span> <span class="n">markov_chain</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="c"># Last element of the list</span>
+    <span class="n">rnd</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="c"># Random number from 0 to 1</span>
+    <span class="n">cdf</span> <span class="o">=</span> <span class="n">cdfs</span><span class="p">[</span><span class="n">pred</span><span class="p">]</span>
+    <span class="n">cp</span> <span class="o">=</span> <span class="n">cdf</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c"># Go through the cdf until the cumulative probability is higher than the</span>
+    <span class="c"># random number &#39;rnd&#39;.</span>
+    <span class="k">while</span> <span class="n">rnd</span> <span class="o">&gt;</span> <span class="n">cp</span><span class="p">:</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">cp</span> <span class="o">=</span> <span class="n">cdf</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">succ</span> <span class="o">=</span> <span class="n">cdf</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="c">#print(rnd, succ, cdf)</span>
+    <span class="n">markov_chain</span> <span class="o">+=</span> <span class="n">succ</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">markov_chain</span><span class="p">)</span>
+</pre></div>
+</div>
 <p>That&#8217;s it! We have now computed the state transition probabilities from a toy
 data set, and used them to generate new data (text). It is quite easy to alter
 this example to also generate higher-order Markov chains, but that is left for
