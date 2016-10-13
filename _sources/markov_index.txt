@@ -1,0 +1,34 @@
+Markov Chains
+==============
+
+.. toctree::
+	:maxdepth: 3
+	:hidden:
+
+	toy_markov
+	parsing_NLTK
+
+Markov chain (MC) is a stochastic process that satisfies the Markov property
+(in some terms *memorylessness*). The Markov property means, that one can give
+as good predictions about the system's future given the present state as one
+could knowing the full history of the system.
+
+When dealing with natural language, the state of a system is typically a
+specified number of successive chunks of text (characters, words, etc.). For
+first-order Markov chains the state is one chunk (i.e. one word or character)
+and for higher-order chains the states contain more chunks (two for second-order,
+etc.).
+
+To generate a Markov chain, we need to have the probability for each successor
+state given the current state (so called state transition probabilities). In
+some cases the transition probabilities can be handed in advance, but in the
+typical case they are computed from a given data.
+
+Examples
+--------
+
+We have a few examples about using Markov chains and how text documents can be
+parsed using NLP
+
+	- :doc:`First-Order Markov Chain Using Toy Data <toy_markov>`
+	- :doc:`Parsing books with NLTK <parsing_NLTK>`
