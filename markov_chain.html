@@ -51,15 +51,15 @@
 as good predictions about the system&#8217;s future given the present state as one
 could knowing the full history of the system.</p>
 <p>When dealing with natural language, the state of a system is typically a
-specified number of successive chunks of text (characters, words, etc.). For
-first-order Markov chains the state is one chunk (i.e. one word or character)
-and for higher-order chains the states contain more chunks (two for second-order,
-etc.).</p>
+specified number of successive chunks of text (characters, words, etc.), called
+<em>tokens</em>. For first-order Markov chains the state is one token (i.e. one word
+or character) and for higher-order chains the states contain more tokens (two
+for second-order, etc.).</p>
 <p>To generate a Markov chain, we need to have the probability for each successor
 state given the current state (so called state transition probabilities). In
 some cases the transition probabilities can be handed in advance, but in the
 typical case they are computed from a given data.</p>
-<p>Examples of using Markov chains:</p>
+<p>Examples involving Markov chains:</p>
 <blockquote>
 <div><ul class="simple">
 <li><a class="reference internal" href="toy_markov.html"><span class="doc">First-order Markov chain using toy data</span></a></li>
@@ -87,7 +87,7 @@ typical case they are computed from a given data.</p>
 <li class="toctree-l1"><a class="reference internal" href="setup.html">Getting Started</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Markov Chains</a></li>
 <li class="toctree-l1"><a class="reference internal" href="toy_markov.html">First-Order Markov Chain Using Toy Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="parsing_NLTK.html">Parsing Books with NLTK</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parsing_NLTK.html">Parsing Text with NLTK</a></li>
 </ul>
 
 <div class="relations">

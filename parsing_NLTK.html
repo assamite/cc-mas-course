@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Parsing Books with NLTK &#8212; CC-MAS 2016 0.1a documentation</title>
+    <title>Parsing Text with NLTK &#8212; CC-MAS 2016 0.1a documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -27,7 +27,6 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="top" title="CC-MAS 2016 0.1a documentation" href="index.html" />
-    <link rel="up" title="Markov Chains" href="markov_index.html" />
     <link rel="prev" title="First-Order Markov Chain Using Toy Data" href="toy_markov.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -44,8 +43,100 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="parsing-books-with-nltk">
-<h1>Parsing Books with NLTK<a class="headerlink" href="#parsing-books-with-nltk" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="parsing-text-with-nltk">
+<h1>Parsing Text with NLTK<a class="headerlink" href="#parsing-text-with-nltk" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://github.com/assamite/cc-mas16/blob/master/week1/parsing_nltk.py">(full code)</a></p>
+<p>In this section we will parse a long written text, everyone&#8217;s favorite tale
+&#8216;Alice&#8217;s Adventures in  Wonderland&#8217; by Lewis Carroll, to be used to create the
+state transitions for Markov chains. In this example, we use
+<a class="reference external" href="http://www.nltk.org/">NLTK</a> for natural language processing (refer to
+<a class="reference external" href="http://www.nltk.org/book/">book</a> for clearer instructions on usage).
+However, many of the parsing tasks using NLTK could be adequately achieved with
+sufficiently simple regular expressions.</p>
+<div class="section" id="downloading-the-data">
+<h2>Downloading the Data<a class="headerlink" href="#downloading-the-data" title="Permalink to this headline">¶</a></h2>
+<p>First, we need to get the data. Fortunately, our book of choice is served on
+<a class="reference external" href="https://www.gutenberg.org/">Project Gutenberg</a>, which offers thousands
+of free books. Natural choice is to download the book inside our script.
+However, to make the part little bit more interesting, we are going to download
+it only once, and then, if the file is already present, we read it from the
+file.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+<span class="kn">import</span> <span class="nn">nltk</span>
+
+<span class="n">alice_file</span> <span class="o">=</span> <span class="s1">&#39;alice.txt&#39;</span>
+<span class="n">alice_raw</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">alice_file</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">urllib</span> <span class="k">import</span> <span class="n">request</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;http://www.gutenberg.org/cache/epub/19033/pg19033.txt&#39;</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="n">alice_raw</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">alice_file</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">alice_raw</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">alice_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">alice_raw</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="remove-the-excessive-parts">
+<h2>Remove the Excessive Parts<a class="headerlink" href="#remove-the-excessive-parts" title="Permalink to this headline">¶</a></h2>
+<p>Now, we have the raw version of the book. Next, we are going to remove the
+&#8220;bloat&#8221; that Project Gutenberg adds to the beginning and the end of the book.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># For reasons, lets remove the start and end bloat from the text</span>
+<span class="n">start</span> <span class="o">=</span> <span class="s2">&quot;I--DOWN THE RABBIT-HOLE&quot;</span>
+<span class="n">end</span> <span class="o">=</span> <span class="s2">&quot;End of the Project Gutenberg&quot;</span>
+<span class="n">start_index</span> <span class="o">=</span> <span class="n">alice_raw</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">start</span><span class="p">)</span>
+<span class="n">end_index</span> <span class="o">=</span> <span class="n">alice_raw</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="n">end</span><span class="p">)</span>
+<span class="n">alice</span> <span class="o">=</span> <span class="n">alice_raw</span><span class="p">[</span><span class="n">start_index</span><span class="p">:</span><span class="n">end_index</span><span class="p">]</span>
+
+<span class="c1"># And replace more than one subsequent whitespace chars with one space</span>
+<span class="n">alice</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">r&#39;\s+&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">alice</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="tokenize-the-text">
+<h2>Tokenize the text<a class="headerlink" href="#tokenize-the-text" title="Permalink to this headline">¶</a></h2>
+<p>Our text is now ready to be tokenized with NLTK. First, we are going to split it
+into sentences, which is easy with the tools NLTK offers:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sentences</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">sent_tokenize</span><span class="p">(</span><span class="n">alice</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Next, we are going to tokenize each sentence using <code class="docutils literal"><span class="pre">nltk.word_tokenize</span></code>, which
+splits the text into &#8216;words&#8217; (it also splits punctuation into separate tokens).
+Here is an example of its output:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nltk</span><span class="o">.</span><span class="n">word_tokenize</span><span class="p">(</span><span class="s1">&#39;Follow the &quot;White Rabbit&quot;.&#39;</span><span class="p">)</span>
+<span class="go">[&#39;Follow&#39;, &#39;the&#39;, &#39;``&#39;, &#39;White&#39;, &#39;Rabbit&#39;, &quot;&#39;&#39;&quot;, &#39;.&#39;]</span>
+</pre></div>
+</div>
+<p>Here is the actual tokenization code:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">tokenized_sentences</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">:</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">word_tokenize</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+    <span class="n">tokenized_sentences</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="sanitation-of-the-tokenized-sentences">
+<h2>Sanitation of the Tokenized Sentences<a class="headerlink" href="#sanitation-of-the-tokenized-sentences" title="Permalink to this headline">¶</a></h2>
+<p>Lastly, we sanitize the tokenized sentences a bit so that the punctuation does
+not clutter the Markov chains. For this purpose, we naively assume, that any
+token in the sentences is a proper word, if it contains any Unicode word
+character. We also end all the sentences with a dot, to mark a natural pause
+in the text (one could also add a special token to the beginning).</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">is_word</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;\w&#39;</span><span class="p">)</span>
+<span class="n">sanitized_sentences</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">sent</span> <span class="ow">in</span> <span class="n">tokenized_sentences</span><span class="p">:</span>
+    <span class="n">sanitized</span> <span class="o">=</span> <span class="p">[</span><span class="n">token</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">sent</span> <span class="k">if</span> <span class="n">is_word</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">token</span><span class="p">)]</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;.&#39;</span><span class="p">]</span>
+    <span class="n">sanitized_sentences</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sanitized</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now, the <code class="docutils literal"><span class="pre">sanitized_sentences</span></code> should be ready for the creation of state
+transition probabilities. However, it is left as an exercise.</p>
+</div>
 </div>
 
 
@@ -66,10 +157,13 @@
 <h3>Navigation</h3>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="setup.html">Getting Started</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="markov_index.html">Markov Chains</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="toy_markov.html">First-Order Markov Chain Using Toy Data</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Parsing Books with NLTK</a></li>
-<li class="toctree-l2"><a class="reference internal" href="markov_index.html#examples">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="markov_chain.html">Markov Chains</a></li>
+<li class="toctree-l1"><a class="reference internal" href="toy_markov.html">First-Order Markov Chain Using Toy Data</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Parsing Text with NLTK</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#downloading-the-data">Downloading the Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#remove-the-excessive-parts">Remove the Excessive Parts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tokenize-the-text">Tokenize the text</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sanitation-of-the-tokenized-sentences">Sanitation of the Tokenized Sentences</a></li>
 </ul>
 </li>
 </ul>
@@ -78,9 +172,7 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-  <li><a href="markov_index.html">Markov Chains</a><ul>
       <li>Previous: <a href="toy_markov.html" title="previous chapter">First-Order Markov Chain Using Toy Data</a></li>
-  </ul></li>
   </ul></li>
 </ul>
 </div>
