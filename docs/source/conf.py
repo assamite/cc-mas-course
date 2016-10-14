@@ -56,8 +56,8 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = 'Computational Creativity and Multi-Agent Systems, fall 2016'
-copyright = '2016, Simo Linkola '
+project = 'CC-MAS 2016'
+copyright = '2016, Simo Linkola'
 author = 'Simo Linkola'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -133,10 +133,10 @@ html_theme_options = {
 
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".
-#html_title = None
+#html_title = "Computational Creativity and Multi-Agent Systems"
 
 # A shorter title for the navigation bar.  Default is the same as html_title.
-#html_short_title = None
+html_short_title = "CC-MAS 2016"
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
@@ -166,7 +166,15 @@ html_static_path = ['_static']
 #html_use_smartypants = True
 
 # Custom sidebar templates, maps document names to template names.
-#html_sidebars = {}
+html_sidebars = {
+    '**': [
+        'about.html',
+        'navigation.html',
+        'relations.html',
+        'searchbox.html',
+        'donate.html',
+    ]
+}
 
 # Additional templates that should be rendered to pages, maps page names to
 # template names.
