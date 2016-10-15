@@ -27,7 +27,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="top" title="CC-MAS 2016 0.1a documentation" href="index.html" />
-    <link rel="prev" title="First-Order Markov Chain Using Toy Data" href="toy_markov.html" />
+    <link rel="prev" title="Text Generation with First-Order Markov Chain" href="toy_markov.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -119,6 +119,26 @@ Here is an example of its output:</p>
     <span class="n">tokenized_sentences</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Another often used NLP task is part-of-speech (POS) tagging. We are not going
+to use it for now, but it is as simple as tokenization:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tokens</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">word_tokenize</span><span class="p">(</span><span class="s1">&#39;Follow the &quot;White Rabbit&quot;.&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nltk</span><span class="o">.</span><span class="n">pos_tag</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span>
+<span class="go">[(&#39;Follow&#39;, &#39;VB&#39;),</span>
+<span class="go"> (&#39;the&#39;, &#39;DT&#39;),</span>
+<span class="go"> (&#39;``&#39;, &#39;``&#39;),</span>
+<span class="go"> (&#39;White&#39;, &#39;NNP&#39;),</span>
+<span class="go"> (&#39;Rabbit&#39;, &#39;NNP&#39;),</span>
+<span class="go"> (&quot;&#39;&#39;&quot;, &quot;&#39;&#39;&quot;),</span>
+<span class="go"> (&#39;.&#39;, &#39;.&#39;)]</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><code class="docutils literal"><span class="pre">nltk.pos_tag</span></code> needs a pos-tagger which does not come bundled with basic
+nltk-version. To download a pos-tagger, type <code class="docutils literal"><span class="pre">nltk.download()</span></code> in ipython
+and download the Averaged Perceptron Tagger from Models-section. Download
+tool offers also other usable models and corporas.</p>
+</div>
 </div>
 <div class="section" id="sanitation-of-the-tokenized-sentences">
 <h2>Sanitation of the Tokenized Sentences<a class="headerlink" href="#sanitation-of-the-tokenized-sentences" title="Permalink to this headline">¶</a></h2>
@@ -135,7 +155,8 @@ in the text (one could also add a special token to the beginning).</p>
 </pre></div>
 </div>
 <p>Now, the <code class="docutils literal"><span class="pre">sanitized_sentences</span></code> should be ready for the creation of state
-transition probabilities. However, it is left as an exercise.</p>
+transition probabilities. However, it is left as an exercise together with the
+actual generation of texts.</p>
 </div>
 </div>
 
@@ -156,9 +177,10 @@ transition probabilities. However, it is left as an exercise.</p>
 
 <h3>Navigation</h3>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="setup.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Setup Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="markov_chain.html">Markov Chains</a></li>
-<li class="toctree-l1"><a class="reference internal" href="toy_markov.html">First-Order Markov Chain Using Toy Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="toy_markov.html">Text Generation with First-Order Markov Chain</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Parsing Text with NLTK</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#downloading-the-data">Downloading the Data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#remove-the-excessive-parts">Remove the Excessive Parts</a></li>
@@ -172,7 +194,7 @@ transition probabilities. However, it is left as an exercise.</p>
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="toy_markov.html" title="previous chapter">First-Order Markov Chain Using Toy Data</a></li>
+      <li>Previous: <a href="toy_markov.html" title="previous chapter">Text Generation with First-Order Markov Chain</a></li>
   </ul></li>
 </ul>
 </div>

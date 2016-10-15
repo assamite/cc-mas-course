@@ -78,6 +78,25 @@ Here is the actual tokenization code::
 	    w = nltk.word_tokenize(s)
 	    tokenized_sentences.append(w)
 
+Another often used NLP task is part-of-speech (POS) tagging. We are not going
+to use it for now, but it is as simple as tokenization::
+
+	>>> tokens = nltk.word_tokenize('Follow the "White Rabbit".')
+	>>> nltk.pos_tag(tokens)
+	[('Follow', 'VB'),
+	 ('the', 'DT'),
+	 ('``', '``'),
+	 ('White', 'NNP'),
+	 ('Rabbit', 'NNP'),
+	 ("''", "''"),
+	 ('.', '.')]
+
+.. note::
+	``nltk.pos_tag`` needs a pos-tagger which does not come bundled with basic
+	nltk-version. To download a pos-tagger, type ``nltk.download()`` in ipython
+	and download the Averaged Perceptron Tagger from Models-section. Download
+	tool offers also other usable models and corporas.
+
 Sanitation of the Tokenized Sentences
 -------------------------------------
 
@@ -94,5 +113,6 @@ in the text (one could also add a special token to the beginning). ::
 	    sanitized_sentences.append(sanitized)
 
 Now, the ``sanitized_sentences`` should be ready for the creation of state
-transition probabilities. However, it is left as an exercise.
+transition probabilities. However, it is left as an exercise together with the
+actual generation of texts.
 

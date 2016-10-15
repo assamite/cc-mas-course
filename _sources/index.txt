@@ -12,6 +12,7 @@ Computational Creativity and Multi-Agent Systems, fall 2016
 	:maxdepth: 3
 
 	setup
+	Getting Started <getting_started>
 	markov_chain
 	toy_markov
 	parsing_NLTK
