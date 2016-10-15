@@ -14,7 +14,7 @@ Computational Creativity and Multi-Agent Systems, fall 2016
 	setup
 	Getting Started <getting_started>
 	markov_chain
-	toy_markov
+	Text Generation with MC	<toy_markov>
 	parsing_NLTK
 	
 
