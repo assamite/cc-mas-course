@@ -1,7 +1,7 @@
 Parsing Text with NLTK
 ======================
 
-`(full code) <https://github.com/assamite/cc-mas16/blob/master/week1/parsing_nltk.py>`_
+`(full code) <https://github.com/assamite/cc-mas-course/blob/master/week1/parsing_nltk.py>`_
 
 In this section we will parse a long written text, everyone's favorite tale
 *Alice's Adventures in  Wonderland* by Lewis Carroll, to be used to create the 

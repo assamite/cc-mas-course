@@ -15,7 +15,9 @@ Installing Python 3.5.x
 
 First, start by installing `Python 3.5 <https://www.python.org/downloads/release/python-352/>`_.
 The site offers installers for OSX and Windows. In Linux, follow the standard
-procedure as described in the README::
+procedure as described in the README:
+
+.. code-block:: console
 
 	~$ ./configure
 	~$ make
@@ -24,18 +26,22 @@ procedure as described in the README::
 
 
 .. note::
-	In case you want to install Python without root (to be used, e.g. in Ukko),
+	In case you want to install Python without root (to be used, e.g. in Ukko-cluster),
 	use ``./configure prefix=path/to/install/folder``.
 
 
 Creating a Virtual Environment
 ------------------------------
 
-Creating `virtual environments <https://docs.python.org/3/library/venv.html>`_ in 
-Python 3.5 is easy as it is a built-in feature. The script is called ``pyvenv-3.5``
-and it is in the ``bin`` folder of the installation location. Execute the script
-in the folder where you want your virtual environment to be created with the
-name of the virtual environment as the parameter, e.g::
+`Virtual environments https://docs.python.org/3/library/venv.html>`_ allow
+multiple Python installations with conflicting package version requirements, etc.,
+to co-exist peacefully on the same machine.
+
+Creating virtual environments in Python 3.5 is easy as it is a built-in feature.
+The script is called ``pyvenv-3.5`` and it is in the ``bin`` folder of the
+Python installation location. Execute the script in the folder where you want
+your virtual environment to be created with the name of the virtual environment
+as the parameter, e.g::
 
 	~$ pyvenv-3.5 venv
 
@@ -55,8 +61,9 @@ To exit the virtual environment type::
 Installing the Requirements
 ---------------------------
 
-We have included the packages that are required by the examples in
-`requirements.txt <https://github.com/assamite/cc-mas16/blob/master/requirements.txt>`_
+We have included the packages that are required by the examples and some convenience
+packages in
+`requirements.txt <https://github.com/assamite/cc-mas-course/blob/master/requirements.txt>`_
 in the github repository. Install these packages with `pip <https://pip.pypa.io/en/stable/>`_ 
 once you have virtual environment active (virtual environment is bundled with
 pip by default so there is no need to manually install it). ::

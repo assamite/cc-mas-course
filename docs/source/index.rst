@@ -11,8 +11,7 @@ Computational Creativity and Multi-Agent Systems, fall 2016
 	:includehidden:
 	:maxdepth: 3
 
-	Install Python <setup>
-	Learn Python <learn_python>
+	Preliminaries <preliminaries>
 	Four Steps to CC <four_steps>
 	Text Generation with MC	<toy_markov>
 	parsing_NLTK
@@ -21,7 +20,7 @@ Computational Creativity and Multi-Agent Systems, fall 2016
 	Exercises <exercises>
 	References <zz_references>
 
-`(repository with the full code examples) <https://github.com/assamite/cc-mas16>`_
+`(repository with the full code examples) <https://github.com/assamite/cc-mas-course>`_
 
 
 This documentation holds tips and sample code relevant to 
@@ -30,7 +29,7 @@ code is written with **Python 3.5** in mind. Although many of the snippets work 
 earlier Python versions, we recommend to install Python 3.5 straight away (see
 :doc:`setup`).
 
-.. warning::
+.. centered::
 	The documentation is largely in development. Expect constant changes.
 
 
