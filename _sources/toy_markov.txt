@@ -21,7 +21,7 @@ In the rest of this section we will show how a first-order Markov chain can be u
 generative model. We start by creating the state transition probabilities for
 an artificial dataset, and then generate text using these probabilities.
 
-`(full code) <https://github.com/assamite/cc-mas16/blob/master/week1/toy_markov.py>`_
+`(full code) <https://github.com/assamite/cc-mas-course/blob/master/week1/toy_markov.py>`_
 
 Generate Data
 -------------

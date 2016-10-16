@@ -1,7 +1,7 @@
 Parsing Text with NLTK
 ======================
 
-`(full code) <https://github.com/assamite/cc-mas16/blob/master/week1/parsing_nltk.py>`_
+`(full code) <https://github.com/assamite/cc-mas-course/blob/master/week1/parsing_nltk.py>`_
 
 In this section we will parse a long written text, everyone's favorite tale
 *Alice's Adventures in  Wonderland* by Lewis Carroll, to be used to create the 
@@ -99,8 +99,8 @@ to use it for now, but it is as simple as tokenization::
 .. note::
 	``nltk.pos_tag`` needs a pos-tagger which does not come bundled with basic
 	nltk-version. To download a pos-tagger, type ``nltk.download()`` in iPython
-	and download the Averaged Perceptron Tagger from Models-section. Download
-	tool offers many usable models and corporas.
+	and download the Averaged Perceptron Tagger from Models-section. In general,
+	the download tool offers many usable models and corporas.
 
 Sanitation of the Tokenized Sentences
 -------------------------------------
