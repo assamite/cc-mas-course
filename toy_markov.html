@@ -28,7 +28,7 @@
     <link rel="search" title="Search" href="search.html" />
     <link rel="top" title="CC-MAS 2016 0.1a documentation" href="index.html" />
     <link rel="next" title="Parsing Text with NLTK" href="parsing_NLTK.html" />
-    <link rel="prev" title="Markov Chains" href="markov_chain.html" />
+    <link rel="prev" title="Four Steps to Computational Creativity" href="four_steps.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -46,10 +46,23 @@
             
   <div class="section" id="text-generation-with-first-order-markov-chain">
 <h1>Text Generation with First-Order Markov Chain<a class="headerlink" href="#text-generation-with-first-order-markov-chain" title="Permalink to this headline">¶</a></h1>
-<p><a class="reference external" href="https://github.com/assamite/cc-mas16/blob/master/week1/toy_markov.py">(full code)</a></p>
-<p>In this section we will show how a first-order Markov chain can be used as a
+<p>Markov chain (MC) is a stochastic process that satisfies the Markov property
+(in some terms <em>memorylessness</em>). The Markov property means, that one can give
+as good predictions about the system&#8217;s future given the present state as one
+could knowing the full history of the system.</p>
+<p>When dealing with natural language, the state of a system is typically a
+specified number of successive chunks of text (characters, words, etc.), called
+<em>tokens</em>. For first-order Markov chains the state is one token (i.e. one word
+or character) and for higher-order chains the states contain more tokens (two
+for second-order, etc.).</p>
+<p>To generate a Markov chain, we need to have the probability for each successor
+state given the current state (so called state transition probabilities). In
+some cases the transition probabilities can be handed in advance, but in the
+typical case they are computed from a given data.</p>
+<p>In the rest of this section we will show how a first-order Markov chain can be used as a
 generative model. We start by creating the state transition probabilities for
 an artificial dataset, and then generate text using these probabilities.</p>
+<p><a class="reference external" href="https://github.com/assamite/cc-mas16/blob/master/week1/toy_markov.py">(full code)</a></p>
 <div class="section" id="generate-data">
 <h2>Generate Data<a class="headerlink" href="#generate-data" title="Permalink to this headline">¶</a></h2>
 <p>First, we need to generate some data. For this example we will use a very simple
@@ -76,8 +89,8 @@ from &#8216;ab&#8217; to &#8216;bc&#8217;.)</p>
 book-keeping data structure. The outer dictionary has the current (preceding)
 state as a key, and the value of that key is another (inner) dictionary. The inner
 dictionary has the succeeding states as keys and the values are the number of
-times the succeeding state is observed after the preceding state. To populate
-the data structure is quite forward, we go over the list of states one time,
+times the succeeding state is observed after the preceding state. Populating
+the data structure is straightforward, we go over the list of states one time,
 and keep count of every predecessor-successor pair.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">transitions</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
@@ -143,7 +156,7 @@ cumulative distribution function ordered from highest to lowest probability.</p>
 <h2>Generate Text<a class="headerlink" href="#generate-text" title="Permalink to this headline">¶</a></h2>
 <p>Finally, all that is left is to generate some text using our <code class="docutils literal"><span class="pre">cdfs</span></code> data
 structure. We start by drawing a random character from the distribution, and
-generate <em>N</em> characters overall. Then we loop generation loop until we have
+generate <em>N</em> characters overall. Then we loop the generation loop until we have
 generated enough items. In the generation loop, we will generate a random
 number on each iteration and look from the cumulative distribution function of
 <code class="docutils literal"><span class="pre">cdfs[state]</span></code> the appropriate successive state.</p>
@@ -193,9 +206,9 @@ future work!</p>
 
 <h3>Navigation</h3>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="setup.html">Setup Development Environment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="markov_chain.html">Markov Chains</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Install Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="learn_python.html">Learn Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="four_steps.html">Four Steps to CC</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Text Generation with MC</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#generate-data">Generate Data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#compute-state-transition-probabilities">Compute State Transition Probabilities</a></li>
@@ -203,13 +216,17 @@ future work!</p>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="parsing_NLTK.html">Parsing Text with NLTK</a></li>
+<li class="toctree-l1"><a class="reference internal" href="social_creativity.html">Social Creativity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creamas.html">Building Agent Societies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercises.html">Exercises</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zz_references.html">References</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="markov_chain.html" title="previous chapter">Markov Chains</a></li>
+      <li>Previous: <a href="four_steps.html" title="previous chapter">Four Steps to Computational Creativity</a></li>
       <li>Next: <a href="parsing_NLTK.html" title="next chapter">Parsing Text with NLTK</a></li>
   </ul></li>
 </ul>

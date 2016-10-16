@@ -1,11 +1,27 @@
 Text Generation with First-Order Markov Chain
 ===========================================================
 
-`(full code) <https://github.com/assamite/cc-mas16/blob/master/week1/toy_markov.py>`_
+Markov chain (MC) is a stochastic process that satisfies the Markov property
+(in some terms *memorylessness*). The Markov property means, that one can give
+as good predictions about the system's future given the present state as one
+could knowing the full history of the system.
 
-In this section we will show how a first-order Markov chain can be used as a
+When dealing with natural language, the state of a system is typically a
+specified number of successive chunks of text (characters, words, etc.), called
+*tokens*. For first-order Markov chains the state is one token (i.e. one word
+or character) and for higher-order chains the states contain more tokens (two
+for second-order, etc.).
+
+To generate a Markov chain, we need to have the probability for each successor
+state given the current state (so called state transition probabilities). In
+some cases the transition probabilities can be handed in advance, but in the
+typical case they are computed from a given data.
+
+In the rest of this section we will show how a first-order Markov chain can be used as a
 generative model. We start by creating the state transition probabilities for
 an artificial dataset, and then generate text using these probabilities.
+
+`(full code) <https://github.com/assamite/cc-mas16/blob/master/week1/toy_markov.py>`_
 
 Generate Data
 -------------
@@ -35,8 +51,8 @@ State transition probabilities can be computed using nested dictionary as a
 book-keeping data structure. The outer dictionary has the current (preceding)
 state as a key, and the value of that key is another (inner) dictionary. The inner
 dictionary has the succeeding states as keys and the values are the number of
-times the succeeding state is observed after the preceding state. To populate
-the data structure is quite forward, we go over the list of states one time,
+times the succeeding state is observed after the preceding state. Populating
+the data structure is straightforward, we go over the list of states one time,
 and keep count of every predecessor-successor pair. ::
 
 	transitions = {}
@@ -102,7 +118,7 @@ Generate Text
 
 Finally, all that is left is to generate some text using our ``cdfs`` data
 structure. We start by drawing a random character from the distribution, and
-generate *N* characters overall. Then we loop generation loop until we have
+generate *N* characters overall. Then we loop the generation loop until we have
 generated enough items. In the generation loop, we will generate a random
 number on each iteration and look from the cumulative distribution function of
 ``cdfs[state]`` the appropriate successive state. ::

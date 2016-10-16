@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Exercises &#8212; CC-MAS 2016 0.1a documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1a',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="CC-MAS 2016 0.1a documentation" href="index.html" />
+    <link rel="next" title="References" href="zz_references.html" />
+    <link rel="prev" title="Building Agent Societies with Creamas" href="creamas.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="exercises">
+<h1>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h1>
+<p>Weekly programming and other practical exercises for the course.</p>
+<div class="section" id="preliminaries">
+<h2>Preliminaries<a class="headerlink" href="#preliminaries" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ol class="arabic">
+<li><p class="first">Set the development environment (see <a class="reference internal" href="setup.html"><span class="doc">Setup Development Environment</span></a>)</p>
+<blockquote>
+<div><ul class="simple">
+<li>Install Python 3.5</li>
+<li>Create a virtual environment</li>
+<li>Install <code class="docutils literal"><span class="pre">requirements.txt</span></code></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">Get used to Python (see <a class="reference internal" href="learn_python.html"><span class="doc">Learn Python</span></a>)</p>
+<blockquote>
+<div><ul class="simple">
+<li>Learn basic syntax. Things to consider include: loops, lists,
+dictionaries, <code class="docutils literal"><span class="pre">def</span></code>, <code class="docutils literal"><span class="pre">class</span></code>, <code class="docutils literal"><span class="pre">import</span></code>, etc.</li>
+</ul>
+</div></blockquote>
+</li>
+</ol>
+</div></blockquote>
+</div>
+<div class="section" id="week-1-markov-chains-parsing">
+<h2>Week 1 - Markov Chains, Parsing<a class="headerlink" href="#week-1-markov-chains-parsing" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ol class="arabic">
+<li><p class="first">Familiarize yourself with Markov chains, and how they can be created
+from the data. (see <a class="reference internal" href="toy_markov.html"><span class="doc">Text Generation with First-Order Markov Chain</span></a>)</p>
+</li>
+<li><p class="first">Create first-order Markov chain from the book <em>Alice&#8217;s Adventures in
+Wonderland</em> by Lewis Carroll (see <a class="reference internal" href="parsing_NLTK.html"><span class="doc">Parsing Text with NLTK</span></a>).
+The transitions should be counted from the splitted sentences, i.e. the
+last token of each sentence is not succeeded by any state.</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>What are the overall 5 most probable state transitions?</li>
+<li>What are the 5 most probable state successors for the state &#8216;Alice&#8217;?</li>
+</ol>
+</div></blockquote>
+</li>
+<li><p class="first">Create a function <code class="docutils literal"><span class="pre">markov_chain(raw_text)</span></code>, which splits the raw text
+into sentences, the sentences into tokens, and returns the
+state transition probabilities.</p>
+</li>
+<li><p class="first">Create a function <code class="docutils literal"><span class="pre">sanitize(token_list)</span></code>, which takes as an argument
+a list of text tokens and sanitizes the list by removing inappropriate
+tokens.</p>
+</li>
+<li><p class="first">Alter the function <code class="docutils literal"><span class="pre">markov_chain</span></code> to accept an optional boolean
+argument <code class="docutils literal"><span class="pre">sanitize</span></code> which defaults to <code class="docutils literal"><span class="pre">True</span></code>. If it is true, each
+tokenized sentence is sanitized (with your <code class="docutils literal"><span class="pre">sanitize</span></code>-function) before
+the state transition probabilities are computed.</p>
+</li>
+<li><p class="first">Create a function <code class="docutils literal"><span class="pre">generate(state_transition_probabilities,</span> <span class="pre">length=10,</span> <span class="pre">start=None)</span></code>,
+which returns a piece of text generated from given state transition
+probabilities. The piece of text should be at most <code class="docutils literal"><span class="pre">length</span></code> tokens long
+and concatenated into a single string. The
+generation should end without an exception if a state that has no successors
+is generated. If <code class="docutils literal"><span class="pre">start</span></code> is other than <code class="docutils literal"><span class="pre">None</span></code>, the generation
+should be started from that state. Handle the case where the state given
+by <code class="docutils literal"><span class="pre">start</span></code> is not in the transition probabilities.</p>
+</li>
+<li><p class="first">Create a function <code class="docutils literal"><span class="pre">likelihood(text,</span> <span class="pre">state_transitions_probabilities)</span></code>
+that computes the likelihood of the text using the state transition
+probabilities.</p>
+</li>
+</ol>
+</div></blockquote>
+</div>
+<div class="section" id="week-2-markov-chains">
+<h2>Week 2 - Markov Chains<a class="headerlink" href="#week-2-markov-chains" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Alter your function <code class="docutils literal"><span class="pre">markov_chain</span></code> from the first week to accept an optional
+parameter <code class="docutils literal"><span class="pre">order</span></code> which specifies the order of the Markov chain to be
+created. That is, with <code class="docutils literal"><span class="pre">order=2</span></code> a state contains two successive tokens
+from the same sentence.</li>
+<li>Alter your function <code class="docutils literal"><span class="pre">generate</span></code> from the first week to be compatible with your
+new <code class="docutils literal"><span class="pre">markov_chain</span></code> implementation. The returned piece of text should be
+a single string with no repeating words, or nested arrays, etc.</li>
+<li>Experiment by generating text with different order Markov chains. What
+observations do you make?</li>
+</ol>
+</div></blockquote>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">CC-MAS 2016</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Install Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="learn_python.html">Learn Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="four_steps.html">Four Steps to CC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="toy_markov.html">Text Generation with MC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parsing_NLTK.html">Parsing Text with NLTK</a></li>
+<li class="toctree-l1"><a class="reference internal" href="social_creativity.html">Social Creativity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creamas.html">Building Agent Societies</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Exercises</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#preliminaries">Preliminaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#week-1-markov-chains-parsing">Week 1 - Markov Chains, Parsing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#week-2-markov-chains">Week 2 - Markov Chains</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="zz_references.html">References</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="creamas.html" title="previous chapter">Building Agent Societies with Creamas</a></li>
+      <li>Next: <a href="zz_references.html" title="next chapter">References</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Simo Linkola.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="_sources/exercises.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

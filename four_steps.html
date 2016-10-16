@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Four Steps to Computational Creativity &#8212; CC-MAS 2016 0.1a documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1a',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="CC-MAS 2016 0.1a documentation" href="index.html" />
+    <link rel="next" title="Text Generation with First-Order Markov Chain" href="toy_markov.html" />
+    <link rel="prev" title="Learn Python" href="learn_python.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="four-steps-to-computational-creativity">
+<h1>Four Steps to Computational Creativity<a class="headerlink" href="#four-steps-to-computational-creativity" title="Permalink to this headline">¶</a></h1>
+<p>Here is going to be a short explanation for computation creativity based on
+Dan Ventura&#8217;s article in ICCC 2016 <a class="reference internal" href="zz_references.html#ventura2016" id="id1">[Ven16]</a>.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># Generation using stochastic process</span>
+<span class="k">def</span> <span class="nf">create</span><span class="p">():</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="n">DONE</span><span class="p">:</span>
+                <span class="n">a</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">random_atom</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">a</span>
+
+<span class="c1"># Generation by plagiarizing an inspiring set</span>
+<span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="n">inspiring_set</span><span class="p">):</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">random_select</span><span class="p">(</span><span class="n">inspiring_set</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">a</span>
+
+<span class="c1"># Generation by memorizing an inspiring set</span>
+<span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="n">inspiring_set</span><span class="p">):</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">memorize</span><span class="p">(</span><span class="n">inspiring_set</span><span class="p">)</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">random_from_memory</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">a</span>
+
+<span class="c1"># Generation by generalizing an inspiring set</span>
+<span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="n">inspiring_set</span><span class="p">):</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">build_model</span><span class="p">(</span><span class="n">inspiring_set</span><span class="p">)</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">generalize_from_model</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">a</span>
+
+<span class="c1"># Generation by modeling an inspiring set and filtering artifacts via</span>
+<span class="c1"># fitness function</span>
+<span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="n">inspiring</span> <span class="nb">set</span><span class="p">):</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">build_model</span><span class="p">(</span><span class="n">inspiring_set</span><span class="p">)</span>
+        <span class="k">while</span> <span class="n">score</span> <span class="o">&lt;</span> <span class="n">theta</span><span class="p">:</span>
+                <span class="n">a</span> <span class="o">=</span> <span class="n">generate</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+                <span class="n">score</span> <span class="o">=</span> <span class="n">fitness</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">a</span>
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">CC-MAS 2016</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Install Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="learn_python.html">Learn Python</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Four Steps to CC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="toy_markov.html">Text Generation with MC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parsing_NLTK.html">Parsing Text with NLTK</a></li>
+<li class="toctree-l1"><a class="reference internal" href="social_creativity.html">Social Creativity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creamas.html">Building Agent Societies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercises.html">Exercises</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zz_references.html">References</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="learn_python.html" title="previous chapter">Learn Python</a></li>
+      <li>Next: <a href="toy_markov.html" title="next chapter">Text Generation with First-Order Markov Chain</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Simo Linkola.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="_sources/four_steps.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

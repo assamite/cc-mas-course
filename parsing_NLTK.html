@@ -27,6 +27,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="top" title="CC-MAS 2016 0.1a documentation" href="index.html" />
+    <link rel="next" title="Social Creativity" href="social_creativity.html" />
     <link rel="prev" title="Text Generation with First-Order Markov Chain" href="toy_markov.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -47,12 +48,18 @@
 <h1>Parsing Text with NLTK<a class="headerlink" href="#parsing-text-with-nltk" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference external" href="https://github.com/assamite/cc-mas16/blob/master/week1/parsing_nltk.py">(full code)</a></p>
 <p>In this section we will parse a long written text, everyone&#8217;s favorite tale
-&#8216;Alice&#8217;s Adventures in  Wonderland&#8217; by Lewis Carroll, to be used to create the
+<em>Alice&#8217;s Adventures in  Wonderland</em> by Lewis Carroll, to be used to create the
 state transitions for Markov chains. In this example, we use
 <a class="reference external" href="http://www.nltk.org/">NLTK</a> for natural language processing (refer to
 <a class="reference external" href="http://www.nltk.org/book/">book</a> for clearer instructions on usage).
 However, many of the parsing tasks using NLTK could be adequately achieved with
 sufficiently simple regular expressions.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">NLTK should be installed in your environment. It is contained in the
+<code class="docutils literal"><span class="pre">requirements.txt</span></code>. To install it separately use <code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">nltk</span></code>
+while your virtual environment is activated.</p>
+</div>
 <div class="section" id="downloading-the-data">
 <h2>Downloading the Data<a class="headerlink" href="#downloading-the-data" title="Permalink to this headline">¶</a></h2>
 <p>First, we need to get the data. Fortunately, our book of choice is served on
@@ -135,15 +142,15 @@ to use it for now, but it is as simple as tokenization:</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last"><code class="docutils literal"><span class="pre">nltk.pos_tag</span></code> needs a pos-tagger which does not come bundled with basic
-nltk-version. To download a pos-tagger, type <code class="docutils literal"><span class="pre">nltk.download()</span></code> in ipython
+nltk-version. To download a pos-tagger, type <code class="docutils literal"><span class="pre">nltk.download()</span></code> in iPython
 and download the Averaged Perceptron Tagger from Models-section. Download
-tool offers also other usable models and corporas.</p>
+tool offers many usable models and corporas.</p>
 </div>
 </div>
 <div class="section" id="sanitation-of-the-tokenized-sentences">
 <h2>Sanitation of the Tokenized Sentences<a class="headerlink" href="#sanitation-of-the-tokenized-sentences" title="Permalink to this headline">¶</a></h2>
 <p>Lastly, we sanitize the tokenized sentences a bit so that the punctuation does
-not clutter the Markov chains. For this purpose, we naively assume, that any
+not clutter the Markov chains. For this purpose, we naively assume that any
 token in the sentences is a proper word, if it contains any Unicode word
 character. We also end all the sentences with a dot, to mark a natural pause
 in the text (one could also add a special token to the beginning).</p>
@@ -177,9 +184,9 @@ actual generation of texts.</p>
 
 <h3>Navigation</h3>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="setup.html">Setup Development Environment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="markov_chain.html">Markov Chains</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Install Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="learn_python.html">Learn Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="four_steps.html">Four Steps to CC</a></li>
 <li class="toctree-l1"><a class="reference internal" href="toy_markov.html">Text Generation with MC</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Parsing Text with NLTK</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#downloading-the-data">Downloading the Data</a></li>
@@ -188,6 +195,10 @@ actual generation of texts.</p>
 <li class="toctree-l2"><a class="reference internal" href="#sanitation-of-the-tokenized-sentences">Sanitation of the Tokenized Sentences</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="social_creativity.html">Social Creativity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creamas.html">Building Agent Societies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercises.html">Exercises</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zz_references.html">References</a></li>
 </ul>
 
 <div class="relations">
@@ -195,6 +206,7 @@ actual generation of texts.</p>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="toy_markov.html" title="previous chapter">Text Generation with First-Order Markov Chain</a></li>
+      <li>Next: <a href="social_creativity.html" title="next chapter">Social Creativity</a></li>
   </ul></li>
 </ul>
 </div>

@@ -1,15 +1,20 @@
 Parsing Text with NLTK
-=======================
+======================
 
 `(full code) <https://github.com/assamite/cc-mas16/blob/master/week1/parsing_nltk.py>`_
 
 In this section we will parse a long written text, everyone's favorite tale
-'Alice's Adventures in  Wonderland' by Lewis Carroll, to be used to create the 
+*Alice's Adventures in  Wonderland* by Lewis Carroll, to be used to create the 
 state transitions for Markov chains. In this example, we use
 `NLTK <http://www.nltk.org/>`_ for natural language processing (refer to
 `book <http://www.nltk.org/book/>`_ for clearer instructions on usage).
 However, many of the parsing tasks using NLTK could be adequately achieved with
 sufficiently simple regular expressions.
+
+.. note:: 
+	NLTK should be installed in your environment. It is contained in the
+	``requirements.txt``. To install it separately use ``pip install nltk``
+	while your virtual environment is activated.
 
 Downloading the Data
 --------------------
@@ -93,15 +98,15 @@ to use it for now, but it is as simple as tokenization::
 
 .. note::
 	``nltk.pos_tag`` needs a pos-tagger which does not come bundled with basic
-	nltk-version. To download a pos-tagger, type ``nltk.download()`` in ipython
+	nltk-version. To download a pos-tagger, type ``nltk.download()`` in iPython
 	and download the Averaged Perceptron Tagger from Models-section. Download
-	tool offers also other usable models and corporas.
+	tool offers many usable models and corporas.
 
 Sanitation of the Tokenized Sentences
 -------------------------------------
 
 Lastly, we sanitize the tokenized sentences a bit so that the punctuation does
-not clutter the Markov chains. For this purpose, we naively assume, that any
+not clutter the Markov chains. For this purpose, we naively assume that any
 token in the sentences is a proper word, if it contains any Unicode word
 character. We also end all the sentences with a dot, to mark a natural pause
 in the text (one could also add a special token to the beginning). ::

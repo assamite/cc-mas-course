@@ -1,16 +1,16 @@
 Learn Python
 ============
 
-In case you have not written a single line of Python before, the internet
+In case you have not written a single line of Python before,
+`the internet <http://www.electronicbeats.net/app/uploads/2016/07/internet.jpg>`_
 offers a great assortment of resources to learn Python. Here are some
 links:
 
 	- `Python 3.5 tutorial from the official site <https://docs.python.org/3.5/tutorial/index.html>`_
 	- `Python 3.5 API documentation <https://docs.python.org/3.5/library/index.html>`_
 	- `LearnPython (Python 2) <http://www.learnpython.org/>`_
-	- `Gallery of Notebooks <https://github.com/ipython/ipython/wiki/A-gallery-of-interesting-IPython-Notebooks>`_ (see, e.g. `Scientific Computing with Python <http://nbviewer.jupyter.org/github/jrjohansson/scientific-python-lectures/tree/master/>`_)
-
-
+	- `Gallery of Notebooks <https://github.com/ipython/ipython/wiki/A-gallery-of-interesting-IPython-Notebooks>`_
+	  (see, e.g. `Scientific Computing with Python <http://nbviewer.jupyter.org/github/jrjohansson/scientific-python-lectures/tree/master/>`_)
 
 .. note::
 	When reading tutorials from the internet, keep in mind that they might be
