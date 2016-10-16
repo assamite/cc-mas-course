@@ -5,4 +5,4 @@ This repository contains material for the course `Comptational Creativity and Mu
 <https://www.cs.helsinki.fi/courses/582759/2016/s/k/1>`_ held at University of Helsinki
 in fall 2016.
 
-See `documentation <https://assamite.github.io/cc-mas16/>`_.
+See `documentation <https://assamite.github.io/cc-mas-course/>`_.
