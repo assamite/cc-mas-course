@@ -18,13 +18,13 @@ for i in range(len(data)-1):
     pred = data[i]
     succ = data[i+1]
     if pred not in transitions:
-        # Predecessor key is not yet in the dictionary, so we create new
-        # dictionary for it.
+        # Predecessor key is not yet in the outer dictionary, so we create
+        # a new dictionary for it.
         transitions[pred] = {}
 
     if succ not in transitions[pred]:
-        # Successor key is not yet in the dictionary, so we start counting from
-        # one.
+        # Successor key is not yet in the inner dictionary, so we start
+        # counting from one.
         transitions[pred][succ] = 1.0
     else:
         # Otherwise we just add one to the existing value.

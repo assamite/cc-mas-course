@@ -90,5 +90,7 @@ ENV/
 
 .project
 .pydevproject
+.DS_Store
+.settings
 
 week1/alice.txt

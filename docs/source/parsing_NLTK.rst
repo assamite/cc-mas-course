@@ -1,15 +1,20 @@
 Parsing Text with NLTK
-=======================
+======================
 
 `(full code) <https://github.com/assamite/cc-mas16/blob/master/week1/parsing_nltk.py>`_
 
 In this section we will parse a long written text, everyone's favorite tale
-'Alice's Adventures in  Wonderland' by Lewis Carroll, to be used to create the 
+*Alice's Adventures in  Wonderland* by Lewis Carroll, to be used to create the 
 state transitions for Markov chains. In this example, we use
 `NLTK <http://www.nltk.org/>`_ for natural language processing (refer to
 `book <http://www.nltk.org/book/>`_ for clearer instructions on usage).
 However, many of the parsing tasks using NLTK could be adequately achieved with
 sufficiently simple regular expressions.
+
+.. note:: 
+	NLTK should be installed in your environment. It is contained in the
+	``requirements.txt``. To install it separately use ``pip install nltk``
+	while your virtual environment is activated.
 
 Downloading the Data
 --------------------
@@ -78,11 +83,30 @@ Here is the actual tokenization code::
 	    w = nltk.word_tokenize(s)
 	    tokenized_sentences.append(w)
 
+Another often used NLP task is part-of-speech (POS) tagging. We are not going
+to use it for now, but it is as simple as tokenization::
+
+	>>> tokens = nltk.word_tokenize('Follow the "White Rabbit".')
+	>>> nltk.pos_tag(tokens)
+	[('Follow', 'VB'),
+	 ('the', 'DT'),
+	 ('``', '``'),
+	 ('White', 'NNP'),
+	 ('Rabbit', 'NNP'),
+	 ("''", "''"),
+	 ('.', '.')]
+
+.. note::
+	``nltk.pos_tag`` needs a pos-tagger which does not come bundled with basic
+	nltk-version. To download a pos-tagger, type ``nltk.download()`` in iPython
+	and download the Averaged Perceptron Tagger from Models-section. Download
+	tool offers many usable models and corporas.
+
 Sanitation of the Tokenized Sentences
 -------------------------------------
 
 Lastly, we sanitize the tokenized sentences a bit so that the punctuation does
-not clutter the Markov chains. For this purpose, we naively assume, that any
+not clutter the Markov chains. For this purpose, we naively assume that any
 token in the sentences is a proper word, if it contains any Unicode word
 character. We also end all the sentences with a dot, to mark a natural pause
 in the text (one could also add a special token to the beginning). ::
@@ -94,5 +118,6 @@ in the text (one could also add a special token to the beginning). ::
 	    sanitized_sentences.append(sanitized)
 
 Now, the ``sanitized_sentences`` should be ready for the creation of state
-transition probabilities. However, it is left as an exercise.
+transition probabilities. However, it is left as an exercise together with the
+actual generation of texts.
 
