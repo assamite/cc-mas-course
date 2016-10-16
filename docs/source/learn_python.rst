@@ -1,0 +1,81 @@
+Learn Python
+============
+
+In case you have not written a single line of Python before,
+`the internet <http://www.electronicbeats.net/app/uploads/2016/07/internet.jpg>`_
+offers a great assortment of resources to learn Python. Here are some
+links:
+
+	- `Python 3.5 tutorial from the official site <https://docs.python.org/3.5/tutorial/index.html>`_
+	- `Python 3.5 API documentation <https://docs.python.org/3.5/library/index.html>`_
+	- `LearnPython (Python 2) <http://www.learnpython.org/>`_
+	- `Gallery of Notebooks <https://github.com/ipython/ipython/wiki/A-gallery-of-interesting-IPython-Notebooks>`_
+	  (see, e.g. `Scientific Computing with Python <http://nbviewer.jupyter.org/github/jrjohansson/scientific-python-lectures/tree/master/>`_)
+
+.. note::
+	When reading tutorials from the internet, keep in mind that they might be
+	written in Python 2. While most things work the same in Python 3,
+	there are some differences. One quick check is to look at the code, if it 
+	calls ``print`` without parentheses (``print "foo"``), then it is Python 2,
+	in Python 3 the parentheses are required (``print("foo")``). Some of the
+	key differences are explained, e.g. in `a blog post by Sebastian Raschka
+	<http://sebastianraschka.com/Articles/2014_python_2_3_key_diff.html>`_.
+
+Some basic syntax examples (note that Python is
+`a dynamic language <https://en.wikipedia.org/wiki/Dynamic_programming_language>`_,
+which allows mixing of different object types in lists, etc.)::
+
+	>>> l = [] # make an empty list
+
+	>>> l = ['a', 1] # make a list with two elements
+
+	>>> l.append('b') # add an element to list
+
+	>>> print(l)
+	['a', 1, 'b']
+
+	>>> l[0] # returns the first element of the list
+	'a'
+
+	>>> l[-1] # returns the last element of the list
+	['b']
+
+	>>> l[1:] # everything but the first element (slicing)
+	[1, 'b']
+
+	>>> l[:-1] # everything but the last element
+	['a', 1]
+
+	>>> l = l + ['c', 3, 4] # concatenate two lists
+
+	>>> d = {} # Make an empty dictionary
+
+	>>> d['foo'] = 'bar' # assign value 'bar' to key 'foo'
+
+	>>> d[1] = 2 # dictionaries can have any hashable object as a key
+
+	>>> if 1 in d: # see if 1 is in keys
+	>>>	print('Found it!')
+	Found it!
+
+	>>> for key, value in d.items(): # loop over key-value pairs
+	>>>	print(key, value)
+	1 2
+	foo bar
+
+	>>> for i in range(3):
+	>>>	print(i)
+	0
+	1
+	2
+
+	>>> l = [(i, chr(i)) for i in range(97, 123)] # create a list with for loop
+
+	>>> def awesome(you): # function definition
+	>>>	print("You are awesome, {}!".format(you))
+
+	>>> def unfathomable(who='Cthulhu'): # default parameter value for 'who'
+	>>>	print("{} is unfathomable!".format(who))
+
+	>>> unfathomable()
+	Cthulhu is unfathomable!
