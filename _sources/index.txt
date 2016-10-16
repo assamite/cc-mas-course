@@ -30,7 +30,7 @@ code is written with **Python 3.5** in mind. Although many of the snippets work 
 earlier Python versions, we recommend to install Python 3.5 straight away (see
 :doc:`setup`).
 
-.. warning::
+.. centered::
 	The documentation is largely in development. Expect constant changes.
 
 
