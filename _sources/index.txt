@@ -6,32 +6,27 @@
 Computational Creativity and Multi-Agent Systems, fall 2016
 =====================================================================================
 
-.. toctree::
-	:hidden:
-	:includehidden:
-	:maxdepth: 3
-
-	Preliminaries <preliminaries>
-	Four Steps to CC <four_steps>
-	Text Generation with MC	<toy_markov>
-	parsing_NLTK
-	Social Creativity <social_creativity>
-	Building Agent Societies <creamas>
-	Exercises <exercises>
-	References <zz_references>
+.. centered::
+	*The documentation is largely in development. Expect constant changes.*
 
 `(repository with the full code examples) <https://github.com/assamite/cc-mas-course>`_
-
 
 This documentation holds tips and sample code relevant to 
 `the course <https://www.cs.helsinki.fi/courses/582759/2016/s/k/1>`_. All the
 code is written with **Python 3.5** in mind. Although many of the snippets work on
-earlier Python versions, we recommend to install Python 3.5 straight away (see
+earlier Python versions, we recommend installing Python 3.5 straight away (see
 :doc:`setup`).
 
-.. centered::
-	The documentation is largely in development. Expect constant changes.
+.. toctree::
+	:includehidden:
+	:maxdepth: 3
+	:numbered:
 
+	Preliminaries <preliminaries>
+	Course Format <course_format>
+	Linguistic Creativity <linguistic_creativity>
+	Assignments <assignments>
+	References <zz_references>
 
 
 

@@ -26,56 +26,69 @@ Some basic syntax examples (note that Python is
 which allows mixing of different object types in lists, etc.)::
 
 	>>> l = [] # make an empty list
-
+	
 	>>> l = ['a', 1] # make a list with two elements
-
+	
 	>>> l.append('b') # add an element to list
-
+	
 	>>> print(l)
 	['a', 1, 'b']
-
-	>>> l[0] # returns the first element of the list
+	
+	>>> l[0] # returns the first element of the iterable (list)
 	'a'
-
-	>>> l[-1] # returns the last element of the list
+	
+	>>> l[-1] # returns the last element of the iterable (list)
 	['b']
-
+	
 	>>> l[1:] # everything but the first element (slicing)
 	[1, 'b']
-
+	
 	>>> l[:-1] # everything but the last element
 	['a', 1]
-
+	
 	>>> l = l + ['c', 3, 4] # concatenate two lists
-
+	
+	>>> t = ('c', 2) # make a tuple, "an immutable list"
+	
+	>>> t = tuple(l) # return a copy of the list as a tuple
+	
+	>>> l = list(t) # return a copy of the tuple as a list
+	
 	>>> d = {} # Make an empty dictionary
-
+	
 	>>> d['foo'] = 'bar' # assign value 'bar' to key 'foo'
-
+	
 	>>> d[1] = 2 # dictionaries can have any hashable object as a key
-
-	>>> if 1 in d: # see if 1 is in keys
-	>>>	print('Found it!')
+	
+	>>> d[[1, 2, 3]] = 3 # lists are not hashable
+	Traceback (most recent call last):
+	  File "<stdin>", line 1, in <module>
+	TypeError: unhashable type: 'list'
+	
+	>>> d[(1, 2, 3)] = 3 # but tuples are
+	
+	>>> if 1 in d: # test if 1 is in the keys of the dictionary 'd'
+	...	print('Found it!')
 	Found it!
-
+	
 	>>> for key, value in d.items(): # loop over key-value pairs
-	>>>	print(key, value)
+	...	print(key, value)
 	1 2
 	foo bar
-
+	
 	>>> for i in range(3):
-	>>>	print(i)
+	...	print(i)
 	0
 	1
 	2
-
+	
 	>>> l = [(i, chr(i)) for i in range(97, 123)] # create a list with for loop
-
+	
 	>>> def awesome(you): # function definition
-	>>>	print("You are awesome, {}!".format(you))
-
+	...	print("You are awesome, {}!".format(you))
+	
 	>>> def unfathomable(who='Cthulhu'): # default parameter value for 'who'
-	>>>	print("{} is unfathomable!".format(who))
-
+	...	print("{} is unfathomable!".format(who))
+	
 	>>> unfathomable()
 	Cthulhu is unfathomable!

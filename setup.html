@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Setup Development Environment &#8212; CC-MAS 2016 0.1a documentation</title>
+    <title>1.1. Setup Development Environment &#8212; CC-MAS 2016 0.1a documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -27,9 +27,9 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="top" title="CC-MAS 2016 0.1a documentation" href="index.html" />
-    <link rel="up" title="Preliminaries" href="preliminaries.html" />
-    <link rel="next" title="Learn Python" href="learn_python.html" />
-    <link rel="prev" title="Preliminaries" href="preliminaries.html" />
+    <link rel="up" title="1. Preliminaries" href="preliminaries.html" />
+    <link rel="next" title="1.2. Learn Python" href="learn_python.html" />
+    <link rel="prev" title="1. Preliminaries" href="preliminaries.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -46,18 +46,15 @@
           <div class="body" role="main">
             
   <div class="section" id="setup-development-environment">
-<h1>Setup Development Environment<a class="headerlink" href="#setup-development-environment" title="Permalink to this headline">¶</a></h1>
+<h1>1.1. Setup Development Environment<a class="headerlink" href="#setup-development-environment" title="Permalink to this headline">¶</a></h1>
 <p>This page goes through basic setup of the development environment for Python.
 We strongly encourage the use of virtual environments (see below).</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">These instructions are made for Unix (and OSX). Some of the steps will
-not work on Windows. Should you encounter any problems, please try to solve
-them first by yourself as the course staff&#8217;s Windows experiences tend to be
-old.</p>
+<p class="last">These instructions are made for Linux and OSX.</p>
 </div>
 <div class="section" id="installing-python-3-5-x">
-<h2>Installing Python 3.5.x<a class="headerlink" href="#installing-python-3-5-x" title="Permalink to this headline">¶</a></h2>
+<h2>1.1.1. Installing Python 3.5.x<a class="headerlink" href="#installing-python-3-5-x" title="Permalink to this headline">¶</a></h2>
 <p>First, start by installing <a class="reference external" href="https://www.python.org/downloads/release/python-352/">Python 3.5</a>.
 The site offers installers for OSX and Windows. In Linux, follow the standard
 procedure as described in the README:</p>
@@ -74,7 +71,7 @@ use <code class="docutils literal"><span class="pre">./configure</span> <span cl
 </div>
 </div>
 <div class="section" id="creating-a-virtual-environment">
-<h2>Creating a Virtual Environment<a class="headerlink" href="#creating-a-virtual-environment" title="Permalink to this headline">¶</a></h2>
+<h2>1.1.2. Creating a Virtual Environment<a class="headerlink" href="#creating-a-virtual-environment" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="https://docs.python.org/3/library/venv.html">Virtual environments</a> allow
 multiple Python installations with conflicting package version requirements, etc.,
 to co-exist peacefully on the same machine.</p>
@@ -99,20 +96,26 @@ matter what base Python you have installed in your computer.</p>
 </div>
 </div>
 <div class="section" id="installing-the-requirements">
-<h2>Installing the Requirements<a class="headerlink" href="#installing-the-requirements" title="Permalink to this headline">¶</a></h2>
+<h2>1.1.3. Installing the Requirements<a class="headerlink" href="#installing-the-requirements" title="Permalink to this headline">¶</a></h2>
 <p>We have included the packages that are required by the examples and some convenience
 packages in
 <a class="reference external" href="https://github.com/assamite/cc-mas-course/blob/master/requirements.txt">requirements.txt</a>
-in the github repository. Install these packages with <a class="reference external" href="https://pip.pypa.io/en/stable/">pip</a>
+in the github repository. Clone the github repository or download the file, and
+install these packages with <a class="reference external" href="https://pip.pypa.io/en/stable/">pip</a>
 once you have virtual environment active (virtual environment is bundled with
 pip by default so there is no need to manually install it).</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>~$ source path/to/venv/bin/activate
 (venv) ~$ pip install -r requirements.txt
 </pre></div>
 </div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">We may add additional requirements during the course. However, they should
+be clearly noted when needed.</p>
+</div>
 </div>
 <div class="section" id="text-editor">
-<h2>Text Editor<a class="headerlink" href="#text-editor" title="Permalink to this headline">¶</a></h2>
+<h2>1.1.4. Text Editor<a class="headerlink" href="#text-editor" title="Permalink to this headline">¶</a></h2>
 <p>Use your favorite text editor which has Python support. Some examples include:</p>
 <blockquote>
 <div><ul class="simple">
@@ -141,33 +144,30 @@ pip by default so there is no need to manually install it).</p>
 
 <h3>Navigation</h3>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="preliminaries.html">Preliminaries</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Install Python</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#installing-python-3-5-x">Installing Python 3.5.x</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#creating-a-virtual-environment">Creating a Virtual Environment</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#installing-the-requirements">Installing the Requirements</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#text-editor">Text Editor</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="preliminaries.html">1. Preliminaries</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">1.1. Install Python</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#installing-python-3-5-x">1.1.1. Installing Python 3.5.x</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#creating-a-virtual-environment">1.1.2. Creating a Virtual Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#installing-the-requirements">1.1.3. Installing the Requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#text-editor">1.1.4. Text Editor</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="learn_python.html">Learn Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="learn_python.html">1.2. Learn Python</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="four_steps.html">Four Steps to CC</a></li>
-<li class="toctree-l1"><a class="reference internal" href="toy_markov.html">Text Generation with MC</a></li>
-<li class="toctree-l1"><a class="reference internal" href="parsing_NLTK.html">Parsing Text with NLTK</a></li>
-<li class="toctree-l1"><a class="reference internal" href="social_creativity.html">Social Creativity</a></li>
-<li class="toctree-l1"><a class="reference internal" href="creamas.html">Building Agent Societies</a></li>
-<li class="toctree-l1"><a class="reference internal" href="exercises.html">Exercises</a></li>
-<li class="toctree-l1"><a class="reference internal" href="zz_references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="course_format.html">2. Course Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="linguistic_creativity.html">3. Linguistic Creativity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="assignments.html">4. Assignments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zz_references.html">5. References</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-  <li><a href="preliminaries.html">Preliminaries</a><ul>
-      <li>Previous: <a href="preliminaries.html" title="previous chapter">Preliminaries</a></li>
-      <li>Next: <a href="learn_python.html" title="next chapter">Learn Python</a></li>
+  <li><a href="preliminaries.html">1. Preliminaries</a><ul>
+      <li>Previous: <a href="preliminaries.html" title="previous chapter">1. Preliminaries</a></li>
+      <li>Next: <a href="learn_python.html" title="next chapter">1.2. Learn Python</a></li>
   </ul></li>
   </ul></li>
 </ul>

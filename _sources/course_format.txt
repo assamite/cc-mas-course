@@ -1,0 +1,101 @@
+Course Format
+=============
+
+The course in given in two parts. First part consists of lectures, discussion
+secitons and individual assignments. Second part is a group project. Course will
+also have a take home exam which students take towards the end of the course.
+
+First Part - Weekly format
+--------------------------
+
+First part lasts the first 4-5 weeks of the course. In this part we will have
+three sessions per week (Monday, Wednesday and Friday) and two deadline times
+per week (Tue 23.55 and Sun 23.55). Every week, we will introduce a new topic.
+On Mondays, we will introduce a new topic in a lecture like sessions. We
+continue to work on the topic on Wednesdays, when students have read an article
+about the topic (see below). Sessions on Wednesdays are more relaxed and
+consist of discussion, group work, etc.. Friday's sessions are meant to be
+workshop-like sessions where students can work on their weekly exercises.
+
+Each week we will have two kinds of assingments: A short essay from an article,
+and a set of other assignments. Although the articles are also on the course
+website, all the assignments are published in this documentation. Assignments
+are returned through Moodle (see :doc:assignments).
+
+Each week, Students read a short original article and write **a short** essay of
+the article summarizing its main points. The hard limit for the essay length is
+250 words, however, 150-200 words should be sufficient. Check your word counts!
+Article deadlines are each week on Tuesdays 23.55 (excluding the first week when
+the deadline is on Thursday 23.55), and the article for the next week is
+revealed latest on the previous week's Wednesday.
+
+Other assignments consist of programming, mathematical and other practical work.
+Their deadline is on Sunday 23.55 every week, and they are revealed latest on
+Monday of the same week.
+
+Following are the coarse explanations for the weekly schedule:
+
+	=========		======================================	============================
+	Session			Agenda									Format
+	=========		======================================	============================
+	Monday 			Introduce a new topic.					lecture
+	Wednesday		Deepen the understanding of the topic.	discussion, group work, etc.
+	Friday			Work on the exercises for the topic.	workshop
+	=========		======================================	============================
+
+|
+
+	=========		======================
+	Deadline		Agenda
+	=========		======================
+	Tue 23.55		Article essay due.
+	Sun 23.55		Other exercises due.
+	=========		======================
+	
+
+Second Part - Group Projects
+----------------------------
+
+.. note::
+	Exact details of the group project will be revealed later. However, you
+	can assume that a group is 2-4 persons, and a single person is not a group.
+
+The second part consists of group projects and covers the rest of the course.
+In the second part, there is a weekly meeting where the groups present their
+work so far and on the last week there is *a demo session* which is compulsory
+for all the studens. The demo session date is fixed later, but a good
+alternative is Friday 16.12. 14-16.
+
+Take Home Exam
+--------------
+
+.. note::
+	Details to be revealed towards the end of the course.
+
+
+Grading
+-------
+
+Course is graded by returning deliverables from both parts and doing a take home
+exam towards the end of the course. On first part, students get course points
+from returning exercises, writing essays and being in the discussion sessions
+(Wednesdays). On the second part, students get course points from the returned
+group work. Both of these parts are weighted so that full points will give you
+20% of the maximum course points. The take home exam will give the rest of the 
+points. However, as the exam will have also questions about the group project,
+the actual weight of the project will be higher.
+
+.. warning::
+	You will need at least half of the points from each of the deliverables to
+	pass the course!
+
+Deliverable cheat sheet:
+
+	=============================	======
+	Deliverable(s)					Weight
+	=============================	======
+	Part 1 - essays and exercises	20%
+	Part 2 - Group project			20%
+	Take home exam					60%
+	=============================	======
+

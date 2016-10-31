@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Parsing Text with NLTK &#8212; CC-MAS 2016 0.1a documentation</title>
+    <title>3.2. Parsing Text with NLTK &#8212; CC-MAS 2016 0.1a documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -27,8 +27,9 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="top" title="CC-MAS 2016 0.1a documentation" href="index.html" />
-    <link rel="next" title="Social Creativity" href="social_creativity.html" />
-    <link rel="prev" title="Text Generation with First-Order Markov Chain" href="toy_markov.html" />
+    <link rel="up" title="3. 2. Linguistic Creativity" href="linguistic_creativity.html" />
+    <link rel="next" title="4. Assignments" href="assignments.html" />
+    <link rel="prev" title="3.1. Text Generation with First-Order Markov Chain" href="toy_markov.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -45,7 +46,7 @@
           <div class="body" role="main">
             
   <div class="section" id="parsing-text-with-nltk">
-<h1>Parsing Text with NLTK<a class="headerlink" href="#parsing-text-with-nltk" title="Permalink to this headline">¶</a></h1>
+<h1>3.2. Parsing Text with NLTK<a class="headerlink" href="#parsing-text-with-nltk" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference external" href="https://github.com/assamite/cc-mas-course/blob/master/week1/parsing_nltk.py">(full code)</a></p>
 <p>In this section we will parse a long written text, everyone&#8217;s favorite tale
 <em>Alice&#8217;s Adventures in  Wonderland</em> by Lewis Carroll, to be used to create the
@@ -61,7 +62,7 @@ sufficiently simple regular expressions.</p>
 while your virtual environment is activated.</p>
 </div>
 <div class="section" id="downloading-the-data">
-<h2>Downloading the Data<a class="headerlink" href="#downloading-the-data" title="Permalink to this headline">¶</a></h2>
+<h2>3.2.1. Downloading the Data<a class="headerlink" href="#downloading-the-data" title="Permalink to this headline">¶</a></h2>
 <p>First, we need to get the data. Fortunately, our book of choice is served on
 <a class="reference external" href="https://www.gutenberg.org/">Project Gutenberg</a>, which offers thousands
 of free books. Natural choice is to download the book inside our script.
@@ -90,7 +91,7 @@ file.</p>
 </div>
 </div>
 <div class="section" id="remove-the-excessive-parts">
-<h2>Remove the Excessive Parts<a class="headerlink" href="#remove-the-excessive-parts" title="Permalink to this headline">¶</a></h2>
+<h2>3.2.2. Remove the Excessive Parts<a class="headerlink" href="#remove-the-excessive-parts" title="Permalink to this headline">¶</a></h2>
 <p>Now, we have the raw version of the book. Next, we are going to remove the
 &#8220;bloat&#8221; that Project Gutenberg adds to the beginning and the end of the book.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># For reasons, lets remove the start and end bloat from the text</span>
@@ -106,7 +107,7 @@ file.</p>
 </div>
 </div>
 <div class="section" id="tokenize-the-text">
-<h2>Tokenize the text<a class="headerlink" href="#tokenize-the-text" title="Permalink to this headline">¶</a></h2>
+<h2>3.2.3. Tokenize the text<a class="headerlink" href="#tokenize-the-text" title="Permalink to this headline">¶</a></h2>
 <p>Our text is now ready to be tokenized with NLTK. First, we are going to split it
 into sentences, which is easy with the tools NLTK offers:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sentences</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">sent_tokenize</span><span class="p">(</span><span class="n">alice</span><span class="p">)</span>
@@ -148,7 +149,7 @@ the download tool offers many usable models and corporas.</p>
 </div>
 </div>
 <div class="section" id="sanitation-of-the-tokenized-sentences">
-<h2>Sanitation of the Tokenized Sentences<a class="headerlink" href="#sanitation-of-the-tokenized-sentences" title="Permalink to this headline">¶</a></h2>
+<h2>3.2.4. Sanitation of the Tokenized Sentences<a class="headerlink" href="#sanitation-of-the-tokenized-sentences" title="Permalink to this headline">¶</a></h2>
 <p>Lastly, we sanitize the tokenized sentences a bit so that the punctuation does
 not clutter the Markov chains. For this purpose, we naively assume that any
 token in the sentences is a proper word, if it contains any Unicode word
@@ -184,28 +185,31 @@ actual generation of texts.</p>
 
 <h3>Navigation</h3>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="preliminaries.html">Preliminaries</a></li>
-<li class="toctree-l1"><a class="reference internal" href="four_steps.html">Four Steps to CC</a></li>
-<li class="toctree-l1"><a class="reference internal" href="toy_markov.html">Text Generation with MC</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Parsing Text with NLTK</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#downloading-the-data">Downloading the Data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#remove-the-excessive-parts">Remove the Excessive Parts</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#tokenize-the-text">Tokenize the text</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#sanitation-of-the-tokenized-sentences">Sanitation of the Tokenized Sentences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="preliminaries.html">1. Preliminaries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="course_format.html">2. Course Format</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="linguistic_creativity.html">3. Linguistic Creativity</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="toy_markov.html">3.1. Text Generation with MC</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">3.2. Parsing Text with NLTK</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#downloading-the-data">3.2.1. Downloading the Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#remove-the-excessive-parts">3.2.2. Remove the Excessive Parts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tokenize-the-text">3.2.3. Tokenize the text</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sanitation-of-the-tokenized-sentences">3.2.4. Sanitation of the Tokenized Sentences</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="social_creativity.html">Social Creativity</a></li>
-<li class="toctree-l1"><a class="reference internal" href="creamas.html">Building Agent Societies</a></li>
-<li class="toctree-l1"><a class="reference internal" href="exercises.html">Exercises</a></li>
-<li class="toctree-l1"><a class="reference internal" href="zz_references.html">References</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="assignments.html">4. Assignments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zz_references.html">5. References</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="toy_markov.html" title="previous chapter">Text Generation with First-Order Markov Chain</a></li>
-      <li>Next: <a href="social_creativity.html" title="next chapter">Social Creativity</a></li>
+  <li><a href="linguistic_creativity.html">3. 2. Linguistic Creativity</a><ul>
+      <li>Previous: <a href="toy_markov.html" title="previous chapter">3.1. Text Generation with First-Order Markov Chain</a></li>
+      <li>Next: <a href="assignments.html" title="next chapter">4. Assignments</a></li>
+  </ul></li>
   </ul></li>
 </ul>
 </div>

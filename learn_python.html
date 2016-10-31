@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Learn Python &#8212; CC-MAS 2016 0.1a documentation</title>
+    <title>1.2. Learn Python &#8212; CC-MAS 2016 0.1a documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -27,9 +27,9 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="top" title="CC-MAS 2016 0.1a documentation" href="index.html" />
-    <link rel="up" title="Preliminaries" href="preliminaries.html" />
-    <link rel="next" title="Four Steps to Computational Creativity" href="four_steps.html" />
-    <link rel="prev" title="Setup Development Environment" href="setup.html" />
+    <link rel="up" title="1. Preliminaries" href="preliminaries.html" />
+    <link rel="next" title="2. Course Format" href="course_format.html" />
+    <link rel="prev" title="1.1. Setup Development Environment" href="setup.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -46,7 +46,7 @@
           <div class="body" role="main">
             
   <div class="section" id="learn-python">
-<h1>Learn Python<a class="headerlink" href="#learn-python" title="Permalink to this headline">¶</a></h1>
+<h1>1.2. Learn Python<a class="headerlink" href="#learn-python" title="Permalink to this headline">¶</a></h1>
 <p>In case you have not written a single line of Python before,
 <a class="reference external" href="http://www.electronicbeats.net/app/uploads/2016/07/internet.jpg">the internet</a>
 offers a great assortment of resources to learn Python. Here are some
@@ -81,10 +81,10 @@ which allows mixing of different object types in lists, etc.):</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
 <span class="go">[&#39;a&#39;, 1, &#39;b&#39;]</span>
 
-<span class="gp">&gt;&gt;&gt; </span><span class="n">l</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># returns the first element of the list</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">l</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># returns the first element of the iterable (list)</span>
 <span class="go">&#39;a&#39;</span>
 
-<span class="gp">&gt;&gt;&gt; </span><span class="n">l</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># returns the last element of the list</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">l</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># returns the last element of the iterable (list)</span>
 <span class="go">[&#39;b&#39;]</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="n">l</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="c1"># everything but the first element (slicing)</span>
@@ -95,23 +95,36 @@ which allows mixing of different object types in lists, etc.):</p>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="n">l</span> <span class="o">=</span> <span class="n">l</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span> <span class="c1"># concatenate two lists</span>
 
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="c1"># make a tuple, &quot;an immutable list&quot;</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">l</span><span class="p">)</span> <span class="c1"># return a copy of the list as a tuple</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">l</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="c1"># return a copy of the tuple as a list</span>
+
 <span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="p">{}</span> <span class="c1"># Make an empty dictionary</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;foo&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;bar&#39;</span> <span class="c1"># assign value &#39;bar&#39; to key &#39;foo&#39;</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span> <span class="c1"># dictionaries can have any hashable object as a key</span>
 
-<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="mi">1</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span> <span class="c1"># see if 1 is in keys</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Found it!&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">3</span> <span class="c1"># lists are not hashable</span>
+<span class="gt">Traceback (most recent call last):</span>
+  File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
+<span class="gr">TypeError</span>: <span class="n">unhashable type: &#39;list&#39;</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">3</span> <span class="c1"># but tuples are</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="mi">1</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span> <span class="c1"># test if 1 is in the keys of the dictionary &#39;d&#39;</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Found it!&#39;</span><span class="p">)</span>
 <span class="go">Found it!</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">():</span> <span class="c1"># loop over key-value pairs</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="nb">print</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 <span class="go">1 2</span>
 <span class="go">foo bar</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
 <span class="go">0</span>
 <span class="go">1</span>
 <span class="go">2</span>
@@ -119,10 +132,10 @@ which allows mixing of different object types in lists, etc.):</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">l</span> <span class="o">=</span> <span class="p">[(</span><span class="n">i</span><span class="p">,</span> <span class="nb">chr</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">97</span><span class="p">,</span> <span class="mi">123</span><span class="p">)]</span> <span class="c1"># create a list with for loop</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">awesome</span><span class="p">(</span><span class="n">you</span><span class="p">):</span> <span class="c1"># function definition</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;You are awesome, </span><span class="si">{}</span><span class="s2">!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">you</span><span class="p">))</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;You are awesome, </span><span class="si">{}</span><span class="s2">!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">you</span><span class="p">))</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">unfathomable</span><span class="p">(</span><span class="n">who</span><span class="o">=</span><span class="s1">&#39;Cthulhu&#39;</span><span class="p">):</span> <span class="c1"># default parameter value for &#39;who&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> is unfathomable!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">who</span><span class="p">))</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> is unfathomable!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">who</span><span class="p">))</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="n">unfathomable</span><span class="p">()</span>
 <span class="go">Cthulhu is unfathomable!</span>
@@ -147,27 +160,24 @@ which allows mixing of different object types in lists, etc.):</p>
 
 <h3>Navigation</h3>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="preliminaries.html">Preliminaries</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="setup.html">Install Python</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Learn Python</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="preliminaries.html">1. Preliminaries</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="setup.html">1.1. Install Python</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">1.2. Learn Python</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="four_steps.html">Four Steps to CC</a></li>
-<li class="toctree-l1"><a class="reference internal" href="toy_markov.html">Text Generation with MC</a></li>
-<li class="toctree-l1"><a class="reference internal" href="parsing_NLTK.html">Parsing Text with NLTK</a></li>
-<li class="toctree-l1"><a class="reference internal" href="social_creativity.html">Social Creativity</a></li>
-<li class="toctree-l1"><a class="reference internal" href="creamas.html">Building Agent Societies</a></li>
-<li class="toctree-l1"><a class="reference internal" href="exercises.html">Exercises</a></li>
-<li class="toctree-l1"><a class="reference internal" href="zz_references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="course_format.html">2. Course Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="linguistic_creativity.html">3. Linguistic Creativity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="assignments.html">4. Assignments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zz_references.html">5. References</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-  <li><a href="preliminaries.html">Preliminaries</a><ul>
-      <li>Previous: <a href="setup.html" title="previous chapter">Setup Development Environment</a></li>
-      <li>Next: <a href="four_steps.html" title="next chapter">Four Steps to Computational Creativity</a></li>
+  <li><a href="preliminaries.html">1. Preliminaries</a><ul>
+      <li>Previous: <a href="setup.html" title="previous chapter">1.1. Setup Development Environment</a></li>
+      <li>Next: <a href="course_format.html" title="next chapter">2. Course Format</a></li>
   </ul></li>
   </ul></li>
 </ul>
