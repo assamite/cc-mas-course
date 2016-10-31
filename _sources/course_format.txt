@@ -21,7 +21,7 @@ workshop-like sessions where students can work on their weekly exercises
 (see below). None of the sessions are compulsory, however, you will get course
 points from attending Wednesday's sessions.
 
-Each week we will have two kinds of assingments: A short essay from an article,
+Each week we will have two kinds of assignments: A short essay from an article,
 and a set of other assignments. Although the articles are also on the course
 website, all the assignments are published in this documentation. Assignments
 are returned through Moodle (see :doc:`assignments`).
@@ -35,27 +35,24 @@ revealed latest on the previous week's Wednesday.
 
 Other assignments consist of programming, mathematical and other practical work.
 Their deadline is on Sunday 23.55 every week, and they are revealed latest on
-Monday of the same week.
+Monday of the same week. These exercises should be returned as a compressed
+file (zip, tar.gz) that extracts to a folder containing the exercise code
+and other documentation. **The folder has to be named with your UH username!**
+If there is any possibility for misinterpretation, add a README file explaining
+the file(s) associated with each exercise.
 
-Following are the coarse explanations for the weekly schedule:
+Following, is the coarse explanation for the weekly schedule:
 
-	=========		======================================	============================
-	Session			Agenda									Format
-	=========		======================================	============================
-	Monday 			Introduce a new topic.					lecture
-	Wednesday		Deepen the understanding of the topic.	discussion, group work, etc.
-	Friday			Work on the exercises for the topic.	workshop
-	=========		======================================	============================
+	=============	======================================	============================
+	Event			Agenda									Format
+	=============	======================================	============================
+	Mon: Session	Introduce a new topic.					lecture
+	Tue 23.55: DL	Article essay due.						**pdf**, return in Moodle
+	Wed: Session	Deepen the understanding of the topic.	discussion about the article, group work, etc.
+	Fri: Workshop	Work on the exercises for the topic.	workshop
+	Sun 23.55: DL	Other exercises due.					**zip, tar.gz**, return in Moodle
+	=============	======================================	============================
 
-|
-
-	=========		======================
-	Deadline		Agenda
-	=========		======================
-	Tue 23.55		Article essay due.
-	Sun 23.55		Other exercises due.
-	=========		======================
-	
 
 Second Part - Group Projects
 ----------------------------
@@ -67,7 +64,7 @@ Second Part - Group Projects
 The second part consists of group projects and covers the rest of the course.
 In the second part, there is a weekly meeting where the groups present their
 work so far and on the last week there is *a demo session* which is compulsory
-for all the studens. The demo session date is fixed later, but a good
+for all the students. The demo session date is fixed later, but a good
 alternative is Friday 16.12. 14-16.
 
 Take Home Exam
@@ -84,7 +81,7 @@ The course is graded based on deliverables from both parts and doing a take home
 exam towards the end of the course. On the first part, students get course points
 from returned exercises, essays and participation at the discussion sessions
 (Wednesdays). On the second part, students get course points from the returned
-group work. The first and second part are weighted so that full points will give you
+group work. The first and second part are weighted so that the full points will give
 30% of the maximum course points from each. The take home exam will give the rest of the 
 points (40%). However, as the exam will have also questions about the group project,
 the actual weight of the project will be higher.
