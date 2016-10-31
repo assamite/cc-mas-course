@@ -45,7 +45,7 @@ class ToyAgent(CreativeAgent):
         self.words = self.frequent_words(filename, enconding=encoding, n=n)
         c = 'abcdefghijklmnopqrstuvwxyz'
         self.chars = c
-        self.wlen_limits = [2, 11]:
+        self.wlen_limits = [2, 11]
 
     def __parse_words(self, filename, encoding):
         # Filter function to define which words are accepted.
@@ -118,7 +118,7 @@ class ToyAgent(CreativeAgent):
 
     async def act(self):
         artifact = self.invent_word()
-        self.
+        pass
 
 
 class ToyEnvironment(Environment):
