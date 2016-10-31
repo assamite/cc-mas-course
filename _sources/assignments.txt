@@ -30,11 +30,11 @@ Essays
 ------
 
 Each week there is an article to be read, and the students write a short essay
-(**max** 200 words) summarizing its main points. The deadlines to the essays
-are on Tuesday 23.55.
+(**max** 250 words) summarizing its main points. The deadlines to the essays
+are on Tuesdays at 23.55.
 
 .. note::
-	Exception: First week's essay deadline is on Thursday 3.11. 23.55!
+	Exception: First week's essay deadline is on Thursday 3.11. at 23.55!
 
 **Essay articles:**
 
@@ -47,12 +47,10 @@ are on Tuesday 23.55.
 	#. To be announced (due Tue 22.11. 23.55)
 	#. To be announced (due Tue 29.11. 23.55)
 
-
-
 Exercises
 ---------
 
-Weekly programming and theoretical exercise deadlines are on Sunday 23.55
+Weekly programming and theoretical exercise deadlines are on Sundays at 23.55
 every week.
 
 Week 1 - Markov Chains, Parsing
