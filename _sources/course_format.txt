@@ -20,7 +20,7 @@ workshop-like sessions where students can work on their weekly exercises.
 Each week we will have two kinds of assingments: A short essay from an article,
 and a set of other assignments. Although the articles are also on the course
 website, all the assignments are published in this documentation. Assignments
-are returned through Moodle (see :doc:assignments).
+are returned through Moodle (see :doc:`assignments`).
 
 Each week, Students read a short original article and write **a short** essay of
 the article summarizing its main points. The hard limit for the essay length is
