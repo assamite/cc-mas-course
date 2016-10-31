@@ -21,7 +21,7 @@ to be added elsewhere.
 	   include:
 
 		- Basic syntax: loops, lists, dictionaries, ``def``, ``class``,
-		``import``, etc.
+		  ``import``, etc.
 		- What does ``__init__``-function do for the classes? (see, e.g.
 		  `Data Model <https://docs.python.org/3.5/reference/datamodel.html#special-method-names>`_)
 		- How to run Python programs from the command line?
