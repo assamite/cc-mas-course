@@ -1,5 +1,7 @@
 Social Creativity
 =================
 
-Short explanation of social creativity to be added.
-Probable references: :cite:`csiks88` :cite:`saunders15`
+.. toctree::
+
+	Introduction <intro_social_creativity>
+	Building Agent Societies <creamas>

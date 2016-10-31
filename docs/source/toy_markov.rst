@@ -1,6 +1,8 @@
 Text Generation with First-Order Markov Chain
 ===========================================================
 
+`(full code) <https://github.com/assamite/cc-mas-course/blob/master/week1/toy_markov.py>`_
+
 Markov chain (MC) is a stochastic process that satisfies the Markov property
 (in some terms *memorylessness*). The Markov property means, that one can give
 as good predictions about the system's future given the present state as one
@@ -20,8 +22,6 @@ typical case they are computed from a given data.
 In the rest of this section we will show how a first-order Markov chain can be used as a
 generative model. We start by creating the state transition probabilities for
 an artificial dataset, and then generate text using these probabilities.
-
-`(full code) <https://github.com/assamite/cc-mas-course/blob/master/week1/toy_markov.py>`_
 
 Generate Data
 -------------
@@ -73,11 +73,16 @@ and keep count of every predecessor-successor pair. ::
 	        transitions[pred][succ] += 1.0
 
 Now we have information about how many times each state has directly been
-succeeded by other states. (Right now, we do not care if our state transitions
-are not complete in the sense that zero counts are not marked in the data
-structure, in many cases it is be justified to add a small transition
-probability between all states that have zero transitions.) Next, we will sum
-up every state's total number of successors. ::
+succeeded by other states.
+
+.. note::
+	Right now, we do not care if our state transitions are not complete in the
+	sense that zero counts are not marked in the data structure.
+	Under certain assumptions of the underlying process that has generated the
+	data, it is justified to add a small transition probability between all
+	states that have zero transitions.
+
+Next, we will sum up every state's total number of successors. ::
 
 	totals = {}
 	for pred, succ_counts in transitions.items():

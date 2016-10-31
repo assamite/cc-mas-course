@@ -99,8 +99,8 @@ to use it for now, but it is as simple as tokenization::
 .. note::
 	``nltk.pos_tag`` needs a pos-tagger which does not come bundled with basic
 	nltk-version. To download a pos-tagger, type ``nltk.download()`` in iPython
-	and download the Averaged Perceptron Tagger from Models-section. Download
-	tool offers many usable models and corporas.
+	and download the Averaged Perceptron Tagger from Models-section. In general,
+	the download tool offers many usable models and corporas.
 
 Sanitation of the Tokenized Sentences
 -------------------------------------

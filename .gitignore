@@ -94,3 +94,5 @@ ENV/
 .settings
 
 week1/alice.txt
+week1/gutenberg/
+week2/parsed_BNC.pkl

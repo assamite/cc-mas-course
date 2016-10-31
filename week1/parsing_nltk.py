@@ -24,10 +24,15 @@ else:
     with open(alice_file, 'r', encoding='utf8') as f:
         alice_raw = f.read()
 
-# For reasons, lets remove the start and end bloat from the text
-start = "I--DOWN THE RABBIT-HOLE"
+# Remove the start and end bloat from Project Gutenberg (this is not exact, but
+# easy).
+pattern = r'\*\*\* START OF THIS PROJECT GUTENBERG EBOOK .+ \*\*\*'
 end = "End of the Project Gutenberg"
-start_index = alice_raw.find(start)
+start_match = re.search(pattern, alice_raw)
+if start_match:
+    start_index = start_match.span()[1] + 1
+else:
+    start_index = 0
 end_index = alice_raw.rfind(end)
 alice = alice_raw[start_index:end_index]
 

@@ -5,10 +5,7 @@ This page goes through basic setup of the development environment for Python.
 We strongly encourage the use of virtual environments (see below).
 
 .. note::
-	These instructions are made for Unix (and OSX). Some of the steps will
-	not work on Windows. Should you encounter any problems, please try to solve
-	them first by yourself as the course staff's Windows experiences tend to be
-	old.
+	These instructions are made for Linux and OSX.
 
 Installing Python 3.5.x
 -----------------------
@@ -33,7 +30,7 @@ procedure as described in the README:
 Creating a Virtual Environment
 ------------------------------
 
-`Virtual environments https://docs.python.org/3/library/venv.html>`_ allow
+`Virtual environments <https://docs.python.org/3/library/venv.html>`_ allow
 multiple Python installations with conflicting package version requirements, etc.,
 to co-exist peacefully on the same machine.
 
@@ -64,17 +61,22 @@ Installing the Requirements
 We have included the packages that are required by the examples and some convenience
 packages in
 `requirements.txt <https://github.com/assamite/cc-mas-course/blob/master/requirements.txt>`_
-in the github repository. Install these packages with `pip <https://pip.pypa.io/en/stable/>`_ 
+in the github repository. Clone the github repository or download the file, and
+install these packages with `pip <https://pip.pypa.io/en/stable/>`_
 once you have virtual environment active (virtual environment is bundled with
 pip by default so there is no need to manually install it). ::
 
 	~$ source path/to/venv/bin/activate
 	(venv) ~$ pip install -r requirements.txt
 
+.. note::
+	We may add additional requirements during the course. However, they should
+	be clearly noted when needed.
+
 Text Editor
 -----------
 
-Use your favorite text editor which has Python support. Some examples include::
+Use your favorite text editor which has Python support. Some examples include:
 
 	- `PyCharm <https://www.jetbrains.com/pycharm/>`_
 	- `Sublime Text <https://www.sublimetext.com/>`_

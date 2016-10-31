@@ -1,10 +1,15 @@
-Exercises
-=========
+Assignments
+===========
 
-Weekly programming and other practical exercises for the course.
+Assignments for the first part of the course. The group project instructions
+to be added elsewhere.
 
-Preliminaries
--------------
+.. warning:: 
+	All assignments are returned through
+	`Moodle <https://moodle.helsinki.fi/course/view.php?id=22439>`_
+	(course key: ccmas2016). Do **not** send them by email!
+
+**Preliminaries:**
 
 	#. Set the development environment (see :doc:`setup`)
 
@@ -12,16 +17,54 @@ Preliminaries
 		- Create a virtual environment
 		- Install ``requirements.txt``
 
-	#. Get used to Python (see :doc:`learn_python`)
+	#. Get used to Python (see :doc:`learn_python`). Things to consider
+	   include:
 
-		- Learn basic syntax. Things to consider include: loops, lists, 
-		  dictionaries, ``def``, ``class``, ``import``, etc.
+		- Basic syntax: loops, lists, dictionaries, ``def``, ``class``,
+		  ``import``, etc.
+		- What does ``__init__``-function do for the classes? (see, e.g.
+		  `Data Model <https://docs.python.org/3.5/reference/datamodel.html#special-method-names>`_)
+		- How to run Python programs from the command line?
+
+Essays
+------
+
+Each week there is an article to be read, and the students write a short essay
+(**max** 250 words) summarizing its main points. The deadlines to the essays
+are on Tuesdays at 23.55.
+
+.. note::
+	Exception: First week's essay deadline is on Thursday 3.11. at 23.55!
+
+**Essay articles:**
+
+	#. `Dan Ventura - Mere generation: Essential barometer or dated concept?
+	   <http://www.computationalcreativity.net/iccc2016/wp-content/uploads/2016/01/Mere-Generation.pdf>`_
+	   (due Thu 3.11. 23.55)
+
+	#. To be announced (due Tue 8.11. 23.55)
+	#. To be announced (due Tue 15.11. 23.55)
+	#. To be announced (due Tue 22.11. 23.55)
+	#. To be announced (due Tue 29.11. 23.55)
+
+Exercises
+---------
+
+Weekly programming and theoretical exercise deadlines are on Sundays at 23.55
+every week.
 
 Week 1 - Markov Chains, Parsing
--------------------------------
+...............................
 
-	#. Familiarize yourself with Markov chains, and how they can be created
-	   from the data. (see :doc:`toy_markov`)
+	#. Familiarize yourself with `Markov chains
+	   <https://en.wikipedia.org/wiki/Markov_chain>`_, and how they can be
+	   created from the data (see :doc:`toy_markov`). Given a string
+	   ``babacccabac``:
+
+		a. What are the states for the first-order Markov chain?
+		b. What are the states for the second-order Markov chain?
+		c. Compute the state transition probabilities for the first-order
+		   Markov chain.
 
 	#. Create first-order Markov chain from the book *Alice's Adventures in
 	   Wonderland* by Lewis Carroll (see :doc:`parsing_NLTK`).
@@ -59,7 +102,7 @@ Week 1 - Markov Chains, Parsing
 
 
 Week 2 - Markov Chains
-----------------------
+......................
 
 	#. Alter your function ``markov_chain`` from the first week to accept an optional
 	   parameter ``order`` which specifies the order of the Markov chain to be
