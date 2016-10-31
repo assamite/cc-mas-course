@@ -59,7 +59,7 @@ Second Part - Group Projects
 
 .. note::
 	Exact details of the group project will be revealed later. However, you
-	can assume that a group is 2-4 persons, and a single person is not a group.
+	can assume that a group is 3-4 persons, and a single person is not a group.
 
 The second part consists of group projects and covers the rest of the course.
 In the second part, there is a weekly meeting where the groups present their

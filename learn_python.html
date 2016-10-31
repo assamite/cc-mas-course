@@ -135,10 +135,10 @@ which allows mixing of different object types in lists, etc.):</p>
 <span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;You are awesome, </span><span class="si">{}</span><span class="s2">!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">you</span><span class="p">))</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">unfathomable</span><span class="p">(</span><span class="n">who</span><span class="o">=</span><span class="s1">&#39;Cthulhu&#39;</span><span class="p">):</span> <span class="c1"># default parameter value for &#39;who&#39;</span>
-<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> is unfathomable!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">who</span><span class="p">))</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> is unfathomable!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">who</span><span class="p">)</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="n">unfathomable</span><span class="p">()</span>
-<span class="go">Cthulhu is unfathomable!</span>
+<span class="go">&#39;Cthulhu is unfathomable!&#39;</span>
 </pre></div>
 </div>
 </div>
