@@ -18,7 +18,7 @@ to be added elsewhere.
 		- Install ``requirements.txt``
 
 	#. Get used to Python (see :doc:`learn_python`). Things to consider
-	   include::
+	   include:
 
 		- Basic syntax: loops, lists, dictionaries, ``def``, ``class``,
 		``import``, etc.
