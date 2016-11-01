@@ -105,13 +105,23 @@ are on Tuesdays at 23.55.</p>
 <h2>4.2. Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
 <p>Weekly programming and theoretical exercise deadlines are on Sundays at 23.55
 every week.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Document your code! <a class="reference external" href="http://www.sphinx-doc.org">Sphinx</a> is a good option
+for documentation in Python projects. <a class="reference external" href="https://pythonhosted.org/an_example_pypi_project/sphinx.html">A short introduction to Sphinx</a>.</p>
+<p class="last">This documentation has been created using Sphinx, so you may look at the
+repository&#8217;s <code class="docutils literal"><span class="pre">docs/source</span></code>-folder for some tips also. However, you do not
+have to build the documentation when returning the exercises. Making a
+short docstring for main functions and classes (and modules) is enough.</p>
+</div>
 <div class="section" id="week-1-markov-chains-parsing">
 <h3>4.2.1. Week 1 - Markov Chains, Parsing<a class="headerlink" href="#week-1-markov-chains-parsing" title="Permalink to this headline">¶</a></h3>
 <blockquote>
 <div><ol class="arabic">
 <li><p class="first">Familiarize yourself with <a class="reference external" href="https://en.wikipedia.org/wiki/Markov_chain">Markov chains</a>, and how they can be
-created from the data (see <a class="reference internal" href="toy_markov.html"><span class="doc">Text Generation with First-Order Markov Chain</span></a>). Given a string
-<code class="docutils literal"><span class="pre">babacccabac</span></code>:</p>
+created from the data. See <a class="reference internal" href="toy_markov.html"><span class="doc">Text Generation with First-Order Markov Chain</span></a> for an example of how to
+create Markov chain from a set of toy data.</p>
+<p>Given a string <code class="docutils literal"><span class="pre">babacccabac</span></code>:</p>
 <blockquote>
 <div><ol class="loweralpha simple">
 <li>What are the states for the first-order Markov chain?</li>
@@ -122,9 +132,11 @@ Markov chain.</li>
 </div></blockquote>
 </li>
 <li><p class="first">Create first-order Markov chain from the book <em>Alice&#8217;s Adventures in
-Wonderland</em> by Lewis Carroll (see <a class="reference internal" href="parsing_NLTK.html"><span class="doc">Parsing Text with NLTK</span></a>).
-The transitions should be counted from the splitted sentences, i.e. the
-last token of each sentence is not succeeded by any state.</p>
+Wonderland</em> by Lewis Carroll. See <a class="reference internal" href="parsing_NLTK.html"><span class="doc">Parsing Text with NLTK</span></a> for the text
+parsing instructions. The transitions should be counted from the
+<code class="docutils literal"><span class="pre">sanitized_sentences</span></code> data structure by looping over its list of
+tokenized sentences (which are lists also), i.e. the last token of each
+sentence is not succeeded by any state.</p>
 <blockquote>
 <div><ol class="arabic simple">
 <li>What are the overall 5 most probable state transitions?</li>
@@ -132,13 +144,17 @@ last token of each sentence is not succeeded by any state.</p>
 </ol>
 </div></blockquote>
 </li>
-<li><p class="first">Create a function <code class="docutils literal"><span class="pre">markov_chain(raw_text)</span></code>, which splits the raw text
-into sentences, the sentences into tokens, and returns the
-state transition probabilities.</p>
+<li><p class="first">Create a function <code class="docutils literal"><span class="pre">markov_chain(raw_text)</span></code>, which takes a piece of raw
+text (<code class="docutils literal"><span class="pre">str</span></code>) and returns the state transition probabilities. The
+function first splits the raw text into sentences, then each sentence
+into tokens and then computes the state transition probabilities from
+the tokenized sentences.</p>
 </li>
 <li><p class="first">Create a function <code class="docutils literal"><span class="pre">sanitize(token_list)</span></code>, which takes as an argument
 a list of text tokens and sanitizes the list by removing inappropriate
-tokens.</p>
+tokens. Try to use different sanitization method than in the example, and
+make it more &#8220;intelligent&#8221;. Justify your choices and state them clearly
+in the function&#8217;s documentation.</p>
 </li>
 <li><p class="first">Alter the function <code class="docutils literal"><span class="pre">markov_chain</span></code> to accept an optional boolean
 argument <code class="docutils literal"><span class="pre">sanitize</span></code> which defaults to <code class="docutils literal"><span class="pre">True</span></code>. If it is true, each
@@ -147,16 +163,36 @@ the state transition probabilities are computed.</p>
 </li>
 <li><p class="first">Create a function <code class="docutils literal"><span class="pre">generate(state_transition_probabilities,</span> <span class="pre">length=10,</span> <span class="pre">start=None)</span></code>,
 which returns a piece of text generated from given state transition
-probabilities. The piece of text should be at most <code class="docutils literal"><span class="pre">length</span></code> tokens long
-and concatenated into a single string. The
-generation should end without an exception if a state that has no successors
-is generated. If <code class="docutils literal"><span class="pre">start</span></code> is other than <code class="docutils literal"><span class="pre">None</span></code>, the generation
-should be started from that state. Handle the case where the state given
-by <code class="docutils literal"><span class="pre">start</span></code> is not in the transition probabilities.</p>
+probabilities. Specification:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>The piece of text should be at most <code class="docutils literal"><span class="pre">length</span></code> tokens long and
+concatenated into a single string.</li>
+<li>The generation should end without an exception if a state that has
+no successors is generated and return the already generated string
+(including the state with no successor).</li>
+<li>If <code class="docutils literal"><span class="pre">start</span></code> is other than <code class="docutils literal"><span class="pre">None</span></code>, the generation should be started
+from that state. Otherwise the generation is started from a random
+state.</li>
+<li>Handle the case where the state given by <code class="docutils literal"><span class="pre">start</span></code> is not in the
+transition probabilities. (Most probably raise an exception.)</li>
+</ol>
+</div></blockquote>
+</li>
+<li><p class="first">Dan Ventura formulates several &#8220;steps&#8221; towards more computationally
+creative systems in his article &#8216;Mere generation: Essential barometer or
+dated concept?&#8217;. Shortly, write your opinions in which category your
+<code class="docutils literal"><span class="pre">generate</span></code> function from the last exercise falls. Also answer the
+question: &#8220;How would you make it more creative?&#8221;. 5-10 sentences should
+be enough.</p>
 </li>
 <li><p class="first">Create a function <code class="docutils literal"><span class="pre">likelihood(text,</span> <span class="pre">state_transitions_probabilities)</span></code>
-that computes the likelihood of the text using the state transition
-probabilities.</p>
+that computes the (pseudo)likelihood of the text using the state
+transition probabilities. If some of the tokens (or state transitions)
+derived from <code class="docutils literal"><span class="pre">text</span></code> are not in <code class="docutils literal"><span class="pre">state_transition_probabilities</span></code>,
+the function raises an error. Otherwise it returns the computed
+(pseudo)likelihood. Justify your choices when computing the (pseudo)likelihood
+and state them clearly in the function&#8217;s docstring.</p>
 </li>
 </ol>
 </div></blockquote>
@@ -164,7 +200,11 @@ probabilities.</p>
 <div class="section" id="week-2-markov-chains">
 <h3>4.2.2. Week 2 - Markov Chains<a class="headerlink" href="#week-2-markov-chains" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><ol class="arabic simple">
+<div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">These are currently pending and subject to change.</p>
+</div>
+<ol class="arabic simple">
 <li>Alter your function <code class="docutils literal"><span class="pre">markov_chain</span></code> from the first week to accept an optional
 parameter <code class="docutils literal"><span class="pre">order</span></code> which specifies the order of the Markov chain to be
 created. That is, with <code class="docutils literal"><span class="pre">order=2</span></code> a state contains two successive tokens
