@@ -84,7 +84,8 @@ include:</p>
 <h2>4.1. Essays<a class="headerlink" href="#essays" title="Permalink to this headline">¶</a></h2>
 <p>Each week there is an article to be read, and the students write a short essay
 (<strong>max</strong> 250 words) summarizing its main points. The deadlines to the essays
-are on Tuesdays at 23.55.</p>
+are on Tuesdays at 23.55. Include your UH user name and student number to the
+pdf!</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Exception: First week&#8217;s essay deadline is on Thursday 3.11. at 23.55!</p>
@@ -104,7 +105,19 @@ are on Tuesdays at 23.55.</p>
 <div class="section" id="exercises">
 <h2>4.2. Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
 <p>Weekly programming and theoretical exercise deadlines are on Sundays at 23.55
-every week.</p>
+every week. The exercises marked with <strong>RETURN</strong> at the start,
+will be the ones that accumulate your course points in Part 1.</p>
+<p>Remember to return the exercises through Moodle. The exercises should be in
+one compressed file which extracts to a folder with your UH user name. That is,
+if your user name in UH is <code class="docutils literal"><span class="pre">cthulhu</span></code> and you return a file <code class="docutils literal"><span class="pre">cthulhu_w1.tar.gz</span></code>, then
+it should extract to, for example, the following structure:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cthulhu</span><span class="o">/</span>
+        <span class="n">ex1</span><span class="o">.</span><span class="n">py</span>
+        <span class="n">ex2</span><span class="o">.</span><span class="n">py</span>
+        <span class="n">README</span> <span class="c1"># General info if needed</span>
+        <span class="n">some_file</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p>Document your code! <a class="reference external" href="http://www.sphinx-doc.org">Sphinx</a> is a good option
@@ -118,7 +131,7 @@ short docstring for main functions and classes (and modules) is enough.</p>
 <h3>4.2.1. Week 1 - Markov Chains, Parsing<a class="headerlink" href="#week-1-markov-chains-parsing" title="Permalink to this headline">¶</a></h3>
 <blockquote>
 <div><ol class="arabic">
-<li><p class="first">Familiarize yourself with <a class="reference external" href="https://en.wikipedia.org/wiki/Markov_chain">Markov chains</a>, and how they can be
+<li><p class="first"><strong>RETURN</strong> Familiarize yourself with <a class="reference external" href="https://en.wikipedia.org/wiki/Markov_chain">Markov chains</a>, and how they can be
 created from the data. See <a class="reference internal" href="toy_markov.html"><span class="doc">Text Generation with First-Order Markov Chain</span></a> for an example of how to
 create Markov chain from a set of toy data.</p>
 <p>Given a string <code class="docutils literal"><span class="pre">babacccabac</span></code>:</p>
@@ -150,7 +163,7 @@ function first splits the raw text into sentences, then each sentence
 into tokens and then computes the state transition probabilities from
 the tokenized sentences.</p>
 </li>
-<li><p class="first">Create a function <code class="docutils literal"><span class="pre">sanitize(token_list)</span></code>, which takes as an argument
+<li><p class="first"><strong>RETURN</strong> Create a function <code class="docutils literal"><span class="pre">sanitize(token_list)</span></code>, which takes as an argument
 a list of text tokens and sanitizes the list by removing inappropriate
 tokens. Try to use different sanitization method than in the example, and
 make it more &#8220;intelligent&#8221;. Justify your choices and state them clearly
@@ -161,7 +174,7 @@ argument <code class="docutils literal"><span class="pre">sanitize</span></code>
 tokenized sentence is sanitized (with your <code class="docutils literal"><span class="pre">sanitize</span></code>-function) before
 the state transition probabilities are computed.</p>
 </li>
-<li><p class="first">Create a function <code class="docutils literal"><span class="pre">generate(state_transition_probabilities,</span> <span class="pre">length=10,</span> <span class="pre">start=None)</span></code>,
+<li><p class="first"><strong>RETURN</strong> Create a function <code class="docutils literal"><span class="pre">generate(state_transition_probabilities,</span> <span class="pre">length=10,</span> <span class="pre">start=None)</span></code>,
 which returns a piece of text generated from given state transition
 probabilities. Specification:</p>
 <blockquote>
@@ -179,14 +192,14 @@ transition probabilities. (Most probably raise an exception.)</li>
 </ol>
 </div></blockquote>
 </li>
-<li><p class="first">Dan Ventura formulates several &#8220;steps&#8221; towards more computationally
+<li><p class="first"><strong>RETURN</strong> Dan Ventura formulates several &#8220;steps&#8221; towards more computationally
 creative systems in his article &#8216;Mere generation: Essential barometer or
 dated concept?&#8217;. Shortly, write your opinions in which category your
 <code class="docutils literal"><span class="pre">generate</span></code> function from the last exercise falls. Also answer the
 question: &#8220;How would you make it more creative?&#8221;. 5-10 sentences should
 be enough.</p>
 </li>
-<li><p class="first">Create a function <code class="docutils literal"><span class="pre">likelihood(text,</span> <span class="pre">state_transitions_probabilities)</span></code>
+<li><p class="first"><strong>RETURN</strong> Create a function <code class="docutils literal"><span class="pre">likelihood(text,</span> <span class="pre">state_transitions_probabilities)</span></code>
 that computes the (pseudo)likelihood of the text using the state
 transition probabilities. If some of the tokens (or state transitions)
 derived from <code class="docutils literal"><span class="pre">text</span></code> are not in <code class="docutils literal"><span class="pre">state_transition_probabilities</span></code>,

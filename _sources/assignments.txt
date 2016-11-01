@@ -31,7 +31,8 @@ Essays
 
 Each week there is an article to be read, and the students write a short essay
 (**max** 250 words) summarizing its main points. The deadlines to the essays
-are on Tuesdays at 23.55.
+are on Tuesdays at 23.55. Include your UH user name and student number to the
+pdf!
 
 .. note::
 	Exception: First week's essay deadline is on Thursday 3.11. at 23.55!
@@ -51,7 +52,20 @@ Exercises
 ---------
 
 Weekly programming and theoretical exercise deadlines are on Sundays at 23.55
-every week.
+every week. The exercises marked with **RETURN** at the start,
+will be the ones that accumulate your course points in Part 1. 
+
+Remember to return the exercises through Moodle. The exercises should be in
+one compressed file which extracts to a folder with your UH user name. That is,
+if your user name in UH is ``cthulhu`` and you return a file ``cthulhu_w1.tar.gz``, then
+it should extract to, for example, the following structure::
+
+	cthulhu/
+		ex1.py
+		ex2.py
+		README # General info if needed
+		some_file.txt
+
 
 .. note::
 	Document your code! `Sphinx <http://www.sphinx-doc.org>`_ is a good option
@@ -67,7 +81,7 @@ every week.
 Week 1 - Markov Chains, Parsing
 ...............................
 
-	#. Familiarize yourself with `Markov chains
+	#. **RETURN** Familiarize yourself with `Markov chains
 	   <https://en.wikipedia.org/wiki/Markov_chain>`_, and how they can be
 	   created from the data. See :doc:`toy_markov` for an example of how to
 	   create Markov chain from a set of toy data.
@@ -95,7 +109,7 @@ Week 1 - Markov Chains, Parsing
 	   into tokens and then computes the state transition probabilities from
 	   the tokenized sentences.
 
-	#. Create a function ``sanitize(token_list)``, which takes as an argument
+	#. **RETURN** Create a function ``sanitize(token_list)``, which takes as an argument
 	   a list of text tokens and sanitizes the list by removing inappropriate
 	   tokens. Try to use different sanitization method than in the example, and
 	   make it more "intelligent". Justify your choices and state them clearly
@@ -106,7 +120,7 @@ Week 1 - Markov Chains, Parsing
 	   tokenized sentence is sanitized (with your ``sanitize``-function) before
 	   the state transition probabilities are computed.
 
-	#. Create a function ``generate(state_transition_probabilities, length=10, start=None)``,
+	#. **RETURN** Create a function ``generate(state_transition_probabilities, length=10, start=None)``,
 	   which returns a piece of text generated from given state transition
 	   probabilities. Specification:
 
@@ -125,14 +139,14 @@ Week 1 - Markov Chains, Parsing
 		   transition probabilities. (Most probably raise an exception.)
 
 
-	#. Dan Ventura formulates several "steps" towards more computationally
+	#. **RETURN** Dan Ventura formulates several "steps" towards more computationally
 	   creative systems in his article 'Mere generation: Essential barometer or
 	   dated concept?'. Shortly, write your opinions in which category your
 	   ``generate`` function from the last exercise falls. Also answer the
 	   question: "How would you make it more creative?". 5-10 sentences should
 	   be enough.
 
-	#. Create a function ``likelihood(text, state_transitions_probabilities)`` 
+	#. **RETURN** Create a function ``likelihood(text, state_transitions_probabilities)`` 
 	   that computes the (pseudo)likelihood of the text using the state
 	   transition probabilities. If some of the tokens (or state transitions)
 	   derived from ``text`` are not in ``state_transition_probabilities``,
