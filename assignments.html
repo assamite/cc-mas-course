@@ -106,7 +106,8 @@ pdf!</p>
 <h2>4.2. Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
 <p>Weekly programming and theoretical exercise deadlines are on Sundays at 23.55
 every week. The exercises marked with <strong>RETURN</strong> at the start,
-will be the ones that accumulate your course points in Part 1.</p>
+will be the ones that accumulate your course points in Part 1 (and therefore
+should be included in the compressed file).</p>
 <p>Remember to return the exercises through Moodle. The exercises should be in
 one compressed file which extracts to a folder with your UH user name. That is,
 if your user name in UH is <code class="docutils literal"><span class="pre">cthulhu</span></code> and you return a file <code class="docutils literal"><span class="pre">cthulhu_w1.tar.gz</span></code>, then
@@ -150,12 +151,17 @@ parsing instructions. The transitions should be counted from the
 <code class="docutils literal"><span class="pre">sanitized_sentences</span></code> data structure by looping over its list of
 tokenized sentences (which are lists also), i.e. the last token of each
 sentence is not succeeded by any state.</p>
-<blockquote>
-<div><ol class="arabic simple">
-<li>What are the overall 5 most probable state transitions?</li>
-<li>What are the 5 most probable state successors for the state &#8216;Alice&#8217;?</li>
-</ol>
-</div></blockquote>
+<p>For sanity checking, here are the five most probable state successors
+for the state &#8216;Alice&#8217;:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="mf">0.17751479289940827</span><span class="p">),</span>
+ <span class="p">(</span><span class="s1">&#39;was&#39;</span><span class="p">,</span> <span class="mf">0.047337278106508875</span><span class="p">),</span>
+ <span class="p">(</span><span class="s1">&#39;and&#39;</span><span class="p">,</span> <span class="mf">0.047337278106508875</span><span class="p">),</span>
+ <span class="p">(</span><span class="s1">&#39;in&#39;</span><span class="p">,</span> <span class="mf">0.03550295857988166</span><span class="p">),</span>
+ <span class="p">(</span><span class="s2">&quot;&#39;s&quot;</span><span class="p">,</span> <span class="mf">0.03550295857988166</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>What are overall 5 the most probable state transitions? What about
+100 the most probable state transitions? Why so?</p>
 </li>
 <li><p class="first">Create a function <code class="docutils literal"><span class="pre">markov_chain(raw_text)</span></code>, which takes a piece of raw
 text (<code class="docutils literal"><span class="pre">str</span></code>) and returns the state transition probabilities. The
@@ -165,7 +171,7 @@ the tokenized sentences.</p>
 </li>
 <li><p class="first"><strong>RETURN</strong> Create a function <code class="docutils literal"><span class="pre">sanitize(token_list)</span></code>, which takes as an argument
 a list of text tokens and sanitizes the list by removing inappropriate
-tokens. Try to use different sanitization method than in the example, and
+tokens. Use different sanitization method than in the example, and try to
 make it more &#8220;intelligent&#8221;. Justify your choices and state them clearly
 in the function&#8217;s documentation.</p>
 </li>

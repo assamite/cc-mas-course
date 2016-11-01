@@ -53,7 +53,8 @@ Exercises
 
 Weekly programming and theoretical exercise deadlines are on Sundays at 23.55
 every week. The exercises marked with **RETURN** at the start,
-will be the ones that accumulate your course points in Part 1. 
+will be the ones that accumulate your course points in Part 1 (and therefore
+should be included in the compressed file).
 
 Remember to return the exercises through Moodle. The exercises should be in
 one compressed file which extracts to a folder with your UH user name. That is,
@@ -100,8 +101,17 @@ Week 1 - Markov Chains, Parsing
 	   tokenized sentences (which are lists also), i.e. the last token of each
 	   sentence is not succeeded by any state.
 
-		#. What are the overall 5 most probable state transitions?
-		#. What are the 5 most probable state successors for the state 'Alice'?
+	   For sanity checking, here are the five most probable state successors
+	   for the state 'Alice'::
+
+		[('.', 0.17751479289940827),
+ 		 ('was', 0.047337278106508875),
+ 		 ('and', 0.047337278106508875),
+ 		 ('in', 0.03550295857988166),
+ 		 ("'s", 0.03550295857988166)]
+
+	   What are overall 5 the most probable state transitions? What about
+	   100 the most probable state transitions? Why so?
 
 	#. Create a function ``markov_chain(raw_text)``, which takes a piece of raw
 	   text (``str``) and returns the state transition probabilities. The
@@ -111,7 +121,7 @@ Week 1 - Markov Chains, Parsing
 
 	#. **RETURN** Create a function ``sanitize(token_list)``, which takes as an argument
 	   a list of text tokens and sanitizes the list by removing inappropriate
-	   tokens. Try to use different sanitization method than in the example, and
+	   tokens. Use different sanitization method than in the example, and try to
 	   make it more "intelligent". Justify your choices and state them clearly
 	   in the function's documentation.
 
