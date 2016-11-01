@@ -82,6 +82,11 @@ it should extract to, for example, the following structure::
 Week 1 - Markov Chains, Parsing
 ...............................
 
+.. centered::
+	(Tue 1.11. 15.45) The first week's exercises are now in their final form.
+
+|
+
 	#. **RETURN** Familiarize yourself with `Markov chains
 	   <https://en.wikipedia.org/wiki/Markov_chain>`_, and how they can be
 	   created from the data. See :doc:`toy_markov` for an example of how to
