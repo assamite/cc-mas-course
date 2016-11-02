@@ -12,9 +12,20 @@ However, many of the parsing tasks using NLTK could be adequately achieved with
 sufficiently simple regular expressions.
 
 .. note:: 
-	NLTK should be installed in your environment. It is contained in the
-	``requirements.txt``. To install it separately use ``pip install nltk``
-	while your virtual environment is activated.
+	NLTK should be installed in your environment and its Punkt tokenizer
+	donwloaded. NLTK is contained in the ``requirements.txt``. To install it
+	separately use ``pip install nltk`` while your virtual environment is
+	activated.
+
+	To install Punkt tokenizer, enter Python interpreter (while you have your
+	virtual environment active) and write::
+
+		>>> import nltk
+		>>> nltk.download()
+
+	Then, in the appearing window select **Models** and in the appearing tab
+	select **Punkt Tokenizer Models** and click Download.
+
 
 Downloading the Data
 --------------------
