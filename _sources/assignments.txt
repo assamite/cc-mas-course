@@ -43,7 +43,10 @@ pdf!
 	   <http://www.computationalcreativity.net/iccc2016/wp-content/uploads/2016/01/Mere-Generation.pdf>`_
 	   (due Thu 3.11. 23.55)
 
-	#. To be announced (due Tue 8.11. 23.55)
+	#. `Rob Saunders and Oliver Bown - Computational Social Creativity
+	   <https://www.researchgate.net/publication/281143442_Computational_Social_Creativity>`_
+	   (due Tue 8.11. 23.55)
+
 	#. To be announced (due Tue 15.11. 23.55)
 	#. To be announced (due Tue 22.11. 23.55)
 	#. To be announced (due Tue 29.11. 23.55)
