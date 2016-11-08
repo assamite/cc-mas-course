@@ -74,7 +74,7 @@ will not touch in here. We will also create the initialization function
 initialization function so that all required attributes get initialized. In our
 initialization function, we will define the acceptable words as a compiled regex
 pattern and word limits, and then "learn" the vocabulary from a given file. Here
-is the documentation for our :class:´ToyAgent` (``env`` is the environment for
+is the documentation for our :class:`ToyAgent` (``env`` is the environment for
 the agent, which we will define later in the example):
 
 .. autoclass:: toy_mas.ToyAgent
