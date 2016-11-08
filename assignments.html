@@ -221,14 +221,15 @@ and state them clearly in the function&#8217;s docstring.</p>
 </ol>
 </div></blockquote>
 </div>
-<div class="section" id="week-2-markov-chains">
-<h3>5.2.2. Week 2 - Markov Chains<a class="headerlink" href="#week-2-markov-chains" title="Permalink to this headline">¶</a></h3>
-<blockquote>
-<div><div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">These are currently pending and subject to change.</p>
+<div class="section" id="week-2-markov-chains-multi-agent-systems">
+<h3>5.2.2. Week 2 - Markov Chains, Multi-agent Systems<a class="headerlink" href="#week-2-markov-chains-multi-agent-systems" title="Permalink to this headline">¶</a></h3>
+<p class="centered">
+<strong>(Tue 8.11. 14.01) The exercises from 1 to 4 are ready (although we might add some clarifications).
+The exercises from 5 to 9 are still in consideration.</strong></p><div class="line-block">
+<div class="line"><br /></div>
 </div>
-<ol class="arabic simple">
+<blockquote>
+<div><ol class="arabic simple">
 <li><strong>RETURN</strong> Alter your function <code class="docutils literal"><span class="pre">markov_chain</span></code> from the first week to
 accept an optional parameter <code class="docutils literal"><span class="pre">order</span></code> which specifies the order of the
 Markov chain to be created. That is, with <code class="docutils literal"><span class="pre">order=2</span></code> a state contains
@@ -236,9 +237,46 @@ two successive tokens from the same sentence.</li>
 <li><strong>RETURN</strong> Alter your function <code class="docutils literal"><span class="pre">generate</span></code> from the first week to be compatible with your
 new <code class="docutils literal"><span class="pre">markov_chain</span></code> implementation (from the exercise 1. in this week).
 The returned piece of text should be a single string with no repeating
-words, or nested arrays, etc.</li>
-<li>Experiment by generating text with different order Markov chains. What
-observations do you make?</li>
+words, or nested arrays, etc. Experiment by generating text with different
+order Markov chains. What observations do you make? List your findings
+shortly (either as a comment in the module, or somewhere else).</li>
+<li>Familiarize yourself with <a class="reference internal" href="toy_mas.html"><span class="doc">Toy Example of MAS with Creamas</span></a>. See that you understand how
+a single agent functions, how the voting procedure is called and how the
+simulation is run.</li>
+<li><strong>RETURN</strong> Create a function <code class="docutils literal"><span class="pre">random_words</span></code> which accepts the same parameters as
+the <code class="docutils literal"><span class="pre">frequent_words</span></code> in the example, but returns a list of random words
+from the file (with length <em>n</em>). Create a new simulation where half of
+the agents in the environment use <code class="docutils literal"><span class="pre">frequent_words</span></code> and other half
+<code class="docutils literal"><span class="pre">random_words</span></code> to learn their vocabulary (you can alter the number
+of agents if you wish in your experiments). Run the simulation repeatedly.
+What do you observe, if anything? <strong>To make real observations, you need to
+add some logging or other ways to see how each group values artifacts
+made by the same group and the other group.</strong></li>
+<li>Change your agent to generate text based on Markov chain instead. That is, alter the
+<code class="docutils literal"><span class="pre">generate</span></code> function to use Markov chain (either first-order or higher). It is up to you, if you
+learn the state transition probabilities at initialization time for each
+agent (not advised because of redundancy), or do you first learn the
+state transition probabilities from a single source and then give them
+to each agent at initialization time as a parameter. The Markov chains
+created can be of fixed (token) length.</li>
+<li>Create an evaluation function for your Markov chains based on the last
+week&#8217;s pseudolikelihood function. (If you have not implemented it, ask
+from someone who has.) That is, the evaluation for the Markov chain
+is the (pseudo)likelihood of the generated text w.r.t. the state
+transition probabilities. Rhetoric question: Is this kind of evaluation
+function desirable?</li>
+<li><strong>RETURN</strong> Create a simulation where part of the agents learn the Markov
+chain from a source <strong>A</strong>, and another part from a source <strong>B</strong> and they
+evaluate the generated text with the (pseudo)likelihood function. Run the
+simulation repeatedly and make observations as in the exercise 4.</li>
+<li><strong>RETURN</strong> Create a new evaluation function for your Markov chains.
+Design it any way you like, but aim to &#8220;as intelligent as you can get&#8221;
+and justify your decisions in the function&#8217;s docstring.</li>
+<li>Create a simulation where part of the agents learn the Markov
+chain from a source <strong>A</strong>, and another part from a source <strong>B</strong> and they
+evaluate the generated text with <strong>the evaluation function you designed</strong> in
+the previous exercise. Run the simulation repeatedly and make observations
+as in the exercise 4.</li>
 </ol>
 </div></blockquote>
 </div>
@@ -270,7 +308,7 @@ observations do you make?</li>
 <li class="toctree-l2"><a class="reference internal" href="#essays">5.1. Essays</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#exercises">5.2. Exercises</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#week-1-markov-chains-parsing">5.2.1. Week 1 - Markov Chains, Parsing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#week-2-markov-chains">5.2.2. Week 2 - Markov Chains</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#week-2-markov-chains-multi-agent-systems">5.2.2. Week 2 - Markov Chains, Multi-agent Systems</a></li>
 </ul>
 </li>
 </ul>

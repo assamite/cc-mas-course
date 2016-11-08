@@ -173,11 +173,14 @@ Week 1 - Markov Chains, Parsing
 	   and state them clearly in the function's docstring.
 
 
-Week 2 - Markov Chains
-......................
+Week 2 - Markov Chains, Multi-agent Systems
+...........................................
 
-	.. note:: 
-		These are currently pending and subject to change.
+.. centered::
+		(Tue 8.11. 14.01) The exercises from 1 to 4 are ready (although we might add some clarifications).
+		The exercises from 5 to 9 are still in consideration.
+
+|
 
 	#. **RETURN** Alter your function ``markov_chain`` from the first week to
 	   accept an optional parameter ``order`` which specifies the order of the
@@ -187,7 +190,50 @@ Week 2 - Markov Chains
 	#. **RETURN** Alter your function ``generate`` from the first week to be compatible with your
 	   new ``markov_chain`` implementation (from the exercise 1. in this week).
 	   The returned piece of text should be a single string with no repeating
-	   words, or nested arrays, etc.
+	   words, or nested arrays, etc. Experiment by generating text with different
+	   order Markov chains. What observations do you make? List your findings
+	   shortly (either as a comment in the module, or somewhere else).
 
-	#. Experiment by generating text with different order Markov chains. What
-	   observations do you make?
+	#. Familiarize yourself with :doc:`toy_mas`. See that you understand how
+	   a single agent functions, how the voting procedure is called and how the
+	   simulation is run.
+
+	#. **RETURN** Create a function ``random_words`` which accepts the same parameters as
+	   the ``frequent_words`` in the example, but returns a list of random words
+	   from the file (with length *n*). Create a new simulation where half of
+	   the agents in the environment use ``frequent_words`` and other half
+	   ``random_words`` to learn their vocabulary (you can alter the number
+	   of agents if you wish in your experiments). Run the simulation repeatedly.
+	   What do you observe, if anything? **To make real observations, you need to
+	   add some logging or other ways to see how each group values artifacts
+	   made by the same group and the other group.**
+
+	#. Change your agent to generate text based on Markov chain instead. That is, alter the
+	   ``generate`` function to use Markov chain (either first-order or higher). It is up to you, if you
+	   learn the state transition probabilities at initialization time for each
+	   agent (not advised because of redundancy), or do you first learn the
+	   state transition probabilities from a single source and then give them
+	   to each agent at initialization time as a parameter. The Markov chains
+	   created can be of fixed (token) length.
+
+	#. Create an evaluation function for your Markov chains based on the last
+	   week's pseudolikelihood function. (If you have not implemented it, ask
+	   from someone who has.) That is, the evaluation for the Markov chain
+	   is the (pseudo)likelihood of the generated text w.r.t. the state
+	   transition probabilities. Rhetoric question: Is this kind of evaluation
+	   function desirable?
+
+	#. **RETURN** Create a simulation where part of the agents learn the Markov
+	   chain from a source **A**, and another part from a source **B** and they
+	   evaluate the generated text with the (pseudo)likelihood function. Run the
+	   simulation repeatedly and make observations as in the exercise 4.
+
+	#. **RETURN** Create a new evaluation function for your Markov chains.
+	   Design it any way you like, but aim to "as intelligent as you can get"
+	   and justify your decisions in the function's docstring.
+
+	#. Create a simulation where part of the agents learn the Markov
+	   chain from a source **A**, and another part from a source **B** and they
+	   evaluate the generated text with **the evaluation function you designed** in
+	   the previous exercise. Run the simulation repeatedly and make observations
+	   as in the exercise 4.
