@@ -179,14 +179,15 @@ Week 2 - Markov Chains
 	.. note:: 
 		These are currently pending and subject to change.
 
-	#. Alter your function ``markov_chain`` from the first week to accept an optional
-	   parameter ``order`` which specifies the order of the Markov chain to be
-	   created. That is, with ``order=2`` a state contains two successive tokens
-	   from the same sentence.
+	#. **RETURN** Alter your function ``markov_chain`` from the first week to
+	   accept an optional parameter ``order`` which specifies the order of the
+	   Markov chain to be created. That is, with ``order=2`` a state contains
+	   two successive tokens from the same sentence.
 	
-	#. Alter your function ``generate`` from the first week to be compatible with your
-	   new ``markov_chain`` implementation. The returned piece of text should be
-	   a single string with no repeating words, or nested arrays, etc.
+	#. **RETURN** Alter your function ``generate`` from the first week to be compatible with your
+	   new ``markov_chain`` implementation (from the exercise 1. in this week).
+	   The returned piece of text should be a single string with no repeating
+	   words, or nested arrays, etc.
 
 	#. Experiment by generating text with different order Markov chains. What
 	   observations do you make?
