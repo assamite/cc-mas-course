@@ -1,6 +1,8 @@
 Toy Example of MAS with Creamas
 ===============================
 
+`(full code) <https://github.com/assamite/cc-mas-course/blob/master/week2/toy_mas.py>`_
+
 In this example we will create a simple multi-agent system with
 `Creamas <https://assamite.github.io/creamas>`_. Creamas uses vocabulary typical
 to MAS in CC: agents, environments, and artifacts. You can find an overview of
@@ -205,7 +207,7 @@ in an iterative simulation where on each iteration:
 
 	#. Each agent produces a number of artifacts and selects the best one
 	#. Each agent adds its best artifact to candidate artifacts
-	#. Agents vote the winner from all the artifacts
+	#. Agents vote the winner from the candidates
 
 .. note:: 
 	As all the agents in our example will have the same words (if given the
