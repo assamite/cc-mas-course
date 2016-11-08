@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>4. Assignments &#8212; CC-MAS 2016 0.1a documentation</title>
+    <title>5. Assignments &#8212; CC-MAS 2016 0.1a documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -27,8 +27,8 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="top" title="CC-MAS 2016 0.1a documentation" href="index.html" />
-    <link rel="next" title="5. References" href="zz_references.html" />
-    <link rel="prev" title="3.2. Parsing Text with NLTK" href="parsing_NLTK.html" />
+    <link rel="next" title="6. References" href="zz_references.html" />
+    <link rel="prev" title="4.1. Toy Example of MAS with Creamas" href="toy_mas.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -45,7 +45,7 @@
           <div class="body" role="main">
             
   <div class="section" id="assignments">
-<h1>4. Assignments<a class="headerlink" href="#assignments" title="Permalink to this headline">¶</a></h1>
+<h1>5. Assignments<a class="headerlink" href="#assignments" title="Permalink to this headline">¶</a></h1>
 <p>Assignments for the first part of the course. The group project instructions
 to be added elsewhere.</p>
 <div class="admonition warning">
@@ -81,7 +81,7 @@ include:</p>
 </ol>
 </div></blockquote>
 <div class="section" id="essays">
-<h2>4.1. Essays<a class="headerlink" href="#essays" title="Permalink to this headline">¶</a></h2>
+<h2>5.1. Essays<a class="headerlink" href="#essays" title="Permalink to this headline">¶</a></h2>
 <p>Each week there is an article to be read, and the students write a short essay
 (<strong>max</strong> 250 words) summarizing its main points. The deadlines to the essays
 are on Tuesdays at 23.55. Include your UH user name and student number to the
@@ -104,7 +104,7 @@ pdf!</p>
 </div></blockquote>
 </div>
 <div class="section" id="exercises">
-<h2>4.2. Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
+<h2>5.2. Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
 <p>Weekly programming and theoretical exercise deadlines are on Sundays at 23.55
 every week. The exercises marked with <strong>RETURN</strong> at the start,
 will be the ones that accumulate your course points in Part 1 (and therefore
@@ -130,7 +130,7 @@ have to build the documentation when returning the exercises. Making a
 short docstring for main functions and classes (and modules) is enough.</p>
 </div>
 <div class="section" id="week-1-markov-chains-parsing">
-<h3>4.2.1. Week 1 - Markov Chains, Parsing<a class="headerlink" href="#week-1-markov-chains-parsing" title="Permalink to this headline">¶</a></h3>
+<h3>5.2.1. Week 1 - Markov Chains, Parsing<a class="headerlink" href="#week-1-markov-chains-parsing" title="Permalink to this headline">¶</a></h3>
 <p class="centered">
 <strong>(Tue 1.11. 15.45) The first week&#8217;s exercises are now in their final form.</strong></p><div class="line-block">
 <div class="line"><br /></div>
@@ -222,20 +222,21 @@ and state them clearly in the function&#8217;s docstring.</p>
 </div></blockquote>
 </div>
 <div class="section" id="week-2-markov-chains">
-<h3>4.2.2. Week 2 - Markov Chains<a class="headerlink" href="#week-2-markov-chains" title="Permalink to this headline">¶</a></h3>
+<h3>5.2.2. Week 2 - Markov Chains<a class="headerlink" href="#week-2-markov-chains" title="Permalink to this headline">¶</a></h3>
 <blockquote>
 <div><div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">These are currently pending and subject to change.</p>
 </div>
 <ol class="arabic simple">
-<li>Alter your function <code class="docutils literal"><span class="pre">markov_chain</span></code> from the first week to accept an optional
-parameter <code class="docutils literal"><span class="pre">order</span></code> which specifies the order of the Markov chain to be
-created. That is, with <code class="docutils literal"><span class="pre">order=2</span></code> a state contains two successive tokens
-from the same sentence.</li>
-<li>Alter your function <code class="docutils literal"><span class="pre">generate</span></code> from the first week to be compatible with your
-new <code class="docutils literal"><span class="pre">markov_chain</span></code> implementation. The returned piece of text should be
-a single string with no repeating words, or nested arrays, etc.</li>
+<li><strong>RETURN</strong> Alter your function <code class="docutils literal"><span class="pre">markov_chain</span></code> from the first week to
+accept an optional parameter <code class="docutils literal"><span class="pre">order</span></code> which specifies the order of the
+Markov chain to be created. That is, with <code class="docutils literal"><span class="pre">order=2</span></code> a state contains
+two successive tokens from the same sentence.</li>
+<li><strong>RETURN</strong> Alter your function <code class="docutils literal"><span class="pre">generate</span></code> from the first week to be compatible with your
+new <code class="docutils literal"><span class="pre">markov_chain</span></code> implementation (from the exercise 1. in this week).
+The returned piece of text should be a single string with no repeating
+words, or nested arrays, etc.</li>
 <li>Experiment by generating text with different order Markov chains. What
 observations do you make?</li>
 </ol>
@@ -264,24 +265,25 @@ observations do you make?</li>
 <li class="toctree-l1"><a class="reference internal" href="preliminaries.html">1. Preliminaries</a></li>
 <li class="toctree-l1"><a class="reference internal" href="course_format.html">2. Course Format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="linguistic_creativity.html">3. Linguistic Creativity</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">4. Assignments</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#essays">4.1. Essays</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#exercises">4.2. Exercises</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#week-1-markov-chains-parsing">4.2.1. Week 1 - Markov Chains, Parsing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#week-2-markov-chains">4.2.2. Week 2 - Markov Chains</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mas.html">4. Multi-Agent Systems</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">5. Assignments</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#essays">5.1. Essays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exercises">5.2. Exercises</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#week-1-markov-chains-parsing">5.2.1. Week 1 - Markov Chains, Parsing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#week-2-markov-chains">5.2.2. Week 2 - Markov Chains</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="zz_references.html">5. References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zz_references.html">6. References</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="parsing_NLTK.html" title="previous chapter">3.2. Parsing Text with NLTK</a></li>
-      <li>Next: <a href="zz_references.html" title="next chapter">5. References</a></li>
+      <li>Previous: <a href="toy_mas.html" title="previous chapter">4.1. Toy Example of MAS with Creamas</a></li>
+      <li>Next: <a href="zz_references.html" title="next chapter">6. References</a></li>
   </ul></li>
 </ul>
 </div>
