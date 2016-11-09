@@ -177,8 +177,8 @@ Week 2 - Markov Chains, Multi-agent Systems
 ...........................................
 
 .. centered::
-		(Tue 8.11. 14.01) The exercises from 1 to 4 are ready (although we might add some clarifications).
-		The exercises from 5 to 9 are still in consideration.
+		(Wed 9.11. 10.41) The second week's exercises are now ready (although
+		we might add some clarifications).
 
 |
 
