@@ -254,12 +254,12 @@ subclasses of it), for all the library&#8217;s functionalities to work.</p>
 <div class="section" id="evaluating-words">
 <h2>4.1.4. Evaluating Words<a class="headerlink" href="#evaluating-words" title="Permalink to this headline">¶</a></h2>
 <p>Our agent is now capable of generating some random character strings, but has
-no notion of high value (or novelty or suprisingness). To evaluate our strings,
+no notion of value (or novelty or surprisingness). To evaluate our strings,
 we will use the <code class="docutils literal"><span class="pre">vocab</span></code> which was learned from a file when the agent was
 created, and <a class="reference external" href="https://en.wikipedia.org/wiki/Levenshtein_distance">Levenshtein distance</a>.
-For the sake of our purposes the, it is sufficient to know that the Levenshtein
+For the sake of our purposes, it is sufficient to know that the Levenshtein
 distance computes the minimum number of edit operations by which one of the strings
-can be change to another. Here is our evaluation function&#8217;s documentation:</p>
+can be changed to another. Here is our evaluation function&#8217;s documentation:</p>
 <dl class="method">
 <dt id="toy_mas.ToyAgent.evaluate">
 <code class="descclassname">ToyAgent.</code><code class="descname">evaluate</code><span class="sig-paren">(</span><em>artifact</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/toy_mas.html#ToyAgent.evaluate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toy_mas.ToyAgent.evaluate" title="Permalink to this definition">¶</a></dt>

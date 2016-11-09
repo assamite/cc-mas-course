@@ -206,21 +206,21 @@ Week 2 - Markov Chains, Multi-agent Systems
 	   of agents if you wish in your experiments). Run the simulation repeatedly.
 	   What do you observe, if anything? **To make real observations, you need to
 	   add some logging or other ways to see how each group values artifacts
-	   made by the same group and the other group.**
+	   made by the agents in the same group and the agents in the other group.**
 
 	#. Change your agent to generate text based on Markov chain instead. That is, alter the
 	   ``generate`` function to use Markov chain (either first-order or higher). It is up to you, if you
 	   learn the state transition probabilities at initialization time for each
 	   agent (not advised because of redundancy), or do you first learn the
 	   state transition probabilities from a single source and then give them
-	   to each agent at initialization time as a parameter. The Markov chains
-	   created can be of fixed (token) length.
+	   to each agent at initialization time as a parameter. The pieces of text
+	   generated can be of fixed (token) length.
 
 	#. Create an evaluation function for your Markov chains based on the last
 	   week's pseudolikelihood function. (If you have not implemented it, ask
 	   from someone who has.) That is, the evaluation for the Markov chain
 	   is the (pseudo)likelihood of the generated text w.r.t. the state
-	   transition probabilities. Rhetoric question: Is this kind of evaluation
+	   transition probabilities. Is this kind of evaluation
 	   function desirable?
 
 	#. **RETURN** Create a simulation where part of the agents learn the Markov

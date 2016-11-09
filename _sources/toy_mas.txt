@@ -141,12 +141,12 @@ Evaluating Words
 ----------------
 
 Our agent is now capable of generating some random character strings, but has
-no notion of high value (or novelty or suprisingness). To evaluate our strings,
+no notion of value (or novelty or surprisingness). To evaluate our strings,
 we will use the ``vocab`` which was learned from a file when the agent was
 created, and `Levenshtein distance <https://en.wikipedia.org/wiki/Levenshtein_distance>`_.
-For the sake of our purposes the, it is sufficient to know that the Levenshtein
+For the sake of our purposes, it is sufficient to know that the Levenshtein
 distance computes the minimum number of edit operations by which one of the strings
-can be change to another. Here is our evaluation function's documentation:
+can be changed to another. Here is our evaluation function's documentation:
 
 .. automethod:: toy_mas.ToyAgent.evaluate
 
