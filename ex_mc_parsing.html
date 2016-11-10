@@ -1,0 +1,200 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Week 1 - Markov Chains, Parsing &#8212; CC-MAS 2016 0.1a documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1a',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="CC-MAS 2016 0.1a documentation" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="week-1-markov-chains-parsing">
+<h1>Week 1 - Markov Chains, Parsing<a class="headerlink" href="#week-1-markov-chains-parsing" title="Permalink to this headline">¶</a></h1>
+<p class="centered">
+<strong>(Tue 1.11. 15.45) The first week&#8217;s exercises are now in their final form.</strong></p><div class="line-block">
+<div class="line"><br /></div>
+</div>
+<blockquote>
+<div><ol class="arabic">
+<li><p class="first"><strong>RETURN</strong> Familiarize yourself with <a class="reference external" href="https://en.wikipedia.org/wiki/Markov_chain">Markov chains</a>, and how they can be
+created from the data. See <a class="reference internal" href="toy_markov.html"><span class="doc">Text Generation with First-Order Markov Chain</span></a> for an example of how to
+create Markov chain from a set of toy data.</p>
+<p>Given a string <code class="docutils literal"><span class="pre">babacccabac</span></code>:</p>
+<blockquote>
+<div><ol class="loweralpha simple">
+<li>What are the states for the first-order Markov chain?</li>
+<li>What are the states for the second-order Markov chain?</li>
+<li>Compute the state transition probabilities for the first-order
+Markov chain.</li>
+</ol>
+</div></blockquote>
+</li>
+<li><p class="first">Create first-order Markov chain from the book <em>Alice&#8217;s Adventures in
+Wonderland</em> by Lewis Carroll. See <a class="reference internal" href="parsing_NLTK.html"><span class="doc">Parsing Text with NLTK</span></a> for the text
+parsing instructions. The transitions should be counted from the
+<code class="docutils literal"><span class="pre">sanitized_sentences</span></code> data structure by looping over its list of
+tokenized sentences (which are lists also), i.e. the last token of each
+sentence is not succeeded by any state.</p>
+<p>For sanity checking, here are the five most probable state successors
+for the state &#8216;Alice&#8217;:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="mf">0.17751479289940827</span><span class="p">),</span>
+ <span class="p">(</span><span class="s1">&#39;was&#39;</span><span class="p">,</span> <span class="mf">0.047337278106508875</span><span class="p">),</span>
+ <span class="p">(</span><span class="s1">&#39;and&#39;</span><span class="p">,</span> <span class="mf">0.047337278106508875</span><span class="p">),</span>
+ <span class="p">(</span><span class="s1">&#39;in&#39;</span><span class="p">,</span> <span class="mf">0.03550295857988166</span><span class="p">),</span>
+ <span class="p">(</span><span class="s2">&quot;&#39;s&quot;</span><span class="p">,</span> <span class="mf">0.03550295857988166</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>What are overall 5 the most probable state transitions? What about
+100 the most probable state transitions? Why so?</p>
+</li>
+<li><p class="first">Create a function <code class="docutils literal"><span class="pre">markov_chain(raw_text)</span></code>, which takes a piece of raw
+text (<code class="docutils literal"><span class="pre">str</span></code>) and returns the state transition probabilities. The
+function first splits the raw text into sentences, then each sentence
+into tokens and then computes the state transition probabilities from
+the tokenized sentences.</p>
+</li>
+<li><p class="first"><strong>RETURN</strong> Create a function <code class="docutils literal"><span class="pre">sanitize(token_list)</span></code>, which takes as an argument
+a list of text tokens and sanitizes the list by removing inappropriate
+tokens. Use different sanitization method than in the example, and try to
+make it more &#8220;intelligent&#8221;. Justify your choices and state them clearly
+in the function&#8217;s documentation.</p>
+</li>
+<li><p class="first">Alter the function <code class="docutils literal"><span class="pre">markov_chain</span></code> to accept an optional boolean
+argument <code class="docutils literal"><span class="pre">sanitize</span></code> which defaults to <code class="docutils literal"><span class="pre">True</span></code>. If it is true, each
+tokenized sentence is sanitized (with your <code class="docutils literal"><span class="pre">sanitize</span></code>-function) before
+the state transition probabilities are computed.</p>
+</li>
+<li><p class="first"><strong>RETURN</strong> Create a function <code class="docutils literal"><span class="pre">generate(state_transition_probabilities,</span> <span class="pre">length=10,</span> <span class="pre">start=None)</span></code>,
+which returns a piece of text generated from given state transition
+probabilities. Specification:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>The piece of text should be at most <code class="docutils literal"><span class="pre">length</span></code> tokens long and
+concatenated into a single string.</li>
+<li>The generation should end without an exception if a state that has
+no successors is generated and return the already generated string
+(including the state with no successor).</li>
+<li>If <code class="docutils literal"><span class="pre">start</span></code> is other than <code class="docutils literal"><span class="pre">None</span></code>, the generation should be started
+from that state. Otherwise the generation is started from a random
+state.</li>
+<li>Handle the case where the state given by <code class="docutils literal"><span class="pre">start</span></code> is not in the
+transition probabilities. (Most probably raise an exception.)</li>
+</ol>
+</div></blockquote>
+</li>
+<li><p class="first"><strong>RETURN</strong> Dan Ventura formulates several &#8220;steps&#8221; towards more computationally
+creative systems in his article &#8216;Mere generation: Essential barometer or
+dated concept?&#8217;. Shortly, write your opinions in which category your
+<code class="docutils literal"><span class="pre">generate</span></code> function from the last exercise falls. Also answer the
+question: &#8220;How would you make it more creative?&#8221;. 5-10 sentences should
+be enough.</p>
+</li>
+<li><p class="first"><strong>RETURN</strong> Create a function <code class="docutils literal"><span class="pre">likelihood(text,</span> <span class="pre">state_transitions_probabilities)</span></code>
+that computes the (pseudo)likelihood of the text using the state
+transition probabilities. If some of the tokens (or state transitions)
+derived from <code class="docutils literal"><span class="pre">text</span></code> are not in <code class="docutils literal"><span class="pre">state_transition_probabilities</span></code>,
+the function raises an error. Otherwise it returns the computed
+(pseudo)likelihood. Justify your choices when computing the (pseudo)likelihood
+and state them clearly in the function&#8217;s docstring.</p>
+</li>
+</ol>
+</div></blockquote>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">CC-MAS 2016</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="preliminaries.html">1. Preliminaries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="course_format.html">2. Course Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="linguistic_creativity.html">3. Linguistic Creativity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mas.html">4. Multi-Agent Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="assignments.html">5. Assignments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zz_references.html">6. References</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Simo Linkola.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="_sources/ex_mc_parsing.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

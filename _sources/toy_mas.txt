@@ -166,6 +166,12 @@ code example, but it is not included here for clarity)::
                 matching_word = word
         return evaluation, matching_word
 
+.. note::
+	It is important for the :meth:`evaluate` method to return two elements
+	because of how the Creamas is built. The another element is so called
+	framing for the evaluation, but it can be left blank. If you do not need
+	the another element, put in its place ``None``.
+
 Inventing New Words
 -------------------
 
@@ -260,12 +266,12 @@ across all the agents. Then we simply announce the winner for this iteration.
 It is important to clear the candidates after the vote, so that we do not vote
 repeatedly for same artifacts.
 
-.. note::
-	The voting functionality is done "under the hood" by some methods inherited
-	from :class:`Environment` and :class:`CreativeAgent`. However, it uses
-	the ``evaluate`` function which we defined for the agents. Therefore it is
-	important that the ``evaluate`` function returns two elements. If you do not
-	need the another element in your exercises, then put there ``None``.
+The voting functionality is done "under the hood" by some methods inherited
+from :class:`Environment` and :class:`CreativeAgent`. However, it uses
+the ``evaluate`` function which we defined for the agents (that's why it is
+important that it returns two values!). You can check what :meth:`perform_voting`
+does from `Creamas documentation
+<http://assamite.github.io/creamas/environment.html#creamas.core.environment.Environment.perform_voting>`_.
 
 Running the Simulation
 ----------------------

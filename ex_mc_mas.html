@@ -1,0 +1,219 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Week 2 - Markov Chains, Multi-agent Systems &#8212; CC-MAS 2016 0.1a documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1a',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="CC-MAS 2016 0.1a documentation" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="week-2-markov-chains-multi-agent-systems">
+<h1>Week 2 - Markov Chains, Multi-agent Systems<a class="headerlink" href="#week-2-markov-chains-multi-agent-systems" title="Permalink to this headline">¶</a></h1>
+<p class="centered">
+<strong>(Wed 9.11. 10.41) The second week&#8217;s exercises are now ready (although
+we might add some clarifications).</strong></p><div class="line-block">
+<div class="line"><br /></div>
+</div>
+<blockquote>
+<div><ol class="arabic">
+<li><p class="first"><strong>RETURN</strong> Alter your function <code class="docutils literal"><span class="pre">markov_chain</span></code> from the first week to
+accept an optional parameter <code class="docutils literal"><span class="pre">order</span></code> which specifies the order of the
+Markov chain to be created. That is, with <code class="docutils literal"><span class="pre">order=2</span></code> a state contains
+two successive tokens from the same sentence.</p>
+</li>
+<li><p class="first"><strong>RETURN</strong> Alter your function <code class="docutils literal"><span class="pre">generate</span></code> from the first week to be compatible with your
+new <code class="docutils literal"><span class="pre">markov_chain</span></code> implementation (from the exercise 1. in this week).
+The returned piece of text should be a single string with no repeating
+words, or nested arrays, etc. Experiment by generating text with different
+order Markov chains. What observations do you make? List your findings
+shortly (either as a comment in the module, or somewhere else).</p>
+</li>
+<li><p class="first">Familiarize yourself with <a class="reference internal" href="toy_mas.html"><span class="doc">Toy Example of MAS with Creamas</span></a>. See that you understand how
+a single agent functions, how the voting procedure is called and how the
+simulation is run.</p>
+</li>
+<li><p class="first"><strong>RETURN</strong> Create a function <code class="docutils literal"><span class="pre">random_words</span></code> which accepts the same parameters as
+the <code class="docutils literal"><span class="pre">frequent_words</span></code> in the example (see <a class="reference internal" href="toy_mas.html"><span class="doc">Toy Example of MAS with Creamas</span></a>), but returns a list of random words
+from the file (with length <em>n</em>). Create a new simulation where half of
+the agents in the environment use <code class="docutils literal"><span class="pre">frequent_words</span></code> and other half
+<code class="docutils literal"><span class="pre">random_words</span></code> to learn their vocabulary (you can alter the number
+of agents if you wish in your experiments). Run the simulation repeatedly.
+What do you observe, if anything?</p>
+<p>Additional notes:</p>
+<blockquote>
+<div><ul>
+<li><p class="first">To make real observations, you need to add some logging or other ways
+to see how each group values artifacts made by the agents in the same
+group and the agents in the other group. Some aggregate measures when
+observing agents&#8217; voting behavior might be a good start. This is most
+easily done in the environment (<code class="xref py py-class docutils literal"><span class="pre">ToyEnvironment</span></code>) where we defined
+the callback method <code class="xref py py-func docutils literal"><span class="pre">vote()</span></code>. Although the method <code class="xref py py-func docutils literal"><span class="pre">perform_voting()</span></code>
+only returns the winner of the vote, you can manually get each agent&#8217;s
+vote by triggering agent&#8217;s <code class="xref py py-func docutils literal"><span class="pre">vote()</span></code>. Observe (the code block
+should be inside the environment&#8217;s <code class="xref py py-func docutils literal"><span class="pre">vote()</span></code>, before the
+candidates are cleared):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cands</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">candidates</span>
+<span class="n">votes</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">agent</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_agents</span><span class="p">(</span><span class="n">addr</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">votes</span><span class="p">[</span><span class="n">agent</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">vote</span><span class="p">(</span><span class="n">cands</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now you can count whatever you like from the <code class="docutils literal"><span class="pre">votes</span></code> for each of the agents.
+(This adds some complexity as the voting is done twice, but we do
+not care for it right now.)</p>
+</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">Change your agent to generate text based on Markov chain instead. That is, alter the
+<code class="docutils literal"><span class="pre">generate</span></code> function to use Markov chain (either first-order or higher). It is up to you, if you
+learn the state transition probabilities at initialization time for each
+agent (not advised because of redundancy), or do you first learn the
+state transition probabilities from a single source and then give them
+to each agent at initialization time as a parameter. The pieces of text
+generated can be of fixed (token) length.</p>
+<p>Additional notes:</p>
+<blockquote>
+<div><ul class="simple">
+<li>When returning the exercise, add the file from where the Markov chain
+was learned in the compressed file (if it is not too big, say &gt;20mb).</li>
+<li>If you want to learn a Markov chain from a larger corpus than
+last week, there is a <a class="reference external" href="https://github.com/assamite/cc-mas-course/blob/master/week2/parse_BNC.py">simple script in the repository</a>
+which parses British National Corpus for fiction texts and writes a list of
+(text, part-of-speech)-tuples into a file. However, using that script
+is completely optional. You may also see that the script is not very
+well implemented, and it is your job to make it more efficient.</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">Create an evaluation function for the generated pieces of text based on the last
+week&#8217;s pseudolikelihood function. (If you have not implemented it, ask
+from someone who has.) That is, the evaluation for the Markov chain
+is the (pseudo)likelihood of the generated text w.r.t. the state
+transition probabilities. Is this kind of evaluation
+function desirable?</p>
+</li>
+<li><p class="first"><strong>RETURN</strong> Create a simulation where part of the agents learn the Markov
+chain from a source <strong>A</strong>, and another part from a source <strong>B</strong>. The agents
+evaluate the generated texts with their own (pseudo)likelihood functions. Run the
+simulation repeatedly and make observations as in the exercise 4.</p>
+<p>Additional notes:</p>
+<blockquote>
+<div><ul class="simple">
+<li>The sources can be anything you like, however, they should be sufficiently long (at least
+the same size as the last week&#8217;s Alice).</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><strong>RETURN</strong> Create a new evaluation function for the generated pieces of text.
+Design it any way you like, but aim to &#8220;as intelligent as you can get&#8221;
+and justify your decisions in the function&#8217;s docstring.</p>
+</li>
+<li><p class="first">Create a simulation where part of the agents learn the Markov
+chain from a source <strong>A</strong>, and another part from a source <strong>B</strong> and they
+evaluate the generated text with <strong>the evaluation function you designed</strong> in
+the previous exercise. Run the simulation repeatedly and make observations
+as in the exercise 4.</p>
+</li>
+</ol>
+</div></blockquote>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">CC-MAS 2016</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="preliminaries.html">1. Preliminaries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="course_format.html">2. Course Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="linguistic_creativity.html">3. Linguistic Creativity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mas.html">4. Multi-Agent Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="assignments.html">5. Assignments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zz_references.html">6. References</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Simo Linkola.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="_sources/ex_mc_mas.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

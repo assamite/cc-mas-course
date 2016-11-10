@@ -1,0 +1,102 @@
+Week 2 - Markov Chains, Multi-agent Systems
+===========================================
+
+.. centered::
+		(Wed 9.11. 10.41) The second week's exercises are now ready (although
+		we might add some clarifications).
+
+|
+
+	#. **RETURN** Alter your function ``markov_chain`` from the first week to
+	   accept an optional parameter ``order`` which specifies the order of the
+	   Markov chain to be created. That is, with ``order=2`` a state contains
+	   two successive tokens from the same sentence.
+	
+	#. **RETURN** Alter your function ``generate`` from the first week to be compatible with your
+	   new ``markov_chain`` implementation (from the exercise 1. in this week).
+	   The returned piece of text should be a single string with no repeating
+	   words, or nested arrays, etc. Experiment by generating text with different
+	   order Markov chains. What observations do you make? List your findings
+	   shortly (either as a comment in the module, or somewhere else).
+
+	#. Familiarize yourself with :doc:`toy_mas`. See that you understand how
+	   a single agent functions, how the voting procedure is called and how the
+	   simulation is run.
+
+	#. **RETURN** Create a function ``random_words`` which accepts the same parameters as
+	   the ``frequent_words`` in the example (see :doc:`toy_mas`), but returns a list of random words
+	   from the file (with length *n*). Create a new simulation where half of
+	   the agents in the environment use ``frequent_words`` and other half
+	   ``random_words`` to learn their vocabulary (you can alter the number
+	   of agents if you wish in your experiments). Run the simulation repeatedly.
+	   What do you observe, if anything? 
+
+	   Additional notes:
+
+	   	* To make real observations, you need to add some logging or other ways
+	   	  to see how each group values artifacts made by the agents in the same
+	   	  group and the agents in the other group. Some aggregate measures when
+	   	  observing agents' voting behavior might be a good start. This is most
+	   	  easily done in the environment (:class:`ToyEnvironment`) where we defined
+	   	  the callback method :func:`vote`. Although the method :func:`perform_voting`
+	   	  only returns the winner of the vote, you can manually get each agent's
+	   	  vote by triggering agent's :func:`vote`. Observe (the code block
+	   	  should be inside the environment's :func:`vote`, before the
+	   	  candidates are cleared)::
+
+			cands = self.candidates
+			votes = {}
+			for agent in self.get_agents(addr=False):
+				votes[agent.name] = agent.vote(cands)
+
+		  Now you can count whatever you like from the ``votes`` for each of the agents.
+		  (This adds some complexity as the voting is done twice, but we do
+		  not care for it right now.)
+
+	#. Change your agent to generate text based on Markov chain instead. That is, alter the
+	   ``generate`` function to use Markov chain (either first-order or higher). It is up to you, if you
+	   learn the state transition probabilities at initialization time for each
+	   agent (not advised because of redundancy), or do you first learn the
+	   state transition probabilities from a single source and then give them
+	   to each agent at initialization time as a parameter. The pieces of text
+	   generated can be of fixed (token) length.
+
+	   Additional notes:
+
+	   	* When returning the exercise, add the file from where the Markov chain
+	   	  was learned in the compressed file (if it is not too big, say >20mb).
+
+		* If you want to learn a Markov chain from a larger corpus than
+		  last week, there is a `simple script in the repository
+		  <https://github.com/assamite/cc-mas-course/blob/master/week2/parse_BNC.py>`_
+		  which parses British National Corpus for fiction texts and writes a list of
+		  (text, part-of-speech)-tuples into a file. However, using that script
+		  is completely optional. You may also see that the script is not very
+		  well implemented, and it is your job to make it more efficient.
+
+	#. Create an evaluation function for the generated pieces of text based on the last
+	   week's pseudolikelihood function. (If you have not implemented it, ask
+	   from someone who has.) That is, the evaluation for the Markov chain
+	   is the (pseudo)likelihood of the generated text w.r.t. the state
+	   transition probabilities. Is this kind of evaluation
+	   function desirable?
+
+	#. **RETURN** Create a simulation where part of the agents learn the Markov
+	   chain from a source **A**, and another part from a source **B**. The agents
+	   evaluate the generated texts with their own (pseudo)likelihood functions. Run the
+	   simulation repeatedly and make observations as in the exercise 4.
+
+	   Additional notes:
+
+	   	* The sources can be anything you like, however, they should be sufficiently long (at least
+	   	  the same size as the last week's Alice).
+
+	#. **RETURN** Create a new evaluation function for the generated pieces of text.
+	   Design it any way you like, but aim to "as intelligent as you can get"
+	   and justify your decisions in the function's docstring.
+
+	#. Create a simulation where part of the agents learn the Markov
+	   chain from a source **A**, and another part from a source **B** and they
+	   evaluate the generated text with **the evaluation function you designed** in
+	   the previous exercise. Run the simulation repeatedly and make observations
+	   as in the exercise 4.

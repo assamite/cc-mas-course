@@ -299,6 +299,13 @@ code example, but it is not included here for clarity):</p>
     <span class="k">return</span> <span class="n">evaluation</span><span class="p">,</span> <span class="n">matching_word</span>
 </pre></div>
 </div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">It is important for the <code class="xref py py-meth docutils literal"><span class="pre">evaluate()</span></code> method to return two elements
+because of how the Creamas is built. The another element is so called
+framing for the evaluation, but it can be left blank. If you do not need
+the another element, put in its place <code class="docutils literal"><span class="pre">None</span></code>.</p>
+</div>
 </div>
 <div class="section" id="inventing-new-words">
 <h2>4.1.5. Inventing New Words<a class="headerlink" href="#inventing-new-words" title="Permalink to this headline">¶</a></h2>
@@ -393,14 +400,11 @@ Here the method is to select the candidate with the best mean evaluation
 across all the agents. Then we simply announce the winner for this iteration.
 It is important to clear the candidates after the vote, so that we do not vote
 repeatedly for same artifacts.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The voting functionality is done &#8220;under the hood&#8221; by some methods inherited
+<p>The voting functionality is done &#8220;under the hood&#8221; by some methods inherited
 from <code class="xref py py-class docutils literal"><span class="pre">Environment</span></code> and <code class="xref py py-class docutils literal"><span class="pre">CreativeAgent</span></code>. However, it uses
-the <code class="docutils literal"><span class="pre">evaluate</span></code> function which we defined for the agents. Therefore it is
-important that the <code class="docutils literal"><span class="pre">evaluate</span></code> function returns two elements. If you do not
-need the another element in your exercises, then put there <code class="docutils literal"><span class="pre">None</span></code>.</p>
-</div>
+the <code class="docutils literal"><span class="pre">evaluate</span></code> function which we defined for the agents (that&#8217;s why it is
+important that it returns two values!). You can check what <code class="xref py py-meth docutils literal"><span class="pre">perform_voting()</span></code>
+does from <a class="reference external" href="http://assamite.github.io/creamas/environment.html#creamas.core.environment.Environment.perform_voting">Creamas documentation</a>.</p>
 </div>
 <div class="section" id="running-the-simulation">
 <h2>4.1.7. Running the Simulation<a class="headerlink" href="#running-the-simulation" title="Permalink to this headline">¶</a></h2>
