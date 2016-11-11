@@ -3,6 +3,13 @@ Toy Example of MAS with Creamas
 
 `(full code) <https://github.com/assamite/cc-mas-course/blob/master/week2/toy_mas.py>`_
 
+.. warning::
+	(Fri 11.11. 15.27) There was a mistake in the example codes considering
+	:meth:`evaluate` function and the number of elements it should return. 
+	With creamas 0.1.0, the evaluation function should return **one** element.
+	The modified example's full code can be found from `here
+	<https://github.com/assamite/cc-mas-course/blob/master/week2/toy_mas2.py>`_.
+
 In this example we will create a simple multi-agent system with
 `Creamas <https://assamite.github.io/creamas>`_. Creamas uses vocabulary typical
 to MAS in CC: agents, environments, and artifacts. You can find an overview of
