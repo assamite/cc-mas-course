@@ -148,15 +148,13 @@ class ToyAgent(CreativeAgent):
         '''
         evaluation = 0.0
         evaluation_word = artifact.obj
-        matching_word = self.vocab[0]
         for word in self.vocab:
             lev = levenshtein(evaluation_word, word)
             mlen = max(len(evaluation_word), float(len(word)))
             current_evaluation = 1.0 - (float(lev) / mlen)
             if current_evaluation > evaluation:
                 evaluation = current_evaluation
-                matching_word = word
-        return evaluation, matching_word
+        return evaluation
 
     def generate(self):
         '''Generate a new word.
@@ -183,21 +181,18 @@ class ToyAgent(CreativeAgent):
             evaluation.
         '''
         best_artifact = self.generate()
-        max_evaluation, match_word = self.evaluate(best_artifact)
+        max_evaluation = self.evaluate(best_artifact)
         for _ in range(n-1):
             artifact = self.generate()
-            evaluation, m_word = self.evaluate(artifact)
+            evaluation = self.evaluate(artifact)
             if evaluation > max_evaluation:
                 best_artifact = artifact
                 max_evaluation = evaluation
-                match_word = m_word
-        logger.debug("{} invented word: {} (eval={}, match={})"
-                     .format(self.name, best_artifact.obj, max_evaluation,
-                             match_word))
+        logger.debug("{} invented word: {} (eval={})"
+                     .format(self.name, best_artifact.obj, max_evaluation))
         # Add evaluation and framing to the artifact
-        best_artifact.add_eval(self, max_evaluation, fr={'match' : match_word})
+        best_artifact.add_eval(self, max_evaluation)
         return best_artifact
-
 
     async def act(self):
         '''Agent acts by inventing new words.

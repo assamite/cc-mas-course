@@ -1,6 +1,8 @@
 Toy Example of MAS with Creamas
 ===============================
 
+`(full code) <https://github.com/assamite/cc-mas-course/blob/master/week2/toy_mas.py>`_
+
 In this example we will create a simple multi-agent system with
 `Creamas <https://assamite.github.io/creamas>`_. Creamas uses vocabulary typical
 to MAS in CC: agents, environments, and artifacts. You can find an overview of
@@ -72,7 +74,7 @@ will not touch in here. We will also create the initialization function
 initialization function so that all required attributes get initialized. In our
 initialization function, we will define the acceptable words as a compiled regex
 pattern and word limits, and then "learn" the vocabulary from a given file. Here
-is the documentation for our :class:´ToyAgent` (``env`` is the environment for
+is the documentation for our :class:`ToyAgent` (``env`` is the environment for
 the agent, which we will define later in the example):
 
 .. autoclass:: toy_mas.ToyAgent
@@ -139,12 +141,12 @@ Evaluating Words
 ----------------
 
 Our agent is now capable of generating some random character strings, but has
-no notion of high value (or novelty or suprisingness). To evaluate our strings,
+no notion of value (or novelty or surprisingness). To evaluate our strings,
 we will use the ``vocab`` which was learned from a file when the agent was
 created, and `Levenshtein distance <https://en.wikipedia.org/wiki/Levenshtein_distance>`_.
-For the sake of our purposes the, it is sufficient to know that the Levenshtein
+For the sake of our purposes, it is sufficient to know that the Levenshtein
 distance computes the minimum number of edit operations by which one of the strings
-can be change to another. Here is our evaluation function's documentation:
+can be changed to another. Here is our evaluation function's documentation:
 
 .. automethod:: toy_mas.ToyAgent.evaluate
 
@@ -163,6 +165,12 @@ code example, but it is not included here for clarity)::
                 evaluation = current_evaluation
                 matching_word = word
         return evaluation, matching_word
+
+.. note::
+	It is important for the :meth:`evaluate` method to return two elements
+	because of how the Creamas is built. The another element is so called
+	framing for the evaluation, but it can be left blank. If you do not need
+	the another element, put in its place ``None``.
 
 Inventing New Words
 -------------------
@@ -205,7 +213,7 @@ in an iterative simulation where on each iteration:
 
 	#. Each agent produces a number of artifacts and selects the best one
 	#. Each agent adds its best artifact to candidate artifacts
-	#. Agents vote the winner from all the artifacts
+	#. Agents vote the winner from the candidates
 
 .. note:: 
 	As all the agents in our example will have the same words (if given the
@@ -258,12 +266,12 @@ across all the agents. Then we simply announce the winner for this iteration.
 It is important to clear the candidates after the vote, so that we do not vote
 repeatedly for same artifacts.
 
-.. note::
-	The voting functionality is done "under the hood" by some methods inherited
-	from :class:`Environment` and :class:`CreativeAgent`. However, it uses
-	the ``evaluate`` function which we defined for the agents. Therefore it is
-	important that the ``evaluate`` function returns two elements. If you do not
-	need the another element in your exercises, then put there ``None``.
+The voting functionality is done "under the hood" by some methods inherited
+from :class:`Environment` and :class:`CreativeAgent`. However, it uses
+the ``evaluate`` function which we defined for the agents (that's why it is
+important that it returns two values!). You can check what :meth:`perform_voting`
+does from `Creamas documentation
+<http://assamite.github.io/creamas/environment.html#creamas.core.environment.Environment.perform_voting>`_.
 
 Running the Simulation
 ----------------------
