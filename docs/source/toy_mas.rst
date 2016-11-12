@@ -3,6 +3,30 @@ Toy Example of MAS with Creamas
 
 `(full code) <https://github.com/assamite/cc-mas-course/blob/master/week2/toy_mas.py>`_
 
+.. warning::
+	(Sat 12.11. 10.04) There was a mistake in the example codes considering
+	:meth:`evaluate` function and the number of elements it should return. There
+	are now two full code examples ``toy_mas.py`` and ``toy_mas2.py`` in the
+	repository. The version that works for you is depended on the version of
+	Creamas: if you have Creamas 0.1.1 then ``toy_mas.py`` should work, and
+	if you have Creamas 0.1.0 then ``toy_mas2.py`` should work. You can check
+	which version you currently have by typing ``pip freeze`` in the terminal while
+	your virtual environment is active. 
+
+	The easiest way to get everything working is upgrading the Creamas and following
+	this example (and the full code ``toy_mas.py``). You can upgrade you
+	Creamas 0.1.0 to 0.1.1 by executing ``pip install --upgrade creamas`` in the terminal.
+	If you are installing Creamas for the first time, then ``pip install creamas``
+	should automatically install you the latest version (0.1.1).
+
+	This example is currently written for
+	Creamas 0.1.1, however there is very little that is changed between the two example
+	code version. The differences are in how many elements :meth:`evaluate`
+	returns. With creamas==0.1.0, the evaluation function should return **one** element.
+	With creamas==0.1.1, the evaluation function should return **two** elements.
+	Changing the :meth:`evaluate` also forces some refactoring in :meth:`invent`
+	to reflect these changes.
+
 In this example we will create a simple multi-agent system with
 `Creamas <https://assamite.github.io/creamas>`_. Creamas uses vocabulary typical
 to MAS in CC: agents, environments, and artifacts. You can find an overview of
@@ -18,7 +42,7 @@ but here are main points:
 
 .. note:: 
 	Creamas should be installed in your virtual environment. If you get any
-	import errors while running the code, use ``pip install creamas==0.1.0``.
+	import errors while running the code, use ``pip install creamas==0.1.1``.
 
 Parsing the Vocabulary
 ----------------------
@@ -63,7 +87,7 @@ And here is the actual code for both of the functions (docstrings stripped)::
 We will use these two parsing functions in the next section where we actually
 implement our agents.
 
-Creating An Agent Class
+Creating an Agent Class
 -----------------------
 
 Now we create a new agent class by subclassing the
