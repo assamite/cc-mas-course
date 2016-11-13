@@ -89,7 +89,7 @@ should be inside the environment&#8217;s <code class="xref py py-func docutils l
 candidates are cleared):</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cands</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">candidates</span>
 <span class="n">votes</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="k">for</span> <span class="n">agent</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_agents</span><span class="p">(</span><span class="n">addr</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="k">for</span> <span class="n">agent</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_agents</span><span class="p">(</span><span class="n">address</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="n">votes</span><span class="p">[</span><span class="n">agent</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">vote</span><span class="p">(</span><span class="n">cands</span><span class="p">)</span>
 </pre></div>
 </div>

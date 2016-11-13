@@ -87,7 +87,7 @@ And here is the actual code for both of the functions (docstrings stripped)::
 We will use these two parsing functions in the next section where we actually
 implement our agents.
 
-Creating An Agent Class
+Creating an Agent Class
 -----------------------
 
 Now we create a new agent class by subclassing the

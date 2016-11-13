@@ -46,7 +46,7 @@ Week 2 - Markov Chains, Multi-agent Systems
 
 			cands = self.candidates
 			votes = {}
-			for agent in self.get_agents(addr=False):
+			for agent in self.get_agents(address=False):
 				votes[agent.name] = agent.vote(cands)
 
 		  Now you can count whatever you like from the ``votes`` for each of the agents.
