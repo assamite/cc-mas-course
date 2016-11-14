@@ -46,7 +46,7 @@ Week 2 - Markov Chains, Multi-agent Systems
 
 			cands = self.candidates
 			votes = {}
-			for agent in self.get_agents(addr=False):
+			for agent in self.get_agents(address=False):
 				votes[agent.name] = agent.vote(cands)
 
 		  Now you can count whatever you like from the ``votes`` for each of the agents.
@@ -90,6 +90,10 @@ Week 2 - Markov Chains, Multi-agent Systems
 
 	   	* The sources can be anything you like, however, they should be sufficiently long (at least
 	   	  the same size as the last week's Alice).
+	   	* You may have to alter you (pseudo)likelihood function to handle the
+	   	  state transitions that do not exist in the state transition probabilities.
+	   	  It can be simple and clean, e.g. giving a very small probability for
+	   	  each state transition that does not exist in the data structure.
 
 	#. **RETURN** Create a new evaluation function for the generated pieces of text.
 	   Design it any way you like, but aim to "as intelligent as you can get"

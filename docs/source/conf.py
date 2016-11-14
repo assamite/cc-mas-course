@@ -23,6 +23,8 @@ import shlex
 sys.path.insert(0, os.path.abspath('./..'))
 sys.path.insert(0, os.path.abspath('../../week1'))
 sys.path.insert(0, os.path.abspath('../../week2'))
+sys.path.insert(0, os.path.abspath('../../week3'))
+sys.path.insert(0, os.path.abspath('../../week4'))
 
 # -- General configuration ------------------------------------------------
 
