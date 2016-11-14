@@ -1,0 +1,458 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>mas_memory &#8212; CC-MAS 2016 0.1a documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1a',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="top" title="CC-MAS 2016 0.1a documentation" href="../index.html" />
+    <link rel="up" title="Module code" href="index.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for mas_memory</h1><div class="highlight"><pre>
+<span></span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">.. py:module:: mas_memory</span>
+<span class="sd">    :platform: Unix</span>
+
+<span class="sd">An example of an agent&#39;s memory model and how an agent can learn (learn here is</span>
+<span class="sd">used in a very weak sense) new artifacts to it from domain.</span>
+
+<span class="sd">This example is a direct follow-up to last week&#39;s toy multi-agent system</span>
+<span class="sd">example.</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="kn">from</span> <span class="nn">creamas.core</span> <span class="k">import</span> <span class="n">CreativeAgent</span><span class="p">,</span> <span class="n">Environment</span><span class="p">,</span> <span class="n">Simulation</span><span class="p">,</span> <span class="n">Artifact</span>
+
+
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">Counter</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="kn">import</span> <span class="nn">aiomas</span>
+
+<span class="c1"># Logging setup. This is simplified setup as all agents use the same logger.</span>
+<span class="c1"># It _will_ cause some problems in asynchronous settings, especially if you</span>
+<span class="c1"># are logging to a file.</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">())</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">ListMemory</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;Simple list memory which stores all seen artifacts as is into a list.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">capacity</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        :param int capacity: The maximum number of artifacts in the memory.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_capacity</span> <span class="o">=</span> <span class="n">capacity</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_artifacts</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">capacity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;The maximum number of artifacts in the memory.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_capacity</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">artifacts</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;The artifacts currently in the memory.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_artifacts</span>
+
+    <span class="k">def</span> <span class="nf">memorize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">artifact</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Memorize an artifact into the memory.</span>
+
+<span class="sd">        If the artifact is already in the memory, does nothing. If memory</span>
+<span class="sd">        is full and a new artifact is memorized, forgets the oldest artifact.</span>
+
+<span class="sd">        :param artifact: Artifact to be learned.</span>
+<span class="sd">        :type artifact: :class:`~creamas.core.artifact.Artifact`</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="n">artifact</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_artifacts</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_artifacts</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">artifact</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_artifacts</span><span class="p">)</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">capacity</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_artifacts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_artifacts</span><span class="p">[:</span><span class="bp">self</span><span class="o">.</span><span class="n">capacity</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">levenshtein</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Compute the edit distance between two strings.</span>
+
+<span class="sd">        From Wikipedia article; Iterative with two matrix rows.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="n">s</span> <span class="o">==</span> <span class="n">t</span><span class="p">:</span> <span class="k">return</span> <span class="mi">0</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+        <span class="n">v0</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">v1</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">v0</span><span class="p">)):</span>
+            <span class="n">v0</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)):</span>
+            <span class="n">v1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)):</span>
+                <span class="n">cost</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">t</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="k">else</span> <span class="mi">1</span>
+                <span class="n">v1</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">v1</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">v0</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">v0</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="n">cost</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">v0</span><span class="p">)):</span>
+                <span class="n">v0</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">v1</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">v1</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)]</span>
+
+
+<span class="k">def</span> <span class="nf">parse_words</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">encoding</span><span class="p">,</span> <span class="n">word_pattern</span><span class="p">,</span> <span class="n">wlen_limits</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Parse acceptable words from the file.</span>
+
+<span class="sd">    :param str filename: Path to the file to parse</span>
+<span class="sd">    :param str encoding: Encoding of the file (most probably &#39;utf8&#39;)</span>
+<span class="sd">    :param word_pattern: Compiled regex for acceptable words</span>
+<span class="sd">    :param tuple wlen_limits: Length limits for the acceptable words</span>
+<span class="sd">    :returns:</span>
+<span class="sd">        Acceptable words as a list (may contain multiple entries of the same</span>
+<span class="sd">        word).</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="c1"># Filter function to define which words are accepted.</span>
+    <span class="k">def</span> <span class="nf">is_word</span><span class="p">(</span><span class="n">w</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">word_pattern</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">lower</span><span class="p">()):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">wlen_limits</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">wlen_limits</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="n">words</span> <span class="o">=</span> <span class="n">content</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+    <span class="n">ret</span> <span class="o">=</span> <span class="p">[</span><span class="n">w</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">words</span> <span class="k">if</span> <span class="n">is_word</span><span class="p">(</span><span class="n">w</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="n">ret</span>
+
+
+<span class="k">def</span> <span class="nf">frequent_words</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">encoding</span><span class="p">,</span> <span class="n">word_pattern</span><span class="p">,</span> <span class="n">wlen_limits</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Get the most frequent words from the given file.</span>
+
+<span class="sd">    The &#39;word&#39; is used loosely here as a word is anything the ``parse_words``</span>
+<span class="sd">    function will recognize as a word.</span>
+
+<span class="sd">    :param str filename: File to learn the words</span>
+<span class="sd">    :param str encoding: Encoding of the file (most probably &#39;utf8&#39;)</span>
+<span class="sd">    :param word_pattern: Compiled regex for acceptable words</span>
+<span class="sd">    :param tuple wlen_limits: Length limits for the acceptable words</span>
+<span class="sd">    :param int n: Number of words to return</span>
+<span class="sd">    :returns: a list of the most common (n) words in the file</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">words</span> <span class="o">=</span> <span class="n">parse_words</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">encoding</span><span class="p">,</span> <span class="n">word_pattern</span><span class="p">,</span> <span class="n">wlen_limits</span><span class="p">)</span>
+    <span class="c1"># Count the number of times each element appears in the list</span>
+    <span class="n">ctr</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">words</span><span class="p">)</span>
+    <span class="n">common</span> <span class="o">=</span> <span class="n">ctr</span><span class="o">.</span><span class="n">most_common</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="c1"># return only the words, not their counts</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">common</span><span class="p">]</span>
+
+
+<span class="k">class</span> <span class="nc">ToyAgent</span><span class="p">(</span><span class="n">CreativeAgent</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;A sample agent implementation.</span>
+
+<span class="sd">    Agent invents new words be generating them at random and evaluating them</span>
+<span class="sd">    with respect to its own vocabulary. </span>
+
+<span class="sd">    Agent learns its vocabulary from the file given at initialization.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">env</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+                 <span class="n">wlen_limits</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">11</span><span class="p">),</span> <span class="n">chars</span><span class="o">=</span><span class="s1">&#39;abcdefghijklmnopqrstuvwxyz&#39;</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        :param env:</span>
+<span class="sd">            subclass of :py:class:`~creamas.core.environment.Environment`</span>
+
+<span class="sd">        :param str filename: Filename from which the words should be parsed.</span>
+<span class="sd">        :param str encoding: Encoding of the file</span>
+
+<span class="sd">        :param int n:</span>
+<span class="sd">            The number of words the agent considers per :func:`invent`</span>
+
+<span class="sd">        :param tuple wlen_limits:</span>
+<span class="sd">            (int, int)-tuple, acceptable word length limits</span>
+
+<span class="sd">        :param str chars: acceptable characters in the words</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">=</span> <span class="n">n</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chars</span> <span class="o">=</span> <span class="n">chars</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wlen_limits</span> <span class="o">=</span> <span class="n">wlen_limits</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">word_pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">r&#39;^\w+$&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vocab</span> <span class="o">=</span> <span class="n">frequent_words</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">,</span>
+                                    <span class="n">word_pattern</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">word_pattern</span><span class="p">,</span>
+                                    <span class="n">wlen_limits</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">wlen_limits</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mem</span> <span class="o">=</span> <span class="n">ListMemory</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ToyAgent.evaluate"><a class="viewcode-back" href="../mas_memory.html#mas_memory.ToyAgent.evaluate">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">artifact</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Evaluate given artifact with respect to the agent&#39;s vocabulary and</span>
+<span class="sd">        the memory.</span>
+
+<span class="sd">        Actual evaluation formula for a string :math:`s` is:</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            e(s) = \\frac{v(s) + n(s)}{2},</span>
+
+<span class="sd">        where :math:`v(s)` is the value as returned by :meth:`value` and</span>
+<span class="sd">        :math:`n(s)` is the novelty as returned by :meth:`novelty`.</span>
+
+<span class="sd">        :param artifact: :class:`~creamas.core.Artifact` to be evaluated</span>
+<span class="sd">        :returns:</span>
+<span class="sd">            (evaluation, framing)-tuple, the framing is the combined framing of</span>
+<span class="sd">            both the value and novelty.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">value</span><span class="p">,</span> <span class="n">value_framing</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="n">artifact</span><span class="p">)</span>
+        <span class="n">novelty</span><span class="p">,</span> <span class="n">novelty_framing</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">novelty</span><span class="p">(</span><span class="n">artifact</span><span class="p">)</span>
+        <span class="n">framing</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="n">value_framing</span><span class="p">,</span> <span class="s1">&#39;novelty&#39;</span><span class="p">:</span><span class="n">novelty_framing</span><span class="p">}</span>
+        <span class="n">evaluation</span> <span class="o">=</span> <span class="p">(</span><span class="n">value</span> <span class="o">+</span> <span class="n">novelty</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="k">return</span> <span class="n">evaluation</span><span class="p">,</span> <span class="n">framing</span></div>
+
+    <span class="k">def</span> <span class="nf">value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">artifact</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Compute the value of a given artifact with respect to the words the</span>
+<span class="sd">        agent has in its vocabulary.</span>
+
+<span class="sd">        Actual evaluation formula for a string :math:`s` is:</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            v(s) = \\max_{w \in \\texttt{vocab}}\\frac{1 - \\texttt{lev}(s, w)}</span>
+<span class="sd">            {\\max(|s|, |w|)},</span>
+
+<span class="sd">        where :math:`\\texttt{lev}(s, w)` is the Levenshtein</span>
+<span class="sd">        distance between the two strings.</span>
+
+<span class="sd">        :param artifact: :class:`~creamas.core.Artifact` to be evaluated</span>
+<span class="sd">        :returns:</span>
+<span class="sd">            (evaluation, word)-tuple, containing both the evaluation and the</span>
+<span class="sd">            word giving the maximum evaluation</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">evaluation</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">evaluation_word</span> <span class="o">=</span> <span class="n">artifact</span><span class="o">.</span><span class="n">obj</span>
+        <span class="n">matching_word</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vocab</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">vocab</span><span class="p">:</span>
+            <span class="n">lev</span> <span class="o">=</span> <span class="n">levenshtein</span><span class="p">(</span><span class="n">evaluation_word</span><span class="p">,</span> <span class="n">word</span><span class="p">)</span>
+            <span class="n">mlen</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">evaluation_word</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">word</span><span class="p">)))</span>
+            <span class="n">current_evaluation</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">lev</span><span class="p">)</span> <span class="o">/</span> <span class="n">mlen</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">current_evaluation</span> <span class="o">&gt;</span> <span class="n">evaluation</span><span class="p">:</span>
+                <span class="n">evaluation</span> <span class="o">=</span> <span class="n">current_evaluation</span>
+                <span class="n">matching_word</span> <span class="o">=</span> <span class="n">word</span>
+        <span class="k">return</span> <span class="n">evaluation</span><span class="p">,</span> <span class="n">matching_word</span>
+
+<div class="viewcode-block" id="ToyAgent.novelty"><a class="viewcode-back" href="../mas_memory.html#mas_memory.ToyAgent.novelty">[docs]</a>    <span class="k">def</span> <span class="nf">novelty</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">artifact</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Compute the novelty of a given artifact with respect to the artifacts</span>
+<span class="sd">        in the agent&#39;s memory.</span>
+
+<span class="sd">        The novelty of an artifact is the minimum distance to any artifact in</span>
+<span class="sd">        the agent&#39;s memory.</span>
+
+<span class="sd">        Actual evaluation formula for a string :math:`s` is:</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            n(s) = \\min_{w \in \\texttt{memory}}\\frac{1 - \\texttt{lev}(s, w)}</span>
+<span class="sd">            {\\max(|s|, |w|)},</span>
+
+<span class="sd">        where :math:`\\texttt{lev}(s, w)` is the Levenshtein</span>
+<span class="sd">        distance between the two strings.</span>
+
+<span class="sd">        :param artifact: :class:`~creamas.core.Artifact` to be evaluated</span>
+<span class="sd">        :returns:</span>
+<span class="sd">            (novelty, word)-tuple, containing both the novelty value and the</span>
+<span class="sd">            word giving the minimum novelty.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="c1"># We will choose that the novelty is maximal if agent&#39;s memory is empty.</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mem</span><span class="o">.</span><span class="n">artifacts</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mf">1.0</span><span class="p">,</span> <span class="kc">None</span>
+
+        <span class="n">novelty</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="n">evaluation_word</span> <span class="o">=</span> <span class="n">artifact</span><span class="o">.</span><span class="n">obj</span>
+        <span class="n">matching_word</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mem</span><span class="o">.</span><span class="n">artifacts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">obj</span>
+        <span class="k">for</span> <span class="n">memart</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">mem</span><span class="o">.</span><span class="n">artifacts</span><span class="p">:</span>
+            <span class="n">word</span> <span class="o">=</span> <span class="n">memart</span><span class="o">.</span><span class="n">obj</span>
+            <span class="n">lev</span> <span class="o">=</span> <span class="n">levenshtein</span><span class="p">(</span><span class="n">evaluation_word</span><span class="p">,</span> <span class="n">word</span><span class="p">)</span>
+            <span class="n">mlen</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">evaluation_word</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">word</span><span class="p">)))</span>
+            <span class="n">current_novelty</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">lev</span><span class="p">)</span> <span class="o">/</span> <span class="n">mlen</span>
+            <span class="k">if</span> <span class="n">current_novelty</span> <span class="o">&lt;</span> <span class="n">novelty</span><span class="p">:</span>
+                <span class="n">novelty</span> <span class="o">=</span> <span class="n">current_novelty</span>
+                <span class="n">matching_word</span> <span class="o">=</span> <span class="n">word</span>
+        <span class="k">return</span> <span class="n">novelty</span><span class="p">,</span> <span class="n">matching_word</span></div>
+
+
+    <span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Generate a new word.</span>
+
+<span class="sd">        Word is generated by uniformly drawing from ``chars``. Word length is</span>
+<span class="sd">        in ``wlen_limits``.</span>
+
+<span class="sd">        :returns: a word wrapped as :class:`~creamas.core.artifact.Artifact`</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">word_length</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">wlen_limits</span><span class="p">)</span>
+        <span class="n">word</span> <span class="o">=</span> <span class="p">[</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">chars</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">word_length</span><span class="p">)]</span>
+        <span class="n">word</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Artifact</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">word</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">invent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Invent a new word.</span>
+
+<span class="sd">        Generates multiple (n) words and selects the one with the highest</span>
+<span class="sd">        evaluation.</span>
+
+<span class="sd">        :param int n: Number of words to consider</span>
+<span class="sd">        :returns:</span>
+<span class="sd">            a word wrapped as :class:`~creamas.core.artifact.Artifact` and its</span>
+<span class="sd">            evaluation.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">best_artifact</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate</span><span class="p">()</span>
+        <span class="n">max_evaluation</span><span class="p">,</span> <span class="n">framing</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">best_artifact</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">artifact</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate</span><span class="p">()</span>
+            <span class="n">evaluation</span><span class="p">,</span> <span class="n">fr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">artifact</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">evaluation</span> <span class="o">&gt;</span> <span class="n">max_evaluation</span><span class="p">:</span>
+                <span class="n">best_artifact</span> <span class="o">=</span> <span class="n">artifact</span>
+                <span class="n">max_evaluation</span> <span class="o">=</span> <span class="n">evaluation</span>
+                <span class="n">framing</span> <span class="o">=</span> <span class="n">fr</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> invented word: </span><span class="si">{}</span><span class="s2"> (eval=</span><span class="si">{}</span><span class="s2">, framing=</span><span class="si">{}</span><span class="s2">)&quot;</span>
+                     <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">best_artifact</span><span class="o">.</span><span class="n">obj</span><span class="p">,</span> <span class="n">max_evaluation</span><span class="p">,</span>
+                             <span class="n">framing</span><span class="p">))</span>
+        <span class="c1"># Add evaluation and framing to the artifact</span>
+        <span class="n">best_artifact</span><span class="o">.</span><span class="n">add_eval</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">max_evaluation</span><span class="p">,</span> <span class="n">fr</span><span class="o">=</span><span class="n">framing</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">best_artifact</span>
+
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">act</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Agent acts by inventing new words.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">artifacts</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mem</span><span class="o">.</span><span class="n">memorize</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">artifacts</span><span class="p">))</span>
+        <span class="n">artifact</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">invent</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mem</span><span class="o">.</span><span class="n">memorize</span><span class="p">(</span><span class="n">artifact</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">([</span><span class="n">a</span><span class="o">.</span><span class="n">obj</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">mem</span><span class="o">.</span><span class="n">artifacts</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">add_candidate</span><span class="p">(</span><span class="n">artifact</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">ToyEnvironment</span><span class="p">(</span><span class="n">Environment</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">vote</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">age</span><span class="p">):</span>
+        <span class="n">artifacts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">perform_voting</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">artifacts</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">accepted</span> <span class="o">=</span> <span class="n">artifacts</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">artifacts</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_artifact</span><span class="p">(</span><span class="n">accepted</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Vote winner by </span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="s2"> (val=</span><span class="si">{}</span><span class="s2">)&quot;</span>
+                        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">accepted</span><span class="o">.</span><span class="n">creator</span><span class="p">,</span> <span class="n">accepted</span><span class="o">.</span><span class="n">obj</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;No vote winner!&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">clear_candidates</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;../week1/alice.txt&#39;</span>
+    <span class="n">env</span> <span class="o">=</span> <span class="n">ToyEnvironment</span><span class="o">.</span><span class="n">create</span><span class="p">((</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="mi">5555</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="n">agent</span> <span class="o">=</span> <span class="n">ToyAgent</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
+
+    <span class="n">sim</span> <span class="o">=</span> <span class="n">Simulation</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">log_folder</span><span class="o">=</span><span class="s1">&#39;logs&#39;</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="n">env</span><span class="o">.</span><span class="n">vote</span><span class="p">)</span>
+    <span class="n">sim</span><span class="o">.</span><span class="n">async_steps</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">sim</span><span class="o">.</span><span class="n">end</span><span class="p">()</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">CC-MAS 2016</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../preliminaries.html">1. Preliminaries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../course_format.html">2. Course Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linguistic_creativity.html">3. Linguistic Creativity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mas.html">4. Multi-Agent Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../assignments.html">5. Assignments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../zz_references.html">6. References</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Simo Linkola.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

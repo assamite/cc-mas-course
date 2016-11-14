@@ -1,0 +1,462 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>4.2. Agents With Memory and Learning From Domain &#8212; CC-MAS 2016 0.1a documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1a',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="CC-MAS 2016 0.1a documentation" href="index.html" />
+    <link rel="up" title="4. Multi-Agent Systems" href="mas.html" />
+    <link rel="next" title="5. Assignments" href="assignments.html" />
+    <link rel="prev" title="4.1. Toy Example of MAS with Creamas" href="toy_mas.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="agents-with-memory-and-learning-from-domain">
+<h1>4.2. Agents With Memory and Learning From Domain<a class="headerlink" href="#agents-with-memory-and-learning-from-domain" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://github.com/assamite/cc-mas-course/blob/master/week3/mas_memory.py">(full code)</a></p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This example is written for Creamas version 0.1.1. If you want to be sure
+you have the right version, type in terminal (when you have virtual environment
+activated): <code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--upgrade</span> <span class="pre">creamas==0.1.1</span></code></p>
+</div>
+<p>This week we will build a simple memory for our agents and use it to memorize
+agent&#8217;s own artifacts and artifacts from the domain. However, we will strictly
+restrict the memory size in order to effectively model the resource restrictions
+of each individual agent (with unlimited memory, and certain communication
+structures the agents would not have local views any more as they more or less
+would have the full knowledge of what the whole society has created before).</p>
+<p>In this example, we will use the memory model to directly assess the novelty of
+artifacts. However, it could also be used in other ways.</p>
+<div class="section" id="memory-model">
+<h2>4.2.1. Memory Model<a class="headerlink" href="#memory-model" title="Permalink to this headline">¶</a></h2>
+<p>Our memory model will be a simple list which we will wrap as a class to get
+a clean API for it (and which would allow us to switch memory models
+easily if other models would use the same API). For our memory model, we
+actually only define one method: <code class="xref py py-meth docutils literal"><span class="pre">memorize()</span></code> which will memorize a new artifact
+into a memory and possibly forget some other (i.e. the oldest) artifact from
+the memory if it is full. The initialization method will have one parameter, <code class="docutils literal"><span class="pre">capacity</span></code>,
+which will be the maximum number of artifacts in the memory at any single time.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ListMemory</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;Simple list memory which stores all seen artifacts as is into a list.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">capacity</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        :param int capacity: The maximum number of artifacts in the memory.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_capacity</span> <span class="o">=</span> <span class="n">capacity</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_artifacts</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">capacity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;The maximum number of artifacts in the memory.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_capacity</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">artifacts</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;The artifacts currently in the memory.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_artifacts</span>
+
+    <span class="k">def</span> <span class="nf">memorize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">artifact</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Memorize an artifact into the memory.</span>
+
+<span class="sd">        If the artifact is already in the memory, does nothing. If memory</span>
+<span class="sd">        is full and a new artifact is memorized, forgets the oldest artifact.</span>
+
+<span class="sd">        :param artifact: Artifact to be learned.</span>
+<span class="sd">        :type artifact: :class:`~creamas.core.artifact.Artifact`</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="n">artifact</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_artifacts</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_artifacts</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">artifact</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_artifacts</span><span class="p">)</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">capacity</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_artifacts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_artifacts</span><span class="p">[:</span><span class="bp">self</span><span class="o">.</span><span class="n">capacity</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Some Python details. Skip if you are not interested.</p>
+<p>We have defined <code class="docutils literal"><span class="pre">capacity</span></code> and <code class="docutils literal"><span class="pre">artifacts</span></code> as properties (<code class="docutils literal"><span class="pre">&#64;property</span></code>
+function decorator) without setters.
+This encourages the user of the class to not change them during
+<code class="xref py py-class docutils literal"><span class="pre">ListMemory</span></code> object&#8217;s life time. However, one could still access the
+<code class="docutils literal"><span class="pre">_capacity</span></code> and <code class="docutils literal"><span class="pre">_artifacts</span></code> attributes, or even insert new artifacts
+into <code class="docutils literal"><span class="pre">artifacts</span></code> as it is not directly setting a new object as the property:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lm</span> <span class="o">=</span> <span class="n">ListMemory</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lm</span><span class="o">.</span><span class="n">capacity</span>
+<span class="go">10</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lm</span><span class="o">.</span><span class="n">_capacity</span> <span class="o">=</span> <span class="mi">15</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lm</span><span class="o">.</span><span class="n">capacity</span>
+<span class="go">15</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lm</span><span class="o">.</span><span class="n">capacity</span> <span class="o">=</span> <span class="mi">14</span>
+<span class="gt">Traceback (most recent call last):</span>
+  File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
+<span class="gr">AttributeError</span>: <span class="n">can&#39;t set attribute</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lm</span><span class="o">.</span><span class="n">artifacts</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;foo&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lm</span><span class="o">.</span><span class="n">artifacts</span>
+<span class="go">[&#39;foo&#39;]</span>
+</pre></div>
+</div>
+<p>To add a setter into a property we could define it for <code class="docutils literal"><span class="pre">capacity</span></code> as follows:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nd">@capacity</span><span class="o">.</span><span class="n">setter</span>
+<span class="k">def</span> <span class="nf">capacity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cap</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="nb">type</span><span class="p">(</span><span class="n">cap</span><span class="p">)</span> <span class="o">==</span> <span class="nb">int</span>
+    <span class="k">assert</span> <span class="n">cap</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_capacity</span> <span class="o">=</span> <span class="n">cap</span>
+</pre></div>
+</div>
+<p class="last">The assertions would then cause an error if a user would try to set
+<code class="docutils literal"><span class="pre">capacity</span></code> to something else than integer that is strictly positive.
+(Typically you would like to have more informative errors than <code class="xref py py-exc docutils literal"><span class="pre">AssertionError</span></code>,
+but this will do for the sake of the example.)</p>
+</div>
+</div>
+<div class="section" id="add-listmemory-to-toyagent">
+<h2>4.2.2. Add <code class="xref py py-class docutils literal"><span class="pre">ListMemory</span></code> to <code class="xref py py-class docutils literal"><span class="pre">ToyAgent</span></code><a class="headerlink" href="#add-listmemory-to-toyagent" title="Permalink to this headline">¶</a></h2>
+<p>Next, we will fit the memory model into our <code class="xref py py-class docutils literal"><span class="pre">ToyAgent</span></code> class from last
+week and use it to assess the novelty of a new artifact. To this end we will:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Change <code class="xref py py-func docutils literal"><span class="pre">__init__()</span></code>;</li>
+<li>Rename <code class="xref py py-func docutils literal"><span class="pre">evaluate()</span></code> to <code class="xref py py-func docutils literal"><span class="pre">value()</span></code> (and change its docstring a bit);</li>
+<li>Implement a new function <code class="xref py py-func docutils literal"><span class="pre">novelty()</span></code>;</li>
+<li>Re-implement <code class="xref py py-func docutils literal"><span class="pre">evaluate()</span></code>;</li>
+<li>Modify <code class="xref py py-func docutils literal"><span class="pre">invent()</span></code> a bit to reflect the changes above; and</li>
+<li>Memorize every artifact the agent invents (i.e. one artifact per <code class="xref py py-func docutils literal"><span class="pre">act()</span></code>).</li>
+</ol>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">One could also acquire these changes by inheriting <code class="xref py py-class docutils literal"><span class="pre">ToyAgent</span></code> from
+the last week and changing the appropriate parts, but we will not do
+it in this example for the sake of modularity.</p>
+</div>
+<div class="section" id="change-init">
+<h3>4.2.2.1. Change <code class="xref py py-func docutils literal"><span class="pre">__init__()</span></code><a class="headerlink" href="#change-init" title="Permalink to this headline">¶</a></h3>
+<p>We change <code class="xref py py-func docutils literal"><span class="pre">__init__()</span></code> to also create the memory for the agent. This is done
+simply by adding the following line in it:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">mem</span> <span class="o">=</span> <span class="n">ListMemory</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="rename-evaluate-to-value">
+<h3>4.2.2.2. Rename <code class="xref py py-func docutils literal"><span class="pre">evaluate()</span></code> to <code class="xref py py-func docutils literal"><span class="pre">value()</span></code><a class="headerlink" href="#rename-evaluate-to-value" title="Permalink to this headline">¶</a></h3>
+<p>As <code class="xref py py-func docutils literal"><span class="pre">evaluate()</span></code> is a reserved function in Creamas which some of the other
+library functionality calls inherently (e.g. <code class="xref py py-func docutils literal"><span class="pre">CreativeAgent.vote()</span></code>), we need to keep it as the highest level
+evaluation function. As we will introduce a new evaluation function <code class="xref py py-func docutils literal"><span class="pre">novelty()</span></code>,
+we need to use <code class="xref py py-func docutils literal"><span class="pre">evaluate()</span></code> to combine the two different evaluations. To this
+end we simply rename our old <code class="xref py py-func docutils literal"><span class="pre">evaluate()</span></code> to <code class="xref py py-func docutils literal"><span class="pre">value()</span></code> to remind us that
+it is the function that evaluates how valuable each artifact is.</p>
+</div>
+<div class="section" id="implement-a-new-function-novelty">
+<h3>4.2.2.3. Implement a New Function <code class="xref py py-func docutils literal"><span class="pre">novelty()</span></code><a class="headerlink" href="#implement-a-new-function-novelty" title="Permalink to this headline">¶</a></h3>
+<p>Next, we will implement a new function. It is very similar to our <code class="xref py py-func docutils literal"><span class="pre">value()</span></code>
+function, but it compares the new artifact to the artifacts in the memory, not
+in the vocabulary, and it computes the novelty of an artifact to be the <strong>minimum</strong>
+distance between the artifact and any artifact in the memory. Here is its
+documentation:</p>
+<dl class="method">
+<dt id="mas_memory.ToyAgent.novelty">
+<code class="descclassname">ToyAgent.</code><code class="descname">novelty</code><span class="sig-paren">(</span><em>artifact</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mas_memory.html#ToyAgent.novelty"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mas_memory.ToyAgent.novelty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the novelty of a given artifact with respect to the artifacts
+in the agent&#8217;s memory.</p>
+<p>The novelty of an artifact is the minimum distance to any artifact in
+the agent&#8217;s memory.</p>
+<p>Actual evaluation formula for a string <span class="math">\(s\)</span> is:</p>
+<div class="math">
+\[n(s) = \min_{w \in \texttt{memory}}\frac{1 - \texttt{lev}(s, w)}
+{\max(|s|, |w|)},\]</div>
+<p>where <span class="math">\(\texttt{lev}(s, w)\)</span> is the Levenshtein
+distance between the two strings.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>artifact</strong> &#8211; <code class="xref py py-class docutils literal"><span class="pre">Artifact</span></code> to be evaluated</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">(novelty, word)-tuple, containing both the novelty value and the
+word giving the minimum novelty.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>And here is its code (docstring omitted):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">novelty</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">artifact</span><span class="p">):</span>
+    <span class="c1"># We will choose that the novelty is maximal if agent&#39;s memory is empty.</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mem</span><span class="o">.</span><span class="n">artifacts</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">1.0</span><span class="p">,</span> <span class="kc">None</span>
+
+    <span class="n">novelty</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="n">evaluation_word</span> <span class="o">=</span> <span class="n">artifact</span><span class="o">.</span><span class="n">obj</span>
+    <span class="n">matching_word</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mem</span><span class="o">.</span><span class="n">artifacts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">obj</span>
+    <span class="k">for</span> <span class="n">memart</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">mem</span><span class="o">.</span><span class="n">artifacts</span><span class="p">:</span>
+        <span class="n">word</span> <span class="o">=</span> <span class="n">memart</span><span class="o">.</span><span class="n">obj</span>
+        <span class="n">lev</span> <span class="o">=</span> <span class="n">levenshtein</span><span class="p">(</span><span class="n">evaluation_word</span><span class="p">,</span> <span class="n">word</span><span class="p">)</span>
+        <span class="n">mlen</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">evaluation_word</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">word</span><span class="p">)))</span>
+        <span class="n">current_novelty</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">lev</span><span class="p">)</span> <span class="o">/</span> <span class="n">mlen</span>
+        <span class="k">if</span> <span class="n">current_novelty</span> <span class="o">&lt;</span> <span class="n">novelty</span><span class="p">:</span>
+            <span class="n">novelty</span> <span class="o">=</span> <span class="n">current_novelty</span>
+            <span class="n">matching_word</span> <span class="o">=</span> <span class="n">word</span>
+    <span class="k">return</span> <span class="n">novelty</span><span class="p">,</span> <span class="n">matching_word</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="re-implement-evaluate">
+<h3>4.2.2.4. Re-Implement <code class="xref py py-func docutils literal"><span class="pre">evaluate()</span></code><a class="headerlink" href="#re-implement-evaluate" title="Permalink to this headline">¶</a></h3>
+<p>Our new <code class="xref py py-func docutils literal"><span class="pre">evaluate()</span></code> will take both <code class="xref py py-func docutils literal"><span class="pre">value()</span></code> (the renamed
+<code class="xref py py-func docutils literal"><span class="pre">evaluate()</span></code> from the last week) and <code class="xref py py-func docutils literal"><span class="pre">novelty()</span></code> into consideration:</p>
+<dl class="method">
+<dt id="mas_memory.ToyAgent.evaluate">
+<code class="descclassname">ToyAgent.</code><code class="descname">evaluate</code><span class="sig-paren">(</span><em>artifact</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mas_memory.html#ToyAgent.evaluate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mas_memory.ToyAgent.evaluate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate given artifact with respect to the agent&#8217;s vocabulary and
+the memory.</p>
+<p>Actual evaluation formula for a string <span class="math">\(s\)</span> is:</p>
+<div class="math">
+\[e(s) = \frac{v(s) + n(s)}{2},\]</div>
+<p>where <span class="math">\(v(s)\)</span> is the value as returned by <code class="xref py py-meth docutils literal"><span class="pre">value()</span></code> and
+<span class="math">\(n(s)\)</span> is the novelty as returned by <code class="xref py py-meth docutils literal"><span class="pre">novelty()</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>artifact</strong> &#8211; <code class="xref py py-class docutils literal"><span class="pre">Artifact</span></code> to be evaluated</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">(evaluation, framing)-tuple, the framing is the combined framing of
+both the value and novelty.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>Here is its code (docstring omitted):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">artifact</span><span class="p">):</span>
+    <span class="n">value</span><span class="p">,</span> <span class="n">value_framing</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="n">artifact</span><span class="p">)</span>
+    <span class="n">novelty</span><span class="p">,</span> <span class="n">novelty_framing</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">novelty</span><span class="p">(</span><span class="n">artifact</span><span class="p">)</span>
+    <span class="n">framing</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="n">value_framing</span><span class="p">,</span> <span class="s1">&#39;novelty&#39;</span><span class="p">:</span><span class="n">novelty_framing</span><span class="p">}</span>
+    <span class="n">evaluation</span> <span class="o">=</span> <span class="p">(</span><span class="n">value</span> <span class="o">+</span> <span class="n">novelty</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="k">return</span> <span class="n">evaluation</span><span class="p">,</span> <span class="n">framing</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="modify-invent">
+<h3>4.2.2.5. Modify <code class="xref py py-meth docutils literal"><span class="pre">invent()</span></code><a class="headerlink" href="#modify-invent" title="Permalink to this headline">¶</a></h3>
+<p>We modify <code class="xref py py-func docutils literal"><span class="pre">invent()</span></code> by explicitly renaming the framing returned by
+<code class="xref py py-meth docutils literal"><span class="pre">evaluate()</span></code> (the second element in the returned tuple) as <code class="docutils literal"><span class="pre">framing</span></code>.</p>
+<p>Here is the new code:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">invent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
+    <span class="n">best_artifact</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate</span><span class="p">()</span>
+    <span class="n">max_evaluation</span><span class="p">,</span> <span class="n">framing</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">best_artifact</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">artifact</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate</span><span class="p">()</span>
+        <span class="n">evaluation</span><span class="p">,</span> <span class="n">fr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">artifact</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">evaluation</span> <span class="o">&gt;</span> <span class="n">max_evaluation</span><span class="p">:</span>
+            <span class="n">best_artifact</span> <span class="o">=</span> <span class="n">artifact</span>
+            <span class="n">max_evaluation</span> <span class="o">=</span> <span class="n">evaluation</span>
+            <span class="n">framing</span> <span class="o">=</span> <span class="n">fr</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> invented word: </span><span class="si">{}</span><span class="s2"> (eval=</span><span class="si">{}</span><span class="s2">, framing=</span><span class="si">{}</span><span class="s2">)&quot;</span>
+                 <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">best_artifact</span><span class="o">.</span><span class="n">obj</span><span class="p">,</span> <span class="n">max_evaluation</span><span class="p">,</span>
+                         <span class="n">framing</span><span class="p">))</span>
+    <span class="c1"># Add evaluation and framing to the artifact</span>
+    <span class="n">best_artifact</span><span class="o">.</span><span class="n">add_eval</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">max_evaluation</span><span class="p">,</span> <span class="n">fr</span><span class="o">=</span><span class="n">framing</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">best_artifact</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="memorize-artifacts">
+<h3>4.2.2.6. Memorize Artifacts<a class="headerlink" href="#memorize-artifacts" title="Permalink to this headline">¶</a></h3>
+<p>Now, we have our memory model fitted into our agent, but we do not yet memorize
+any artifacts. To this end, we will first memorize all the artifacts the agent
+itself invents by modifying <code class="xref py py-meth docutils literal"><span class="pre">act()</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">async</span> <span class="k">def</span> <span class="nf">act</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Agent acts by inventing new words.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">artifact</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">invent</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">mem</span><span class="o">.</span><span class="n">memorize</span><span class="p">(</span><span class="n">artifact</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">add_candidate</span><span class="p">(</span><span class="n">artifact</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="memorization-from-domain">
+<h2>4.2.3. Memorization from Domain<a class="headerlink" href="#memorization-from-domain" title="Permalink to this headline">¶</a></h2>
+<p>Until now, the agents have only memorized their own artifacts. To make our agent
+society really intertwined, we want the agents to memorize (part of the) artifacts generated
+by other agents. To this end we will gather a domain of former vote winners in the
+environment, and let the agents memorize a random artifact from the domain on
+each <code class="xref py py-meth docutils literal"><span class="pre">act()</span></code>. This is again very simple method, but will do for the sake of
+the example</p>
+<div class="section" id="populating-the-domain">
+<h3>4.2.3.1. Populating the Domain<a class="headerlink" href="#populating-the-domain" title="Permalink to this headline">¶</a></h3>
+<p>Populating the domain is easy in Creamas as the environment already has some
+suitable methods for it. We will just add the votes winner(s) after each vote
+to the domain. As we already call <code class="xref py py-func docutils literal"><span class="pre">ToyEnvironment.vote()</span></code> after every iteration,
+we will modify it.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">vote</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">age</span><span class="p">):</span>
+    <span class="n">artifacts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">perform_voting</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">artifacts</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">accepted</span> <span class="o">=</span> <span class="n">artifacts</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">artifacts</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_artifact</span><span class="p">(</span><span class="n">accepted</span><span class="p">)</span> <span class="c1"># Add vote winner to domain</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Vote winner by </span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="s2"> (val=</span><span class="si">{}</span><span class="s2">)&quot;</span>
+                    <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">accepted</span><span class="o">.</span><span class="n">creator</span><span class="p">,</span> <span class="n">accepted</span><span class="o">.</span><span class="n">obj</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;No vote winner!&quot;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">clear_candidates</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="memorizing-the-domain-artifacts">
+<h3>4.2.3.2. Memorizing the Domain Artifacts<a class="headerlink" href="#memorizing-the-domain-artifacts" title="Permalink to this headline">¶</a></h3>
+<p>Each agent will memorize one random domain artifact on during each <code class="xref py py-func docutils literal"><span class="pre">act()</span></code>.
+For this, we will add two lines at the start of the <code class="xref py py-func docutils literal"><span class="pre">act()</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">artifacts</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mem</span><span class="o">.</span><span class="n">memorize</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">artifacts</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Making the whole function look like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">async</span> <span class="k">def</span> <span class="nf">act</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">artifacts</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mem</span><span class="o">.</span><span class="n">memorize</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">artifacts</span><span class="p">))</span>
+    <span class="n">artifact</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">invent</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">mem</span><span class="o">.</span><span class="n">memorize</span><span class="p">(</span><span class="n">artifact</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">add_candidate</span><span class="p">(</span><span class="n">artifact</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>First we memorize a new domain artifact, then, we invent a new artifact
+and memorize it, and lastly, we add our invented artifact to the voting candidates
+for this iteration.</p>
+</div>
+</div>
+<div class="section" id="running-the-simulation">
+<h2>4.2.4. Running the Simulation<a class="headerlink" href="#running-the-simulation" title="Permalink to this headline">¶</a></h2>
+<p>Running the simulation happens exactly like in the last week&#8217;s example.
+In short:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;../week1/alice.txt&#39;</span>
+    <span class="n">env</span> <span class="o">=</span> <span class="n">ToyEnvironment</span><span class="o">.</span><span class="n">create</span><span class="p">((</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="mi">5555</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="n">agent</span> <span class="o">=</span> <span class="n">ToyAgent</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
+
+    <span class="n">sim</span> <span class="o">=</span> <span class="n">Simulation</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">log_folder</span><span class="o">=</span><span class="s1">&#39;logs&#39;</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="n">env</span><span class="o">.</span><span class="n">vote</span><span class="p">)</span>
+    <span class="n">sim</span><span class="o">.</span><span class="n">async_steps</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">sim</span><span class="o">.</span><span class="n">end</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">CC-MAS 2016</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="preliminaries.html">1. Preliminaries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="course_format.html">2. Course Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="linguistic_creativity.html">3. Linguistic Creativity</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="mas.html">4. Multi-Agent Systems</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="toy_mas.html">4.1. Toy Example of MAS</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4.2. Agents with Memory</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#memory-model">4.2.1. Memory Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#add-listmemory-to-toyagent">4.2.2. Add <code class="docutils literal"><span class="pre">ListMemory</span></code> to <code class="docutils literal"><span class="pre">ToyAgent</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#memorization-from-domain">4.2.3. Memorization from Domain</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-the-simulation">4.2.4. Running the Simulation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="assignments.html">5. Assignments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zz_references.html">6. References</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="mas.html">4. Multi-Agent Systems</a><ul>
+      <li>Previous: <a href="toy_mas.html" title="previous chapter">4.1. Toy Example of MAS with Creamas</a></li>
+      <li>Next: <a href="assignments.html" title="next chapter">5. Assignments</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Simo Linkola.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="_sources/mas_memory.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
