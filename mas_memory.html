@@ -187,7 +187,7 @@ it is the function that evaluates how valuable each artifact is.</p>
 </div>
 <div class="section" id="implement-a-new-function-novelty">
 <h3>4.2.2.3. Implement a New Function <code class="xref py py-func docutils literal"><span class="pre">novelty()</span></code><a class="headerlink" href="#implement-a-new-function-novelty" title="Permalink to this headline">¶</a></h3>
-<p>Next, we will implement a new function. It is very similar to our <code class="xref py py-func docutils literal"><span class="pre">value()</span></code>
+<p>Next, we will implement a new function <code class="xref py py-func docutils literal"><span class="pre">novelty()</span></code>. It is very similar to <code class="xref py py-func docutils literal"><span class="pre">value()</span></code>
 function, but it compares the new artifact to the artifacts in the memory, not
 in the vocabulary, and it computes the novelty of an artifact to be the <strong>minimum</strong>
 distance between the artifact and any artifact in the memory. Here is its
@@ -201,7 +201,7 @@ in the agent&#8217;s memory.</p>
 the agent&#8217;s memory.</p>
 <p>Actual evaluation formula for a string <span class="math">\(s\)</span> is:</p>
 <div class="math">
-\[n(s) = \min_{w \in \texttt{memory}}\frac{1 - \texttt{lev}(s, w)}
+\[n(s) = \min_{w \in \texttt{memory}}\frac{\texttt{lev}(s, w)}
 {\max(|s|, |w|)},\]</div>
 <p>where <span class="math">\(\texttt{lev}(s, w)\)</span> is the Levenshtein
 distance between the two strings.</p>
