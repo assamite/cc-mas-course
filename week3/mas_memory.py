@@ -238,7 +238,7 @@ class ToyAgent(CreativeAgent):
         Actual evaluation formula for a string :math:`s` is:
 
         .. math::
-            n(s) = \\min_{w \in \\texttt{memory}}\\frac{1 - \\texttt{lev}(s, w)}
+            n(s) = \\min_{w \in \\texttt{memory}}\\frac{\\texttt{lev}(s, w)}
             {\\max(|s|, |w|)},
 
         where :math:`\\texttt{lev}(s, w)` is the Levenshtein

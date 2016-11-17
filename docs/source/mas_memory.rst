@@ -144,7 +144,7 @@ it is the function that evaluates how valuable each artifact is.
 Implement a New Function :func:`novelty`
 ........................................
 
-Next, we will implement a new function. It is very similar to our :func:`value`
+Next, we will implement a new function :func:`novelty`. It is very similar to :func:`value`
 function, but it compares the new artifact to the artifacts in the memory, not
 in the vocabulary, and it computes the novelty of an artifact to be the **minimum**
 distance between the artifact and any artifact in the memory. Here is its

@@ -70,7 +70,7 @@ should be included in the compressed file).
 
 	#. :doc:`ex_mc_parsing`
 	#. :doc:`ex_mc_mas`
-	#. Week 3 to be announced
+	#. :doc:`ex_mas_memory`
 	#. Week 4 to be announced
 
 Remember to return the exercises through Moodle. The exercises should be in
