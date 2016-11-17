@@ -1,6 +1,15 @@
 Week 3 - Multi-Agent Systems, Memory, Learning
 =============================================================
 
+.. note::
+	There is now an example implementation (which is hopefully bug free) of
+	an agent using Nth order MC in the repository. The code is not fully
+	documented, so find out the interesting parts yourself.
+
+	`(agent code) <https://github.com/assamite/cc-mas-course/blob/master/week3/markov_agent.py>`_
+
+|
+
 	#. Familiarize yourself with the example of an agent with a limited memory
 	   of artifacts it has most recently seen (see :doc:`mas_memory`). The next
 	   exercises are heavily based on it.
