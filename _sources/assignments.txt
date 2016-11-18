@@ -39,27 +39,33 @@ pdf!
 
 **Essay articles:**
 
-	#. `Dan Ventura - Mere generation: Essential barometer or dated concept?
+	1. `Dan Ventura - Mere generation: Essential barometer or dated concept?
 	   <http://www.computationalcreativity.net/iccc2016/wp-content/uploads/2016/01/Mere-Generation.pdf>`_
 	   (due Thu 3.11. 23.55)
 
-	#. `Rob Saunders and Oliver Bown - Computational Social Creativity
+	2. `Rob Saunders and Oliver Bown - Computational Social Creativity
 	   <https://www.researchgate.net/publication/281143442_Computational_Social_Creativity>`_
 	   (due Tue 8.11. 23.55)
 
-	#. `Geraint Wiggins - A preliminary framework for description, analysis and comparison of creative systems
+	3. `Geraint Wiggins - A preliminary framework for description, analysis and comparison of creative systems
 	   <http://www.sciencedirect.com/science/article/pii/S0950705106000645>`_
 	   (due Tue 15.11. 23.55)
 
-	#. `Anna Jordanous - A Standardised Procedure for Evaluating Creative Systems:
+	4. `Anna Jordanous - A Standardised Procedure for Evaluating Creative Systems:
 	   Computational Creativity Evaluation Based on What it is to be Creative) 
 	   <http://link.springer.com/article/10.1007/s12559-012-9156-1/fulltext.html>`_
-	   **Read**: The first ~16 pages (until the section: Application of the SPECS
+	   (due Tue 22.11. 23.55) **Read**: The first ~16 pages (until the section: Application of the SPECS
 	   Methodology to an Evaluative Case Study), you can also skip the Survey-part
+	   (starting from: Survey of Current Evaluative Practice for Computational Creativity)
 	   from the background section if you so wish. The article is somewhat longer
-	   than in the previous weeks, but it is easy to read. (due Tue 22.11. 23.55)
+	   than in the previous weeks, but it is easy to read. When reading the article,
+	   try to answer the following questions in particular:
 
-	#. To be announced (due Tue 29.11. 23.55)
+    		* How the FACE/IDEA models designed for the description and evaluation of a creative system
+    	  	  differ from the evaluation procedure presented in the paper?
+    	  	* What are the pros and cons for the procedure presented in the paper?
+
+	5. To be announced (due Tue 29.11. 23.55)
 
 Exercises
 ---------
