@@ -51,7 +51,14 @@ pdf!
 	   <http://www.sciencedirect.com/science/article/pii/S0950705106000645>`_
 	   (due Tue 15.11. 23.55)
 
-	#. To be announced (due Tue 22.11. 23.55)
+	#. `Anna Jordanous - A Standardised Procedure for Evaluating Creative Systems:
+	   Computational Creativity Evaluation Based on What it is to be Creative) 
+	   <http://link.springer.com/article/10.1007/s12559-012-9156-1/fulltext.html>`_
+	   **Read**: The first ~16 pages (until the section: Application of the SPECS
+	   Methodology to an Evaluative Case Study), you can also skip the Survey-part
+	   from the background section if you so wish. The article is somewhat longer
+	   than in the previous weeks, but it is easy to read. (due Tue 22.11. 23.55)
+
 	#. To be announced (due Tue 29.11. 23.55)
 
 Exercises
