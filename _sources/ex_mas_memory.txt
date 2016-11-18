@@ -135,6 +135,11 @@ Week 3 - Multi-Agent Systems, Memory, Learning
 	   simple. We have free rein of your own design! Write a short description of your model.
 	   Return both the description and the code.
 
+	   Additional notes:
+	   	* There is now `a short example
+	   	  <https://github.com/assamite/cc-mas-course/blob/master/week3/communication.py>`_
+	   	  of interaction between agents in the repository.
+
 	   Examples:
 
 		#. Ask opinion about the artifact they invented from a random agent. If agent likes (or dislikes) the
