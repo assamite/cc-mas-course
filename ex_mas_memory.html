@@ -178,9 +178,38 @@ simple. We have free rein of your own design! Write a short description of your 
 Return both the description and the code.</p>
 <dl class="docutils">
 <dt>Additional notes:</dt>
-<dd><ul class="first last simple">
-<li>There is now <a class="reference external" href="https://github.com/assamite/cc-mas-course/blob/master/week3/communication.py">a short example</a>
-of interaction between agents in the repository.</li>
+<dd><ul class="first last">
+<li><p class="first">There is now <a class="reference external" href="https://github.com/assamite/cc-mas-course/blob/master/week3/communication.py">a short example</a>
+of interaction between agents in the repository.</p>
+</li>
+<li><p class="first">If your exposed services (the ones decorated with <code class="docutils literal"><span class="pre">&#64;aiomas.expose</span></code>)
+return arbitrary Python objects, you need to add a serializer
+for each object type in the environment. Serializer is a function
+which returns three elements: object, serializing method and
+unserializing method. Easiest way is to use pickle for the two
+latter ones:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">from</span> <span class="nn">creamas</span> <span class="k">import</span> <span class="n">Artifact</span>
+
+<span class="k">def</span> <span class="nf">get_artifact_ser</span><span class="p">():</span>
+        <span class="k">return</span> <span class="n">Artifact</span><span class="p">,</span> <span class="n">pickle</span><span class="o">.</span><span class="n">dumps</span><span class="p">,</span> <span class="n">pickle</span><span class="o">.</span><span class="n">loads</span>
+</pre></div>
+</div>
+<p>Define the function above in its own module (e.g. <code class="docutils literal"><span class="pre">serializers</span></code>),
+and then create environment using:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">aiomas</span>
+<span class="kn">from</span> <span class="nn">creamas</span> <span class="k">import</span> <span class="n">Environment</span>
+
+<span class="kn">from</span> <span class="nn">serializers</span> <span class="k">import</span> <span class="n">get_artifact_ser</span>
+
+<span class="n">env</span> <span class="o">=</span> <span class="n">Environment</span><span class="o">.</span><span class="n">create</span><span class="p">((</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="mi">5555</span><span class="p">),</span> <span class="n">codec</span><span class="o">=</span><span class="n">aiomas</span><span class="o">.</span><span class="n">MsgPack</span><span class="p">,</span> <span class="n">extra_serializers</span><span class="o">=</span><span class="p">[</span><span class="n">get_artifact_ser</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Now your agents should be able to return <code class="xref py py-class docutils literal"><span class="pre">Artifact</span></code> objects
+in their services.</p>
+<p>You do not have to create serializers for the basic types:
+str, int, float, etc.</p>
+</li>
 </ul>
 </dd>
 </dl>

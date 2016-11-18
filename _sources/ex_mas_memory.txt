@@ -139,6 +139,34 @@ Week 3 - Multi-Agent Systems, Memory, Learning
 	   	* There is now `a short example
 	   	  <https://github.com/assamite/cc-mas-course/blob/master/week3/communication.py>`_
 	   	  of interaction between agents in the repository.
+	   	* If your exposed services (the ones decorated with ``@aiomas.expose``)
+	   	  return arbitrary Python objects, you need to add a serializer
+	   	  for each object type in the environment. Serializer is a function
+	   	  which returns three elements: object, serializing method and
+	   	  unserializing method. Easiest way is to use pickle for the two
+	   	  latter ones::
+
+			import pickle
+			from creamas import Artifact
+
+			def get_artifact_ser():
+				return Artifact, pickle.dumps, pickle.loads
+
+		  Define the function above in its own module (e.g. ``serializers``),
+		  and then create environment using::
+
+			import aiomas
+			from creamas import Environment
+
+			from serializers import get_artifact_ser
+
+			env = Environment.create(('localhost', 5555), codec=aiomas.MsgPack, extra_serializers=[get_artifact_ser])
+
+		  Now your agents should be able to return :class:`Artifact` objects
+		  in their services.
+
+		  You do not have to create serializers for the basic types:
+		  str, int, float, etc.
 
 	   Examples:
 
