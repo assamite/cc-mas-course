@@ -41,9 +41,10 @@ practical or theoretical issues they have faced during the project.
 
 Compulsory meeting agenda:
 
-	* First week: Groups present their plans. What they are trying to do and what they have done already.
-	* Second week: Progress so far, drawbacks, changes in plans, etc.
-	* Third week: Demo session
+	* Mon 28.11. Groups present their plans. What they are trying to do and what they have done already.
+	* Mon 5.12. Progress so far, drawbacks, changes in plans, etc.
+	* Mon 12.12. Final words
+	* Wed 14.12. DEMO SESSION
 
 Meetings:
 
