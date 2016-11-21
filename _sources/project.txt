@@ -17,7 +17,7 @@ within the scope of the course:
 	* Maybe your focus is on modeling the environment from a single agent point of view?
 
 .. note::
-	Even though we have given you free hands to whatever you please in the project,
+	Even though we have given you free hands to do whatever you please in the project,
 	we advise to keep the complexity of the project low. We do not expect you to build
 	state of the art systems, nor do we grade your systems with such standards.
 	A simple system which exhibits some aspects of creativity is more achievable
@@ -73,9 +73,18 @@ try to answer:
 	* What pros and cons does your multi-agent system implementation have?
 
 The documentation should be made available as a github.io -page, i.e. your
-deliverable will a link to the documentation. The documentation should give
-the reader an understanding of the underlying code's high level structure, i.e.
-you don't have to restate your design choices in the code part (see below).
+deliverable will be a link to the documentation. See e.g. `example of how
+to serve sphinx-generated documentation on github
+<https://daler.github.io/sphinxdoc-test/includeme.html>`_.
+
+You don't have to restate your design choices in
+the code part (see below).
+
+.. note::
+	Be concise when writing the documentation. State the decisions you have
+	made briefly and clearly. The documentation should give the reader an
+	understanding of the project's high level code structure and the goal it
+	tries to achieve.
 
 Code
 ....
