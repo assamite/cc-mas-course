@@ -1,0 +1,59 @@
+Week 4 - Surprise, Evaluation, Reflection
+====================================================
+
+	#. **RETURN** The creative artifacts are often said to have three features:
+	   high value, novelty and they are surprising. In the last weeks' exercises
+	   we have built means to compute the value and the novelty, but have not
+	   directly measured surprisingness.
+
+	   Give a short explanation of what a surprising artifact from an agent's
+	   point of view would be, and a few examples of how the evaluation of
+	   surprisingness could be implemented in a simple way. Write your answers
+	   briefly (10-15 sentences).
+
+	   Additional notes:
+		* Some of the functionality implemented in the course might be already
+		  suitable to measure the surprisingness. You are free to use them as
+		  examples. Also, keep in mind that value, novelty and surprisingness
+		  are not actually orthogonal measurements of the artifact, i.e. the
+		  measurements that measure value may also measure surprisingness to
+		  some extent.
+		* Wikipedia's definition for surprise is as good as any: *surprise (emotion),
+		  a brief emotional state experienced as the result of an unexpected significant event.*
+		  Here, the event would naturally be an observation of an artifact.
+
+	#. **RETURN** Pick one from your examples of the implementable suprisingness
+	   measures, and implement it to your agents. What are the main differences
+	   between it and the value and novelty measures? Is there any overlap between
+	   them?
+
+	#. **RETURN** (3pts) Consider your current agent implementation (with all the
+	   functionalities you have implemented in the exercises during the course).
+	   Explain briefly your current agent design and the functionality of the
+	   multi-agent system as a whole and answer the following questions:
+
+	   Ritchie (1pt) (see the article by Anna Jordanous for short introduction):
+	   	* What is the inspiring set (if we think as an inspiring set the corpus
+	   	  from which the Markov chain was learned) for a single agent and the
+	   	  multi-agent system as a whole?
+		* Is the agent (or society) able to reproduce all instances in the
+		  inspiration set? If not, give an example.
+		* Is it able to produce instances outside the inspiration set?
+		  If so, give an example.
+		* Is it able to produce valued instances outside the inspiration set?
+		  If so, give an example.
+
+	   Ventura (1pt):
+	   	* On which "level" in Ventura's article does your single agent implementation
+	   	  land? Why?
+	   	* Consider now the multi-agent system as a whole where the output of the
+	   	  system is the set of vote winning artifacts (one per iteration). On
+	   	  which "level" does the system as a whole land? Why?
+
+	   Wiggins (1pt):
+	   	* Explain your single agent implementation with Wiggins model. What are
+	   	  :math:`\mathcal{U}`, :math:`\mathcal{T}`, :math:`\mathcal{R}` and
+	   	  :math:`\mathcal{E}`?
+	   	* Explain your whole multi-agent system implementation with Wiggins
+	   	  model. What are :math:`\mathcal{U}`, :math:`\mathcal{T}`,
+	   	  :math:`\mathcal{R}` and :math:`\mathcal{E}`?

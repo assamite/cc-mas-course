@@ -84,7 +84,7 @@ should be included in the compressed file).
 	#. :doc:`ex_mc_parsing`
 	#. :doc:`ex_mc_mas`
 	#. :doc:`ex_mas_memory`
-	#. Week 4 to be announced
+	#. :doc:`ex_mas_eval`
 
 Remember to return the exercises through Moodle. The exercises should be in
 one compressed file which extracts to a folder with your UH user name. That is,

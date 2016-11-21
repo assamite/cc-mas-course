@@ -27,6 +27,7 @@ earlier Python versions, we recommend installing Python 3.5 straight away (see
 	Linguistic Creativity <linguistic_creativity>
 	Multi-Agent Systems <mas>
 	Assignments <assignments>
+	Group project <project>
 	References <zz_references>
 
 

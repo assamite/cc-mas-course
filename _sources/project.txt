@@ -1,0 +1,101 @@
+Group Project
+=============
+
+Overview
+--------
+
+Group project lets students design and implement a fairly simple creative multi-agent
+system in groups of 3-4 persons. The idea of the group project is to get more
+in depth understanding of the underlying nuances of complex creative systems.
+
+The implemented multi-agent system and the point of view can be nearly anything
+within the scope of the course:
+
+	* Are you interested in creating especially good artifacts?
+	* Are you interested in emergence during the system run?
+	* Do you focus on communication structures?
+	* Maybe your focus is on modeling the environment from a single agent point of view?
+
+.. note::
+	Even though we have given you free hands to whatever you please in the project,
+	we advise to keep the complexity of the project low. We do not expect you to build
+	state of the art systems, nor do we grade your systems with such standards.
+	A simple system which exhibits some aspects of creativity is more achievable
+	and desirable than a complex system that tries to do everything (and most
+	probably fails while doing so).
+
+Group Formation
+---------------
+
+When you have a group ready, make a post about it into the discussion forum in
+the Moodle. The post should state the name of the group (very important!) and
+each group member's name.
+
+Project Progression
+-------------------
+
+During the group project we will still have 2 meetings per week. **On each week,
+we have one compulsory meeting** where the groups present their work so far in an
+informal manner. The other meeting is Q&A-like where the groups can get help in
+practical or theoretical issues they have faced during the project.
+
+Compulsory meeting agenda:
+
+	* First week: Groups present their plans. What they are trying to do and what they have done already.
+	* Second week: Progress so far, drawbacks, changes in plans, etc.
+	* Third week: Demo session
+
+Meetings:
+
+	* Mon 14-16 Compulsory meeting
+	* Wed 10-12 Practical help with the project
+
+Deliverables
+------------
+
+Group project has three deliverables which all affect the grade: documentation,
+code and demo (in the demo session). Each of the deliverables has a weight of
+about one third.
+
+Documentation
+.............
+
+The documentation should cover the main points of your design decisions and
+implementation details. Some example questions that your documentation should
+try to answer:
+
+	* How to install your system (and all its requirements)?
+	* How to run your system?
+	* What is your multi-agent system aiming to do?
+	* How do you measure that it is doing what it is aiming to do?
+	* What choices have you made during the implementation?
+	* What pros and cons does your multi-agent system implementation have?
+
+The documentation should be made available as a github.io -page, i.e. your
+deliverable will a link to the documentation. The documentation should give
+the reader an understanding of the underlying code's high level structure, i.e.
+you don't have to restate your design choices in the code part (see below).
+
+Code
+....
+
+This is pretty self-explanatory. Code should be readable and sufficiently
+documented on its own right.
+
+The code should be made available as a github repository, i.e. your deliverable
+will be a link to a **git tag** made before the deadline.
+
+Demo
+....
+
+.. centered::
+	Demo session will be on Wednesday 14.12. 10-12 (in C222)
+
+In the demo session each group demonstrates their system. Each group presents
+their system in turn and we have a short discussion after each demo.
+Each group must prepare their demo (10-20min) beforehand. When preparing the demo
+concentrate on clarity: students (and the course staff) should understand
+what you have tried to achieve and how you have done it. The demo can consist
+merely of slides, but can also include a live run of the system.
+
+**An impressive demo can turn otherwise adequate project results into a good grade.**

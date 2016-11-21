@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>6. Group Project &#8212; CC-MAS 2016 0.1a documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1a',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="CC-MAS 2016 0.1a documentation" href="index.html" />
+    <link rel="next" title="7. References" href="zz_references.html" />
+    <link rel="prev" title="5. Assignments" href="assignments.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="group-project">
+<h1>6. Group Project<a class="headerlink" href="#group-project" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>6.1. Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>Group project lets students design and implement a fairly simple creative multi-agent
+system in groups of 3-4 persons. The idea of the group project is to get more
+in depth understanding of the underlying nuances of complex creative systems.</p>
+<p>The implemented multi-agent system and the point of view can be nearly anything
+within the scope of the course:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Are you interested in creating especially good artifacts?</li>
+<li>Are you interested in emergence during the system run?</li>
+<li>Do you focus on communication structures?</li>
+<li>Maybe your focus is on modeling the environment from a single agent point of view?</li>
+</ul>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Even though we have given you free hands to whatever you please in the project,
+we advise to keep the complexity of the project low. We do not expect you to build
+state of the art systems, nor do we grade your systems with such standards.
+A simple system which exhibits some aspects of creativity is more achievable
+and desirable than a complex system that tries to do everything (and most
+probably fails while doing so).</p>
+</div>
+</div>
+<div class="section" id="group-formation">
+<h2>6.2. Group Formation<a class="headerlink" href="#group-formation" title="Permalink to this headline">¶</a></h2>
+<p>When you have a group ready, make a post about it into the discussion forum in
+the Moodle. The post should state the name of the group (very important!) and
+each group member&#8217;s name.</p>
+</div>
+<div class="section" id="project-progression">
+<h2>6.3. Project Progression<a class="headerlink" href="#project-progression" title="Permalink to this headline">¶</a></h2>
+<p>During the group project we will still have 2 meetings per week. <strong>On each week,
+we have one compulsory meeting</strong> where the groups present their work so far in an
+informal manner. The other meeting is Q&amp;A-like where the groups can get help in
+practical or theoretical issues they have faced during the project.</p>
+<p>Compulsory meeting agenda:</p>
+<blockquote>
+<div><ul class="simple">
+<li>First week: Groups present their plans. What they are trying to do and what they have done already.</li>
+<li>Second week: Progress so far, drawbacks, changes in plans, etc.</li>
+<li>Third week: Demo session</li>
+</ul>
+</div></blockquote>
+<p>Meetings:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Mon 14-16 Compulsory meeting</li>
+<li>Wed 10-12 Practical help with the project</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="deliverables">
+<h2>6.4. Deliverables<a class="headerlink" href="#deliverables" title="Permalink to this headline">¶</a></h2>
+<p>Group project has three deliverables which all affect the grade: documentation,
+code and demo (in the demo session). Each of the deliverables has a weight of
+about one third.</p>
+<div class="section" id="documentation">
+<h3>6.4.1. Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h3>
+<p>The documentation should cover the main points of your design decisions and
+implementation details. Some example questions that your documentation should
+try to answer:</p>
+<blockquote>
+<div><ul class="simple">
+<li>How to install your system (and all its requirements)?</li>
+<li>How to run your system?</li>
+<li>What is your multi-agent system aiming to do?</li>
+<li>How do you measure that it is doing what it is aiming to do?</li>
+<li>What choices have you made during the implementation?</li>
+<li>What pros and cons does your multi-agent system implementation have?</li>
+</ul>
+</div></blockquote>
+<p>The documentation should be made available as a github.io -page, i.e. your
+deliverable will a link to the documentation. The documentation should give
+the reader an understanding of the underlying code&#8217;s high level structure, i.e.
+you don&#8217;t have to restate your design choices in the code part (see below).</p>
+</div>
+<div class="section" id="code">
+<h3>6.4.2. Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h3>
+<p>This is pretty self-explanatory. Code should be readable and sufficiently
+documented on its own right.</p>
+<p>The code should be made available as a github repository, i.e. your deliverable
+will be a link to a <strong>git tag</strong> made before the deadline.</p>
+</div>
+<div class="section" id="demo">
+<h3>6.4.3. Demo<a class="headerlink" href="#demo" title="Permalink to this headline">¶</a></h3>
+<p class="centered">
+<strong>Demo session will be on Wednesday 14.12. 10-12 (in C222)</strong></p><p>In the demo session each group demonstrates their system. Each group presents
+their system in turn and we have a short discussion after each demo.
+Each group must prepare their demo (10-20min) beforehand. When preparing the demo
+concentrate on clarity: students (and the course staff) should understand
+what you have tried to achieve and how you have done it. The demo can consist
+merely of slides, but can also include a live run of the system.</p>
+<p><strong>An impressive demo can turn otherwise adequate project results into a good grade.</strong></p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">CC-MAS 2016</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="preliminaries.html">1. Preliminaries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="course_format.html">2. Course Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="linguistic_creativity.html">3. Linguistic Creativity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mas.html">4. Multi-Agent Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="assignments.html">5. Assignments</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">6. Group project</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">6.1. Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#group-formation">6.2. Group Formation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#project-progression">6.3. Project Progression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#deliverables">6.4. Deliverables</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#documentation">6.4.1. Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#code">6.4.2. Code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#demo">6.4.3. Demo</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="zz_references.html">7. References</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="assignments.html" title="previous chapter">5. Assignments</a></li>
+      <li>Next: <a href="zz_references.html" title="next chapter">7. References</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Simo Linkola.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="_sources/project.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Week 4 - Surprise, Evaluation, Reflection &#8212; CC-MAS 2016 0.1a documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1a',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="CC-MAS 2016 0.1a documentation" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="week-4-surprise-evaluation-reflection">
+<h1>Week 4 - Surprise, Evaluation, Reflection<a class="headerlink" href="#week-4-surprise-evaluation-reflection" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><ol class="arabic">
+<li><p class="first"><strong>RETURN</strong> The creative artifacts are often said to have three features:
+high value, novelty and they are surprising. In the last weeks&#8217; exercises
+we have built means to compute the value and the novelty, but have not
+directly measured surprisingness.</p>
+<p>Give a short explanation of what a surprising artifact from an agent&#8217;s
+point of view would be, and a few examples of how the evaluation of
+surprisingness could be implemented in a simple way. Write your answers
+briefly (10-15 sentences).</p>
+<dl class="docutils">
+<dt>Additional notes:</dt>
+<dd><ul class="first last simple">
+<li>Some of the functionality implemented in the course might be already
+suitable to measure the surprisingness. You are free to use them as
+examples. Also, keep in mind that value, novelty and surprisingness
+are not actually orthogonal measurements of the artifact, i.e. the
+measurements that measure value may also measure surprisingness to
+some extent.</li>
+<li>Wikipedia&#8217;s definition for surprise is as good as any: <em>surprise (emotion),
+a brief emotional state experienced as the result of an unexpected significant event.</em>
+Here, the event would naturally be an observation of an artifact.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first"><strong>RETURN</strong> Pick one from your examples of the implementable suprisingness
+measures, and implement it to your agents. What are the main differences
+between it and the value and novelty measures? Is there any overlap between
+them?</p>
+</li>
+<li><p class="first"><strong>RETURN</strong> (3pts) Consider your current agent implementation (with all the
+functionalities you have implemented in the exercises during the course).
+Explain briefly your current agent design and the functionality of the
+multi-agent system as a whole and answer the following questions:</p>
+<dl class="docutils">
+<dt>Ritchie (1pt) (see the article by Anna Jordanous for short introduction):</dt>
+<dd><ul class="first last simple">
+<li>What is the inspiring set (if we think as an inspiring set the corpus
+from which the Markov chain was learned) for a single agent and the
+multi-agent system as a whole?</li>
+<li>Is the agent (or society) able to reproduce all instances in the
+inspiration set? If not, give an example.</li>
+<li>Is it able to produce instances outside the inspiration set?
+If so, give an example.</li>
+<li>Is it able to produce valued instances outside the inspiration set?
+If so, give an example.</li>
+</ul>
+</dd>
+<dt>Ventura (1pt):</dt>
+<dd><ul class="first last simple">
+<li>On which &#8220;level&#8221; in Ventura&#8217;s article does your single agent implementation
+land? Why?</li>
+<li>Consider now the multi-agent system as a whole where the output of the
+system is the set of vote winning artifacts (one per iteration). On
+which &#8220;level&#8221; does the system as a whole land? Why?</li>
+</ul>
+</dd>
+<dt>Wiggins (1pt):</dt>
+<dd><ul class="first last simple">
+<li>Explain your single agent implementation with Wiggins model. What are
+<span class="math">\(\mathcal{U}\)</span>, <span class="math">\(\mathcal{T}\)</span>, <span class="math">\(\mathcal{R}\)</span> and
+<span class="math">\(\mathcal{E}\)</span>?</li>
+<li>Explain your whole multi-agent system implementation with Wiggins
+model. What are <span class="math">\(\mathcal{U}\)</span>, <span class="math">\(\mathcal{T}\)</span>,
+<span class="math">\(\mathcal{R}\)</span> and <span class="math">\(\mathcal{E}\)</span>?</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ol>
+</div></blockquote>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">CC-MAS 2016</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="preliminaries.html">1. Preliminaries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="course_format.html">2. Course Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="linguistic_creativity.html">3. Linguistic Creativity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mas.html">4. Multi-Agent Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="assignments.html">5. Assignments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="project.html">6. Group project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zz_references.html">7. References</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Simo Linkola.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="_sources/ex_mas_eval.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
